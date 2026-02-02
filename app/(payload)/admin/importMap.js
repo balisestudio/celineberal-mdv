@@ -1,6 +1,8 @@
-import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from "@payloadcms/ui/rsc";
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from "@payloadcms/next/rsc";
+import { Avatar as Avatar_8501e0134e041fe529df17c38dc04676 } from "../../../components/payload/avatar";
 
 export const importMap = {
-	"@payloadcms/ui/rsc#CollectionCards":
-		CollectionCards_ab83ff7e88da8d3530831f296ec4756a,
+	"/components/payload/avatar#Avatar": Avatar_8501e0134e041fe529df17c38dc04676,
+	"@payloadcms/next/rsc#CollectionCards":
+		CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
 };

@@ -15,6 +15,9 @@ export default buildConfig({
 		importMap: {
 			baseDir: path.resolve(dirname),
 		},
+		avatar: {
+			Component: "/components/payload/avatar#Avatar",
+		},
 	},
 	collections: [Users, Media],
 	secret: process.env.PAYLOAD_SECRET || "",
