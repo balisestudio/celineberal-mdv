@@ -22,14 +22,17 @@
 		"@payloadcms/db-postgres": "3.74.0",
 		"@payloadcms/next": "3.74.0",
 		"@payloadcms/ui": "3.74.0",
+		"@tailwindcss/postcss": "^4.1.18",
 		"cross-env": "^7.0.3",
 		"dotenv": "16.4.7",
 		"graphql": "^16.12.0",
 		"next": "16.1.6",
 		"payload": "3.74.0",
+		"postcss": "^8.5.6",
 		"react": "19.2.1",
 		"react-dom": "19.2.1",
-		"sharp": "0.34.2"
+		"sharp": "0.34.2",
+		"tailwindcss": "^4.1.18"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.13",
