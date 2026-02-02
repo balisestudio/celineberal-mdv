@@ -1,11 +1,11 @@
-import React from 'react'
+import type React from "react";
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <html>
-      <body>{children}</body>
-    </html>
-  )
-}
+	return (
+		<html lang="en">
+			<body>{children}</body>
+		</html>
+	);
+};
 
-export {RootLayout as default}
+export { RootLayout as default };
