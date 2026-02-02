@@ -8,7 +8,9 @@
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "lint": "biome check .",
+    "lint:fix": "biome check . --write"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.74.0",
@@ -24,6 +26,7 @@
     "sharp": "0.34.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.13",
     "@types/node": "^22.19.7",
     "@types/react": "19.2.9",
     "@types/react-dom": "19.2.3",
