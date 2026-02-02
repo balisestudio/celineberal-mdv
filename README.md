@@ -1,1 +1,1 @@
-# @balisestudio/template
+# @balisestudio/starter

@@ -1,5 +1,5 @@
 # SOFTWARE LICENSE AGREEMENT
-- Project : @balisestudio/template
+- Project : @balisestudio/starter
 - Provider : BALISE STUDIO
 - Client : N.A
 

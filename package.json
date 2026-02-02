@@ -1,5 +1,5 @@
 {
-	"name": "@balisestudio/template",
+	"name": "@balisestudio/starter",
 	"type": "module",
 	"scripts": {
 		"build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
