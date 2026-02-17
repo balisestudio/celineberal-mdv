@@ -96,9 +96,7 @@ export interface Config {
 	globals: {};
 	globalsSelect: {};
 	locale: null;
-	user: User & {
-		collection: "users";
-	};
+	user: User;
 	jobs: {
 		tasks: unknown;
 		workflows: unknown;
@@ -129,7 +127,7 @@ export interface UserAuthOperations {
 export interface User {
 	id: number;
 	name: string;
-	roles: "admin" | "editor" | "viewer";
+	role: "admin" | "editor" | "viewer";
 	updatedAt: string;
 	createdAt: string;
 	email: string;
@@ -147,6 +145,7 @@ export interface User {
 		  }[]
 		| null;
 	password?: string | null;
+	collection: "users";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -297,7 +296,7 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
 	name?: T;
-	roles?: T;
+	role?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	email?: T;
