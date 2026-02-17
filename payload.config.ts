@@ -18,6 +18,7 @@ export default buildConfig({
 		avatar: {
 			Component: "/components/payload/avatar#Avatar",
 		},
+		autoRefresh: true,
 	},
 	collections: [Users, Media],
 	secret: process.env.PAYLOAD_SECRET || "",
