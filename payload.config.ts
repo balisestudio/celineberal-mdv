@@ -44,6 +44,7 @@ export default buildConfig({
 			},
 		},
 		autoRefresh: true,
+		theme: "light",
 	},
 	collections,
 	secret: env.PAYLOAD_SECRET,
