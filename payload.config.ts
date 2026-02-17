@@ -38,6 +38,12 @@ export default buildConfig({
 				Logo: "/components/payload/graphics#Logo",
 			},
 		},
+		meta: {
+			titleSuffix: `– ${env.APP_NAME}`,
+			icons: {
+				icon: "/favicon.ico",
+			},
+		},
 		autoRefresh: true,
 	},
 	collections,

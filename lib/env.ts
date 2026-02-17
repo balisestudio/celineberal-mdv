@@ -10,6 +10,7 @@ export const envSchema = z
 		SMTP_PASSWORD: z.string(),
 		DEFAULT_FROM_ADDRESS: z.email(),
 		DEFAULT_FROM_NAME: z.string(),
+		APP_NAME: z.string(),
 	})
 	.parse(process.env);
 
