@@ -3,6 +3,10 @@ import { can } from "@/lib/permissions";
 
 export const Media: CollectionConfig = {
 	slug: "media",
+	labels: {
+		singular: "Média",
+		plural: "Médias",
+	},
 	access: {
 		create: ({ req: { user } }) => can(user, "editor"),
 		read: () => true,
@@ -12,6 +16,7 @@ export const Media: CollectionConfig = {
 	fields: [
 		{
 			name: "alt",
+			label: "Texte alternatif",
 			type: "text",
 		},
 	],
