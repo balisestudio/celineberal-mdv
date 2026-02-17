@@ -3,6 +3,10 @@ import { can } from "@/lib/permissions";
 
 export const Users: CollectionConfig = {
 	slug: "users",
+	labels: {
+		singular: "Utilisateur",
+		plural: "Utilisateurs",
+	},
 	admin: {
 		useAsTitle: "email",
 	},
@@ -17,18 +21,32 @@ export const Users: CollectionConfig = {
 	fields: [
 		{
 			name: "name",
+			label: "Nom complet",
 			type: "text",
 			required: true,
 		},
 		{
-			name: "roles",
+			name: "role",
+			label: "Rôle",
 			type: "select",
-			options: ["admin", "editor", "viewer"],
-			defaultValue: ["viewer"],
+			options: [
+				{
+					label: "Administrateur",
+					value: "admin",
+				},
+				{
+					label: "Éditeur",
+					value: "editor",
+				},
+				{
+					label: "Invité",
+					value: "viewer",
+				},
+			],
 			required: true,
 			saveToJWT: true,
 			access: {
-				update: ({ req: { user } }) => user?.roles === "admin",
+				update: ({ req: { user } }) => user?.role === "admin",
 			},
 		},
 	],
