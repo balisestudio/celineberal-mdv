@@ -2,6 +2,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+import { en } from "@payloadcms/translations/languages/en";
+import { fr } from "@payloadcms/translations/languages/fr";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Media } from "@/collections/media";
@@ -54,6 +56,9 @@ export default buildConfig({
 			},
 		},
 	}),
+	i18n: {
+		supportedLanguages: { fr },
+	},
 	sharp,
 	plugins: [],
 });
