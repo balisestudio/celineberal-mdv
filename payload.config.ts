@@ -9,6 +9,16 @@ import { Users } from "@/collections/users";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const collections = [Users, Media].map((collection) => {
+	return {
+		...collection,
+		admin: {
+			...collection.admin,
+			hideAPIURL: true,
+		},
+	};
+});
+
 export default buildConfig({
 	admin: {
 		user: Users.slug,
@@ -20,7 +30,7 @@ export default buildConfig({
 		},
 		autoRefresh: true,
 	},
-	collections: [Users, Media],
+	collections,
 	secret: process.env.PAYLOAD_SECRET || "",
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),
