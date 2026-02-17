@@ -6,6 +6,7 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Media } from "@/collections/media";
 import { Users } from "@/collections/users";
+import { env } from "@/lib/env";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -32,24 +33,24 @@ export default buildConfig({
 		autoRefresh: true,
 	},
 	collections,
-	secret: process.env.PAYLOAD_SECRET || "",
+	secret: env.PAYLOAD_SECRET,
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),
 	},
 	db: postgresAdapter({
 		pool: {
-			connectionString: process.env.DATABASE_URL || "",
+			connectionString: env.DATABASE_URL,
 		},
 	}),
 	email: nodemailerAdapter({
-		defaultFromAddress: process.env.DEFAULT_FROM_ADDRESS || "",
-		defaultFromName: process.env.DEFAULT_FROM_NAME || "",
+		defaultFromAddress: env.DEFAULT_FROM_ADDRESS,
+		defaultFromName: env.DEFAULT_FROM_NAME,
 		transportOptions: {
-			host: process.env.SMTP_HOST || "",
-			port: parseInt(process.env.SMTP_PORT || "587"),
+			host: env.SMTP_HOST,
+			port: env.SMTP_PORT,
 			auth: {
-				user: process.env.SMTP_USER || "",
-				pass: process.env.SMTP_PASSWORD || "",
+				user: env.SMTP_USER,
+				pass: env.SMTP_PASSWORD,
 			},
 		},
 	}),
