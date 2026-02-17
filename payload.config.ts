@@ -1,6 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Media } from "@/collections/media";
@@ -38,6 +39,18 @@ export default buildConfig({
 	db: postgresAdapter({
 		pool: {
 			connectionString: process.env.DATABASE_URL || "",
+		},
+	}),
+	email: nodemailerAdapter({
+		defaultFromAddress: process.env.DEFAULT_FROM_ADDRESS || "",
+		defaultFromName: process.env.DEFAULT_FROM_NAME || "",
+		transportOptions: {
+			host: process.env.SMTP_HOST || "",
+			port: parseInt(process.env.SMTP_PORT || "587"),
+			auth: {
+				user: process.env.SMTP_USER || "",
+				pass: process.env.SMTP_PASSWORD || "",
+			},
 		},
 	}),
 	sharp,
