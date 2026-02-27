@@ -1,1 +1,36 @@
 @import "tailwindcss";
+@import "./fonts.css";
+
+:root {
+	--font-aktiv:
+		"Aktiv Grotesk", "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+	--font-freight:
+		"Freight Text Cmp Pro", "FreightTextCmp Pro", "Source Serif 4", Georgia,
+		serif;
+}
+
+@theme {
+	--color-bordeaux: #651c23;
+	--color-lila: #cd98dc;
+	--color-rose-clair: #f8dbdd;
+	--color-blanc-casse: #fcfaf7;
+	--font-sans: var(--font-aktiv);
+	--font-serif: var(--font-freight);
+}
+
+body {
+	@apply font-sans bg-blanc-casse text-bordeaux leading-normal antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-serif font-light tracking-tight;
+}
+
+a {
+	@apply text-bordeaux;
+}
