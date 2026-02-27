@@ -69,6 +69,10 @@ export interface Config {
 	collections: {
 		users: User;
 		media: Media;
+		collaborators: Collaborator;
+		lots: Lot;
+		auctions: Auction;
+		estimates: Estimate;
 		"payload-kv": PayloadKv;
 		"payload-locked-documents": PayloadLockedDocument;
 		"payload-preferences": PayloadPreference;
@@ -78,6 +82,10 @@ export interface Config {
 	collectionsSelect: {
 		users: UsersSelect<false> | UsersSelect<true>;
 		media: MediaSelect<false> | MediaSelect<true>;
+		collaborators: CollaboratorsSelect<false> | CollaboratorsSelect<true>;
+		lots: LotsSelect<false> | LotsSelect<true>;
+		auctions: AuctionsSelect<false> | AuctionsSelect<true>;
+		estimates: EstimatesSelect<false> | EstimatesSelect<true>;
 		"payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
 		"payload-locked-documents":
 			| PayloadLockedDocumentsSelect<false>
@@ -92,10 +100,15 @@ export interface Config {
 	db: {
 		defaultIDType: number;
 	};
-	fallbackLocale: null;
+	fallbackLocale:
+		| ("false" | "none" | "null")
+		| false
+		| null
+		| ("fr" | "en")
+		| ("fr" | "en")[];
 	globals: {};
 	globalsSelect: {};
-	locale: null;
+	locale: "fr" | "en";
 	user: User;
 	jobs: {
 		tasks: unknown;
@@ -154,6 +167,8 @@ export interface User {
 export interface Media {
 	id: number;
 	alt?: string | null;
+	usage: "lot" | "collaborator" | "auction" | "internal" | "estimates";
+	dominantColor?: string | null;
 	updatedAt: string;
 	createdAt: string;
 	url?: string | null;
@@ -218,6 +233,98 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collaborators".
+ */
+export interface Collaborator {
+	id: number;
+	name: string;
+	email?: string | null;
+	phone?: string | null;
+	photo?: (number | null) | Media;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lots".
+ */
+export interface Lot {
+	id: number;
+	title: string;
+	lotNumber: string;
+	internalLotNumber?: number | null;
+	description?: string | null;
+	characteristics?:
+		| {
+				key: string;
+				value: string;
+				id?: string | null;
+		  }[]
+		| null;
+	lowEstimate?: number | null;
+	highEstimate?: number | null;
+	sold?: boolean | null;
+	salePrice?: number | null;
+	images?: (number | Media)[] | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auctions".
+ */
+export interface Auction {
+	id: number;
+	title: string;
+	auctionDate: string;
+	location: string;
+	poster: number | Media;
+	description?: string | null;
+	slug: string;
+	lots?:
+		| {
+				lot: number | Lot;
+				id?: string | null;
+		  }[]
+		| null;
+	collaborators?:
+		| {
+				collaborator: number | Collaborator;
+				role: string;
+				id?: string | null;
+		  }[]
+		| null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ("draft" | "published") | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "estimates".
+ */
+export interface Estimate {
+	id: number;
+	civility: "madame" | "monsieur" | "autre";
+	firstName: string;
+	lastName: string;
+	email: string;
+	phone: string;
+	address?: string | null;
+	postalCode?: string | null;
+	city?: string | null;
+	photos: {
+		media: number | Media;
+		id?: string | null;
+	}[];
+	dimensions?: string | null;
+	descriptions?: string | null;
+	acceptedTerms: boolean;
+	allowsPhotoReuse?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -247,6 +354,22 @@ export interface PayloadLockedDocument {
 		| ({
 				relationTo: "media";
 				value: number | Media;
+		  } | null)
+		| ({
+				relationTo: "collaborators";
+				value: number | Collaborator;
+		  } | null)
+		| ({
+				relationTo: "lots";
+				value: number | Lot;
+		  } | null)
+		| ({
+				relationTo: "auctions";
+				value: number | Auction;
+		  } | null)
+		| ({
+				relationTo: "estimates";
+				value: number | Estimate;
 		  } | null);
 	globalSlug?: string | null;
 	user: {
@@ -320,6 +443,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
 	alt?: T;
+	usage?: T;
+	dominantColor?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	url?: T;
@@ -395,6 +520,96 @@ export interface MediaSelect<T extends boolean = true> {
 							filename?: T;
 					  };
 		  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collaborators_select".
+ */
+export interface CollaboratorsSelect<T extends boolean = true> {
+	name?: T;
+	email?: T;
+	phone?: T;
+	photo?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lots_select".
+ */
+export interface LotsSelect<T extends boolean = true> {
+	title?: T;
+	lotNumber?: T;
+	internalLotNumber?: T;
+	description?: T;
+	characteristics?:
+		| T
+		| {
+				key?: T;
+				value?: T;
+				id?: T;
+		  };
+	lowEstimate?: T;
+	highEstimate?: T;
+	sold?: T;
+	salePrice?: T;
+	images?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "auctions_select".
+ */
+export interface AuctionsSelect<T extends boolean = true> {
+	title?: T;
+	auctionDate?: T;
+	location?: T;
+	poster?: T;
+	description?: T;
+	slug?: T;
+	lots?:
+		| T
+		| {
+				lot?: T;
+				id?: T;
+		  };
+	collaborators?:
+		| T
+		| {
+				collaborator?: T;
+				role?: T;
+				id?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "estimates_select".
+ */
+export interface EstimatesSelect<T extends boolean = true> {
+	civility?: T;
+	firstName?: T;
+	lastName?: T;
+	email?: T;
+	phone?: T;
+	address?: T;
+	postalCode?: T;
+	city?: T;
+	photos?:
+		| T
+		| {
+				media?: T;
+				id?: T;
+		  };
+	dimensions?: T;
+	descriptions?: T;
+	acceptedTerms?: T;
+	allowsPhotoReuse?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
