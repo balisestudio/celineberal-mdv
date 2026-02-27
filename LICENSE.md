@@ -1,7 +1,7 @@
 # SOFTWARE LICENSE AGREEMENT
-- Project : @balisestudio/starter
+- Project : Céline Béral - Maison de vente aux enchères
 - Provider : BALISE STUDIO
-- Client : N.A
+- Client : CELINE BERAL MAISON DE VENTE AUX ENCHERES (CBMDV)
 
 ## OWNERSHIP AND TRANSFER
 Full ownership of the source code, design assets, and configurations is transferred to the Client only upon full and final payment of all invoices related to the project. Until such payment is received, Balise Studio remains the sole owner of all intellectual property rights.
