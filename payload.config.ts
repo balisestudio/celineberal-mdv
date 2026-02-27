@@ -17,7 +17,7 @@ const collections = [Users, Media].map((collection) => {
 		...collection,
 		admin: {
 			...collection.admin,
-			hideAPIURL: true,
+			hideAPIURL: process.env.NODE_ENV === "production",
 		},
 	};
 });
@@ -38,13 +38,17 @@ export default buildConfig({
 			},
 		},
 		meta: {
-			titleSuffix: `– ${env.APP_NAME}`,
+			titleSuffix: `– ${env.SITE_NAME}`,
 			icons: {
 				icon: "/favicon.ico",
 			},
 		},
 		autoRefresh: true,
 		theme: "light",
+	},
+	localization: {
+		defaultLocale: "fr",
+		locales: ["fr", "en"],
 	},
 	collections,
 	secret: env.PAYLOAD_SECRET,
