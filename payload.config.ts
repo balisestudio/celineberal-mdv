@@ -5,6 +5,10 @@ import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 import { fr } from "@payloadcms/translations/languages/fr";
 import { buildConfig } from "payload";
 import sharp from "sharp";
+import { Auctions } from "@/collections/auctions";
+import { Collaborators } from "@/collections/collaborators";
+import { Estimates } from "@/collections/estimates";
+import { Lots } from "@/collections/lots";
 import { Media } from "@/collections/media";
 import { Users } from "@/collections/users";
 import { env } from "@/lib/env";
@@ -12,7 +16,14 @@ import { env } from "@/lib/env";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
-const collections = [Users, Media].map((collection) => {
+const collections = [
+	Users,
+	Media,
+	Collaborators,
+	Lots,
+	Auctions,
+	Estimates,
+].map((collection) => {
 	return {
 		...collection,
 		admin: {
