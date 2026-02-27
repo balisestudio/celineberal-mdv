@@ -1,1 +1,1 @@
-# @balisestudio/starter
+# Céline Béral - Maison de vente aux enchères
