@@ -18,6 +18,16 @@ export const Lots: CollectionConfig = {
 		update: ({ req: { user } }) => can(user, "editor"),
 		delete: ({ req: { user } }) => can(user, "editor"),
 	},
+	hooks: {
+		beforeChange: [
+			({ data }) => {
+				if (data?.lotNumber) {
+					data.internalLotNumber = Number(data.lotNumber.split("-")[0]);
+				}
+				return data;
+			},
+		],
+	},
 	fields: [
 		{
 			type: "tabs",
