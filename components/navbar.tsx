@@ -14,7 +14,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 const NAV_ROUTES = [
 	{ href: "/auctions", key: "auctions" },
 	{ href: "/results", key: "results" },
-	{ href: "/la-maison", key: "about" },
+	{ href: "/about", key: "about" },
 ] as const;
 
 export const NavBar = ({
