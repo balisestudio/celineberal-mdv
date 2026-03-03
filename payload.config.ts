@@ -70,6 +70,7 @@ export default buildConfig({
 		pool: {
 			connectionString: env.DATABASE_URL,
 		},
+		push: false,
 	}),
 	email: nodemailerAdapter({
 		defaultFromAddress: env.DEFAULT_FROM_ADDRESS,
