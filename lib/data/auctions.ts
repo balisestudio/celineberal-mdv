@@ -1,8 +1,7 @@
 import config from "@payload-config";
-import { getPayload } from "payload";
+import { payload } from "@/lib/payload";
 
 export const getAuctions = async () => {
-	const payload = await getPayload({ config });
 	return payload.find({
 		collection: "auctions",
 		where: {
@@ -17,7 +16,6 @@ export const getAuctions = async () => {
 };
 
 export const getAuctionBySlug = async (slug: string, locale?: string) => {
-	const payload = await getPayload({ config });
 	const result = await payload.find({
 		collection: "auctions",
 		where: { slug: { equals: slug } },
@@ -29,7 +27,6 @@ export const getAuctionBySlug = async (slug: string, locale?: string) => {
 };
 
 export const getPastAuctions = async () => {
-	const payload = await getPayload({ config });
 	return payload.find({
 		collection: "auctions",
 		where: {
