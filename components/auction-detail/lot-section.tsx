@@ -96,7 +96,7 @@ export const LotSection = ({
 	const pages = buildPaginationPages(currentPage, totalPages);
 
 	const sortBtnBase =
-		"px-3 py-1.5 text-[10px] uppercase tracking-widest border transition-colors";
+		"cursor-pointer px-3 py-1.5 text-[10px] uppercase tracking-widest border transition-colors";
 	const sortBtnActive = "bg-bordeaux text-blanc-casse border-bordeaux";
 	const sortBtnInactive =
 		"border-sand text-muted hover:text-bordeaux hover:border-bordeaux";
