@@ -1,5 +1,17 @@
 {
 	"common": {},
+	"about": {
+		"manifestoLabel": "Manifesto",
+		"valuesTitle": "Our values",
+		"aboutTitle": "About",
+		"pressLabel": "They talk about us",
+		"contactTitle": "Contact us",
+		"contactDesc": "Have a question? Feel free to get in touch.",
+		"address": "Address",
+		"email": "Email",
+		"phone": "Phone",
+		"horaires": "Opening hours"
+	},
 	"home": {
 		"nextSale": "Next sale",
 		"pastSale": "Past sale",
