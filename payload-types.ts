@@ -112,9 +112,11 @@ export interface Config {
 		| ("fr" | "en")[];
 	globals: {
 		"site-settings": SiteSetting;
+		contact: Contact;
 	};
 	globalsSelect: {
 		"site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+		contact: ContactSelect<false> | ContactSelect<true>;
 	};
 	locale: "fr" | "en";
 	widgets: {
@@ -683,6 +685,22 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+	id: number;
+	email: string;
+	phone: string;
+	address: string;
+	siret: string;
+	rcs: string;
+	capitalSocial: string;
+	agrement: string;
+	updatedAt?: string | null;
+	createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -704,6 +722,22 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 							light?: T;
 					  };
 		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+	email?: T;
+	phone?: T;
+	address?: T;
+	siret?: T;
+	rcs?: T;
+	capitalSocial?: T;
+	agrement?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	globalType?: T;

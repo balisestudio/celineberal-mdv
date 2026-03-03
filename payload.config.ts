@@ -11,6 +11,7 @@ import { Estimates } from "@/collections/estimates";
 import { Lots } from "@/collections/lots";
 import { Media } from "@/collections/media";
 import { Users } from "@/collections/users";
+import { Contact } from "@/globals/contact";
 import { SiteSettings } from "@/globals/site-settings";
 import { env } from "@/lib/env";
 
@@ -63,7 +64,7 @@ export default buildConfig({
 		locales: ["fr", "en"],
 	},
 	collections,
-	globals: [SiteSettings],
+	globals: [SiteSettings, Contact],
 	secret: env.PAYLOAD_SECRET,
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),

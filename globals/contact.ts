@@ -1,0 +1,80 @@
+import type { GlobalConfig } from "payload";
+import { can } from "@/lib/permissions";
+
+export const Contact: GlobalConfig = {
+	slug: "contact",
+	label: "Contact",
+	admin: {
+		group: "Configuration",
+	},
+	access: {
+		read: () => true,
+		update: ({ req: { user } }) => can(user, "editor"),
+	},
+	fields: [
+		{
+			type: "tabs",
+			tabs: [
+				{
+					label: "Contact",
+					fields: [
+						{
+							type: "row",
+							fields: [
+								{
+									name: "email",
+									label: "Email",
+									type: "email",
+									required: true,
+									admin: { width: "50%" },
+								},
+								{
+									name: "phone",
+									label: "Téléphone",
+									type: "text",
+									required: true,
+									admin: { width: "50%" },
+								},
+							],
+						},
+						{
+							name: "address",
+							label: "Adresse",
+							type: "textarea",
+							required: true,
+						},
+					],
+				},
+				{
+					label: "Légal",
+					fields: [
+						{
+							name: "siret",
+							label: "SIRET",
+							type: "text",
+							required: true,
+						},
+						{
+							name: "rcs",
+							label: "RCS",
+							type: "text",
+							required: true,
+						},
+						{
+							name: "capitalSocial",
+							label: "Capital social",
+							type: "text",
+							required: true,
+						},
+						{
+							name: "agrement",
+							label: "Agrément",
+							type: "text",
+							required: true,
+						},
+					],
+				},
+			],
+		},
+	],
+};
