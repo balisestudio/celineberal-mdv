@@ -38,6 +38,7 @@ export const TopLotCard = ({
 	return (
 		<motion.div
 			ref={ref}
+			className="h-full"
 			initial={{ opacity: 0, y: 12 }}
 			animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
 			transition={{

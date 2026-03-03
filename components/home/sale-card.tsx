@@ -43,6 +43,7 @@ export const SaleCard = ({
 	return (
 		<motion.div
 			ref={ref}
+			className="h-full"
 			initial={{ opacity: 0, y: 12 }}
 			animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
 			transition={{
@@ -53,9 +54,9 @@ export const SaleCard = ({
 		>
 			<Link
 				href={`/auctions/${auction.slug}`}
-				className="group block border border-sand bg-white transition-colors hover:border-bordeaux/30"
+				className="group flex h-full flex-col border border-sand bg-white transition-colors hover:border-bordeaux/30"
 			>
-				<div className="relative h-52 overflow-hidden">
+				<div className="relative h-52 shrink-0 overflow-hidden">
 					{hasPoster ? (
 						<Image
 							src={getMediaSrc(poster) ?? ""}
@@ -78,7 +79,7 @@ export const SaleCard = ({
 						</div>
 					)}
 				</div>
-				<div className="border-t border-sand p-5">
+				<div className="flex min-h-0 flex-1 flex-col border-t border-sand p-5">
 					<p className="text-[12px] uppercase tracking-widest text-muted">
 						{formattedDate}
 						{auction.location && (
@@ -88,10 +89,10 @@ export const SaleCard = ({
 							</>
 						)}
 					</p>
-					<p className="font-serif italic text-lg text-charcoal mt-1 group-hover:text-bordeaux transition-colors">
+					<p className="font-serif italic text-lg text-charcoal line-clamp-2 mt-1 group-hover:text-bordeaux transition-colors">
 						{auction.title}
 					</p>
-					<div className="mt-3 flex items-center justify-between gap-2">
+					<div className="mt-auto flex items-center justify-between gap-2 pt-3">
 						{totalDocs > 0 && (
 							<p className="text-xs text-muted">
 								{tVentes("lots", { count: totalDocs })}
