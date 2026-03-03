@@ -30,7 +30,6 @@ export const About: GlobalConfig = {
 							label: "Signature",
 							type: "text",
 							required: true,
-							localized: true,
 						},
 						{
 							name: "aboutImage",
@@ -89,12 +88,6 @@ export const About: GlobalConfig = {
 									label: "Nom / titre",
 									type: "text",
 									required: true,
-									localized: true,
-								},
-								{
-									name: "url",
-									label: "Lien (optionnel)",
-									type: "text",
 								},
 							],
 						},

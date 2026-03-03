@@ -699,9 +699,6 @@ export interface Contact {
 	horaires?: string | null;
 	socialLinks?:
 		| {
-				/**
-				 * Ex. Instagram, LinkedIn
-				 */
 				name: string;
 				url: string;
 				id?: string | null;
@@ -734,7 +731,6 @@ export interface About {
 	press?:
 		| {
 				label: string;
-				url?: string | null;
 				id?: string | null;
 		  }[]
 		| null;
@@ -812,7 +808,6 @@ export interface AboutSelect<T extends boolean = true> {
 		| T
 		| {
 				label?: T;
-				url?: T;
 				id?: T;
 		  };
 	updatedAt?: T;
