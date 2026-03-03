@@ -12,7 +12,7 @@ export const HeroBrand = ({
 	iconSrc: string;
 	iconAlt: string;
 }) => (
-	<section className="bg-blanc-casse border-b border-sand py-10 lg:py-14">
+	<section className="bg-blanc-casse py-10 lg:py-14">
 		<Container>
 			<div className="min-h-[300px] lg:min-h-[500px] grid grid-cols-1 lg:grid-cols-[55%_45%]">
 				<div className="min-h-[300px] lg:min-h-[500px] bg-sand/30 flex items-center justify-center">

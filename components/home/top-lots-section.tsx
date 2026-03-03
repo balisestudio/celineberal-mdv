@@ -16,7 +16,7 @@ export const TopLotsSection = async ({
 	const t = await getTranslations("home");
 
 	return (
-		<section className="border-t border-sand bg-blanc-casse py-16 lg:py-20">
+		<section className="bg-blanc-casse py-16 lg:py-20">
 			<Container>
 				<SectionHeader title={t("topLotsTitle")} />
 				<div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
