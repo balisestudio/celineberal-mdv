@@ -24,7 +24,6 @@ export const HeroSale = ({
 	const t = useTranslations("home");
 	const locale = useLocale();
 	const poster = auction.poster as Media;
-	const totalDocs = auction.lots?.totalDocs ?? 0;
 	const dateLocale = locale === "fr" ? fr : enUS;
 	const formattedDate = format(new Date(auction.auctionDate), "PPP", {
 		locale: dateLocale,
@@ -32,7 +31,7 @@ export const HeroSale = ({
 	const hasPoster = Boolean(getMediaSrc(poster));
 
 	return (
-		<section className="bg-blanc-casse border-b border-sand py-10 lg:py-14">
+		<section className="bg-blanc-casse py-10 lg:py-14">
 			<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 				<Link
 					href={`/auctions/${auction.slug}`}
@@ -99,12 +98,6 @@ export const HeroSale = ({
 									</span>
 								</div>
 							)}
-							<div className="flex gap-4">
-								<span className="w-20 shrink-0 text-[10px] uppercase tracking-widest text-muted">
-									{t("lots")}
-								</span>
-								<span className="text-sm text-charcoal">{totalDocs}</span>
-							</div>
 						</motion.div>
 						<motion.div
 							className="mt-6 flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-bordeaux font-sans"
