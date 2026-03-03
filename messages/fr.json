@@ -12,5 +12,9 @@
 		"pageTitle": "Calendrier des ventes",
 		"lots": "{count, plural, one {# lot} other {# lots}}",
 		"empty": "Aucune vente à venir pour le moment. Revenez bientôt !"
+	},
+	"resultats": {
+		"pageTitle": "Résultats",
+		"empty": "Aucun résultat disponible pour le moment."
 	}
 }

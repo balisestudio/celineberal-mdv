@@ -12,5 +12,9 @@
 		"pageTitle": "Auction calendar",
 		"lots": "{count, plural, one {# lot} other {# lots}}",
 		"empty": "No upcoming auctions at the moment. Check back soon!"
+	},
+	"resultats": {
+		"pageTitle": "Results",
+		"empty": "No results available at the moment."
 	}
 }
