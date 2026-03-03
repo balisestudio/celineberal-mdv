@@ -1,10 +1,9 @@
-import config from "@payload-config";
 import { logger, task } from "@trigger.dev/sdk/v3";
-import type { BasePayload } from "payload";
-import { getPayload } from "payload";
+import pLimit from "p-limit";
 import type { ImportLotsOptions } from "@/components/payload/imports-lots/action";
 import { optimizeLot } from "@/lib/ai/optimize-lot";
 import { translateLot } from "@/lib/ai/translate-lot";
+import { payload } from "@/lib/payload";
 import type {
 	InterenchersLot,
 	InterenchersLots,
@@ -16,6 +15,7 @@ import type { Auction, User } from "@/payload-types";
  */
 
 const TITLE_MAX_LENGTH = 80;
+const CONCURRENCY = 15;
 
 /**
  * Helpers
@@ -54,10 +54,7 @@ const downloadImage = async (
 const formatImageIndex = (index: number): string =>
 	String(index + 1).padStart(2, "0");
 
-const getPayloadInstance = () => getPayload({ config });
-
 const clearTriggerId = async (auctionId: number) => {
-	const payload = await getPayloadInstance();
 	await payload.update({
 		collection: "auctions",
 		id: auctionId,
@@ -70,7 +67,6 @@ const clearTriggerId = async (auctionId: number) => {
  */
 
 const deleteExistingLots = async (
-	payload: BasePayload,
 	auctionId: number,
 	transactionID: string | number,
 ) => {
@@ -118,17 +114,27 @@ const processLotContent = async (
 	let frCharacteristics: { key: string; value: string }[] = [];
 
 	if (options.optimizeContent) {
-		logger.info("AI optimisation - début", { lotNumber });
-		const optimized = await optimizeLot(rawDescription);
-		frTitle = optimized.title;
-		frDescription = optimized.description;
-		frCharacteristics = optimized.characteristics ?? [];
-		logger.info("AI optimisation - terminé", {
-			lotNumber,
-			title: frTitle,
-			hasCharacteristics: frCharacteristics.length > 0,
-			characteristicsCount: frCharacteristics.length,
-		});
+		try {
+			logger.info("AI optimisation - début", { lotNumber });
+			const optimized = await optimizeLot(rawDescription);
+			frTitle = optimized.title;
+			frDescription = optimized.description;
+			frCharacteristics = optimized.characteristics ?? [];
+			logger.info("AI optimisation - terminé", {
+				lotNumber,
+				title: frTitle,
+				hasCharacteristics: frCharacteristics.length > 0,
+				characteristicsCount: frCharacteristics.length,
+			});
+		} catch (error) {
+			logger.warn("AI optimisation échouée - fallback données brutes", {
+				lotNumber,
+				error: error instanceof Error ? error.message : String(error),
+			});
+			frTitle = cropTitle(rawDescription);
+			frDescription = rawDescription;
+			frCharacteristics = [];
+		}
 	} else {
 		frTitle = cropTitle(rawDescription);
 		frDescription = rawDescription;
@@ -139,23 +145,30 @@ const processLotContent = async (
 	let enCharacteristics: { key: string; value: string }[] | undefined;
 
 	if (options.translateContent) {
-		logger.info("AI traduction - début", { lotNumber, locale: "en" });
-		const translated = await translateLot(
-			{
-				title: frTitle,
-				description: frDescription,
-				characteristics: frCharacteristics,
-			},
-			"en",
-		);
-		enTitle = translated.title;
-		enDescription = translated.description;
-		enCharacteristics = translated.characteristics;
-		logger.info("AI traduction - terminé", {
-			lotNumber,
-			locale: "en",
-			title: enTitle,
-		});
+		try {
+			logger.info("AI traduction - début", { lotNumber, locale: "en" });
+			const translated = await translateLot(
+				{
+					title: frTitle,
+					description: frDescription,
+					characteristics: frCharacteristics,
+				},
+				"en",
+			);
+			enTitle = translated.title;
+			enDescription = translated.description;
+			enCharacteristics = translated.characteristics;
+			logger.info("AI traduction - terminé", {
+				lotNumber,
+				locale: "en",
+				title: enTitle,
+			});
+		} catch (error) {
+			logger.warn("AI traduction échouée - pas de locale EN", {
+				lotNumber,
+				error: error instanceof Error ? error.message : String(error),
+			});
+		}
 	}
 
 	return {
@@ -169,11 +182,10 @@ const processLotContent = async (
 };
 
 const uploadLotImages = async (
-	payload: BasePayload,
 	lot: InterenchersLot,
 	lotTitle: string,
 	lotNumber: string,
-	transactionID: string | number,
+	transactionID?: string | number,
 ): Promise<number[]> => {
 	const images = lot.images?.image ?? [];
 	if (images.length === 0) return [];
@@ -215,7 +227,7 @@ const uploadLotImages = async (
 				mimetype: mimeType,
 				size: buffer.length,
 			},
-			req: { transactionID } as never,
+			...(transactionID && { req: { transactionID } as never }),
 		});
 
 		logger.info("Image uploadée", {
@@ -228,6 +240,80 @@ const uploadLotImages = async (
 	}
 
 	return mediaIds;
+};
+
+type ProcessSingleLotResult =
+	| { success: true; lotNumber: string }
+	| { success: false; lotNumber: string; error: string };
+
+const processSingleLot = async (
+	xmlLot: InterenchersLot,
+	lotNumber: string,
+	options: ImportLotsOptions,
+	auctionId: number,
+): Promise<ProcessSingleLotResult> => {
+	try {
+		const content = await processLotContent(xmlLot, lotNumber, options);
+
+		const lotData = {
+			auction: auctionId,
+			title: content.frTitle,
+			lotNumber,
+			description: content.frDescription,
+			characteristics:
+				content.frCharacteristics.length > 0
+					? content.frCharacteristics
+					: undefined,
+			lowEstimate: xmlLot["estimation-basse"],
+			highEstimate: xmlLot["estimation-haute"],
+		};
+
+		const createdLot = await payload.create({
+			collection: "lots",
+			data: lotData,
+			locale: "fr",
+		});
+
+		if (content.enTitle && content.enDescription) {
+			const enData: Record<string, unknown> = {
+				title: content.enTitle,
+				description: content.enDescription,
+			};
+
+			if (content.enCharacteristics && content.enCharacteristics.length > 0) {
+				enData.characteristics = content.enCharacteristics.map((c, i) => ({
+					...c,
+					id: createdLot.characteristics?.[i]?.id,
+				}));
+			}
+
+			await payload.update({
+				collection: "lots",
+				id: createdLot.id,
+				data: enData,
+				locale: "en",
+			});
+		}
+
+		const mediaIds = await uploadLotImages(xmlLot, content.frTitle, lotNumber);
+
+		if (mediaIds.length > 0) {
+			await payload.update({
+				collection: "lots",
+				id: createdLot.id,
+				data: { images: mediaIds },
+			});
+		}
+
+		return { success: true, lotNumber };
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		logger.error("Lot non importé", {
+			lotNumber,
+			error: errorMessage,
+		});
+		return { success: false, lotNumber, error: errorMessage };
+	}
 };
 
 /**
@@ -283,149 +369,60 @@ export const importLotsTask = task({
 			userId: user.id,
 		});
 
-		const payload = await getPayloadInstance();
+		// Phase 1: Delete existing lots (transaction)
 		const transactionID = await payload.db.beginTransaction();
-
 		if (!transactionID) {
 			throw new Error("Impossible de démarrer la transaction");
 		}
 
-		logger.info("Transaction démarrée", { transactionID });
-
 		try {
-			// A. Delete existing lots
-			await deleteExistingLots(payload, auction.id, transactionID);
-
-			// B. Process each XML lot
-			let lotsCreated = 0;
-
-			for (let i = 0; i < xmlLots.length; i++) {
-				const xmlLot = xmlLots[i];
-				const lotNumber = buildLotNumber(xmlLot);
-
-				logger.info("Traitement lot", {
-					lotNumber,
-					index: i + 1,
-					total: xmlLots.length,
-					identifiant: xmlLot.identifiant,
-				});
-
-				// B.1 + B.2 + B.3: AI optimization + translation
-				const content = await processLotContent(xmlLot, lotNumber, options);
-
-				// B.4: Create lot in Payload (FR locale)
-				const lotData = {
-					auction: auction.id,
-					title: content.frTitle,
-					lotNumber,
-					description: content.frDescription,
-					characteristics:
-						content.frCharacteristics.length > 0
-							? content.frCharacteristics
-							: undefined,
-					lowEstimate: xmlLot["estimation-basse"],
-					highEstimate: xmlLot["estimation-haute"],
-				};
-
-				logger.info("Création lot (FR)", {
-					lotNumber,
-					title: content.frTitle,
-				});
-
-				const createdLot = await payload.create({
-					collection: "lots",
-					data: lotData,
-					locale: "fr",
-					req: { transactionID } as never,
-				});
-
-				logger.info("Lot créé", {
-					lotId: createdLot.id,
-					lotNumber,
-					title: content.frTitle,
-				});
-
-				// B.5: Add EN locale if translated
-				if (content.enTitle && content.enDescription) {
-					const enData: Record<string, unknown> = {
-						title: content.enTitle,
-						description: content.enDescription,
-					};
-
-					if (
-						content.enCharacteristics &&
-						content.enCharacteristics.length > 0
-					) {
-						enData.characteristics = content.enCharacteristics.map((c, i) => ({
-							...c,
-							id: createdLot.characteristics?.[i]?.id,
-						}));
-					}
-
-					logger.info("Mise à jour locale EN", {
-						lotId: createdLot.id,
-						lotNumber,
-						title: content.enTitle,
-					});
-
-					await payload.update({
-						collection: "lots",
-						id: createdLot.id,
-						data: enData,
-						locale: "en",
-						req: { transactionID } as never,
-					});
-				}
-
-				// B.6 + B.7: Download and upload images
-				const mediaIds = await uploadLotImages(
-					payload,
-					xmlLot,
-					content.frTitle,
-					lotNumber,
-					transactionID,
-				);
-
-				// B.8: Link images to lot
-				if (mediaIds.length > 0) {
-					logger.info("Liaison images au lot", {
-						lotId: createdLot.id,
-						lotNumber,
-						imageCount: mediaIds.length,
-					});
-
-					await payload.update({
-						collection: "lots",
-						id: createdLot.id,
-						data: { images: mediaIds },
-						req: { transactionID } as never,
-					});
-				}
-
-				lotsCreated++;
-			}
-
-			// C. Commit transaction
+			await deleteExistingLots(auction.id, transactionID);
 			await payload.db.commitTransaction(transactionID);
-
-			logger.info("Import terminé avec succès", {
-				auctionId: auction.id,
-				lotsCreated,
-				totalImages: xmlLots.reduce(
-					(sum, lot) => sum + (lot.images?.image?.length ?? 0),
-					0,
-				),
-			});
 		} catch (error) {
-			logger.error("Erreur lors de l'import - rollback", {
+			logger.error("Erreur lors de la suppression des lots - rollback", {
 				auctionId: auction.id,
 				error: error instanceof Error ? error.message : String(error),
-				stack: error instanceof Error ? error.stack : undefined,
 			});
-
 			await payload.db.rollbackTransaction(transactionID);
-
 			throw error;
+		}
+
+		// Phase 2: Process lots in parallel (no transaction)
+		const limit = pLimit(CONCURRENCY);
+		const results: ProcessSingleLotResult[] = await Promise.all(
+			xmlLots.map((xmlLot) =>
+				limit(() =>
+					processSingleLot(xmlLot, buildLotNumber(xmlLot), options, auction.id),
+				),
+			),
+		);
+
+		const lotsCreated = results.filter(
+			(
+				r: ProcessSingleLotResult,
+			): r is ProcessSingleLotResult & { success: true } => r.success,
+		).length;
+		const lotsFailed = results.filter(
+			(
+				r: ProcessSingleLotResult,
+			): r is ProcessSingleLotResult & { success: false } => !r.success,
+		);
+
+		logger.info("Import terminé", {
+			auctionId: auction.id,
+			lotsCreated,
+			lotsFailed: lotsFailed.length,
+			totalLots: xmlLots.length,
+		});
+
+		if (lotsFailed.length > 0) {
+			logger.warn("Lots non importés", {
+				auctionId: auction.id,
+				failed: lotsFailed.map((r) => ({
+					lotNumber: r.lotNumber,
+					error: r.error,
+				})),
+			});
 		}
 	},
 });

@@ -34,6 +34,7 @@
 		"drizzle-kit": "^0.31.9",
 		"fast-xml-parser": "^5.4.1",
 		"graphql": "^16.12.0",
+		"p-limit": "^7.3.0",
 		"next": "16.1.6",
 		"payload": "3.76.1",
 		"postcss": "^8.5.6",
