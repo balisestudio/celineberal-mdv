@@ -12,6 +12,15 @@ import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
 import { getMediaSrc } from "@/lib/media-src";
 import type { About as AboutType } from "@/payload-types";
 
+export const generateMetadata = async () => {
+	const locale = await getLocale();
+	const [settings, t] = await Promise.all([
+		getSiteSettings(locale),
+		getTranslations({ locale, namespace: "about" }),
+	]);
+	return { title: `${t("aboutTitle")} – ${settings.siteName}` };
+};
+
 const resolveAboutImage = (
 	about: AboutType,
 ): { src: string; alt: string } | null => {

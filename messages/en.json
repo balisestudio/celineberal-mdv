@@ -13,6 +13,7 @@
 		"horaires": "Opening hours"
 	},
 	"home": {
+		"pageTitle": "Home",
 		"nextSale": "Next sale",
 		"pastSale": "Past sale",
 		"discoverSale": "Discover the sale",

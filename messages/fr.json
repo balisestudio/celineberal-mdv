@@ -13,6 +13,7 @@
 		"horaires": "Horaires"
 	},
 	"home": {
+		"pageTitle": "Accueil",
 		"nextSale": "Prochaine vente",
 		"pastSale": "Vente passée",
 		"discoverSale": "Découvrir la vente",

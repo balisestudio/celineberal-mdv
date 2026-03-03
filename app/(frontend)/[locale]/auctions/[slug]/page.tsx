@@ -6,6 +6,20 @@ import { getLots } from "@/lib/data/lots";
 import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
 import type { Lot } from "@/payload-types";
 
+export const generateMetadata = async ({
+	params,
+}: {
+	params: Promise<{ slug: string; locale: string }>;
+}) => {
+	const { slug, locale } = await params;
+	const [auction, settings] = await Promise.all([
+		getAuctionBySlug(slug, locale),
+		getSiteSettings(locale),
+	]);
+	if (!auction) return { title: settings.siteName };
+	return { title: `${auction.title} – ${settings.siteName}` };
+};
+
 const AuctionLotsPage = async ({
 	params,
 	searchParams,

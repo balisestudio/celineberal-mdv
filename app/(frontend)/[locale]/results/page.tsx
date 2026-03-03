@@ -1,10 +1,19 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { AuctionList } from "@/components/auctions/auction-list";
 import { AuctionsEmpty } from "@/components/auctions/auctions-empty";
 import { PageHeader } from "@/components/page-header";
 import { Container } from "@/components/ui/container";
 import { getPastAuctions } from "@/lib/data/auctions";
 import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+
+export const generateMetadata = async () => {
+	const locale = await getLocale();
+	const [settings, t] = await Promise.all([
+		getSiteSettings(locale),
+		getTranslations({ locale, namespace: "resultats" }),
+	]);
+	return { title: `${t("pageTitle")} – ${settings.siteName}` };
+};
 
 const ResultsPage = async () => {
 	const t = await getTranslations("resultats");

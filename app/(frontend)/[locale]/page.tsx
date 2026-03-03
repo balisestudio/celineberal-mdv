@@ -1,3 +1,4 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import { EstimationBlock } from "@/components/home/estimation-block";
 import { HeroBrand } from "@/components/home/hero-brand";
 import { HeroSale } from "@/components/home/hero-sale";
@@ -11,6 +12,15 @@ import {
 	getSiteSettings,
 } from "@/lib/data/site-settings";
 import type { Auction } from "@/payload-types";
+
+export const generateMetadata = async () => {
+	const locale = await getLocale();
+	const [settings, t] = await Promise.all([
+		getSiteSettings(locale),
+		getTranslations({ locale, namespace: "home" }),
+	]);
+	return { title: `${t("pageTitle")} – ${settings.siteName}` };
+};
 
 const HomePage = async () => {
 	const [upcomingResult, pastResult, topLotsResult, settings] =
