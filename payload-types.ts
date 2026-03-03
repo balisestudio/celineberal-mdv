@@ -13,693 +13,719 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+	| "Pacific/Midway"
+	| "Pacific/Niue"
+	| "Pacific/Honolulu"
+	| "Pacific/Rarotonga"
+	| "America/Anchorage"
+	| "Pacific/Gambier"
+	| "America/Los_Angeles"
+	| "America/Tijuana"
+	| "America/Denver"
+	| "America/Phoenix"
+	| "America/Chicago"
+	| "America/Guatemala"
+	| "America/New_York"
+	| "America/Bogota"
+	| "America/Caracas"
+	| "America/Santiago"
+	| "America/Buenos_Aires"
+	| "America/Sao_Paulo"
+	| "Atlantic/South_Georgia"
+	| "Atlantic/Azores"
+	| "Atlantic/Cape_Verde"
+	| "Europe/London"
+	| "Europe/Berlin"
+	| "Africa/Lagos"
+	| "Europe/Athens"
+	| "Africa/Cairo"
+	| "Europe/Moscow"
+	| "Asia/Riyadh"
+	| "Asia/Dubai"
+	| "Asia/Baku"
+	| "Asia/Karachi"
+	| "Asia/Tashkent"
+	| "Asia/Calcutta"
+	| "Asia/Dhaka"
+	| "Asia/Almaty"
+	| "Asia/Jakarta"
+	| "Asia/Bangkok"
+	| "Asia/Shanghai"
+	| "Asia/Singapore"
+	| "Asia/Tokyo"
+	| "Asia/Seoul"
+	| "Australia/Brisbane"
+	| "Australia/Sydney"
+	| "Pacific/Guam"
+	| "Pacific/Noumea"
+	| "Pacific/Auckland"
+	| "Pacific/Fiji";
 
 export interface Config {
-  auth: {
-    users: UserAuthOperations;
-  };
-  blocks: {};
-  collections: {
-    users: User;
-    media: Media;
-    collaborators: Collaborator;
-    lots: Lot;
-    auctions: Auction;
-    estimates: Estimate;
-    'payload-kv': PayloadKv;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
-  };
-  collectionsJoins: {
-    auctions: {
-      lots: 'lots';
-    };
-  };
-  collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
-    collaborators: CollaboratorsSelect<false> | CollaboratorsSelect<true>;
-    lots: LotsSelect<false> | LotsSelect<true>;
-    auctions: AuctionsSelect<false> | AuctionsSelect<true>;
-    estimates: EstimatesSelect<false> | EstimatesSelect<true>;
-    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-  };
-  db: {
-    defaultIDType: number;
-  };
-  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('fr' | 'en') | ('fr' | 'en')[];
-  globals: {
-    'site-settings': SiteSetting;
-  };
-  globalsSelect: {
-    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-  };
-  locale: 'fr' | 'en';
-  widgets: {
-    collections: CollectionsWidget;
-  };
-  user: User;
-  jobs: {
-    tasks: unknown;
-    workflows: unknown;
-  };
+	auth: {
+		users: UserAuthOperations;
+	};
+	blocks: {};
+	collections: {
+		users: User;
+		media: Media;
+		collaborators: Collaborator;
+		lots: Lot;
+		auctions: Auction;
+		estimates: Estimate;
+		"payload-kv": PayloadKv;
+		"payload-locked-documents": PayloadLockedDocument;
+		"payload-preferences": PayloadPreference;
+		"payload-migrations": PayloadMigration;
+	};
+	collectionsJoins: {
+		auctions: {
+			lots: "lots";
+		};
+	};
+	collectionsSelect: {
+		users: UsersSelect<false> | UsersSelect<true>;
+		media: MediaSelect<false> | MediaSelect<true>;
+		collaborators: CollaboratorsSelect<false> | CollaboratorsSelect<true>;
+		lots: LotsSelect<false> | LotsSelect<true>;
+		auctions: AuctionsSelect<false> | AuctionsSelect<true>;
+		estimates: EstimatesSelect<false> | EstimatesSelect<true>;
+		"payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
+		"payload-locked-documents":
+			| PayloadLockedDocumentsSelect<false>
+			| PayloadLockedDocumentsSelect<true>;
+		"payload-preferences":
+			| PayloadPreferencesSelect<false>
+			| PayloadPreferencesSelect<true>;
+		"payload-migrations":
+			| PayloadMigrationsSelect<false>
+			| PayloadMigrationsSelect<true>;
+	};
+	db: {
+		defaultIDType: number;
+	};
+	fallbackLocale:
+		| ("false" | "none" | "null")
+		| false
+		| null
+		| ("fr" | "en")
+		| ("fr" | "en")[];
+	globals: {
+		"site-settings": SiteSetting;
+	};
+	globalsSelect: {
+		"site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+	};
+	locale: "fr" | "en";
+	widgets: {
+		collections: CollectionsWidget;
+	};
+	user: User;
+	jobs: {
+		tasks: unknown;
+		workflows: unknown;
+	};
 }
 export interface UserAuthOperations {
-  forgotPassword: {
-    email: string;
-    password: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
-  registerFirstUser: {
-    email: string;
-    password: string;
-  };
-  unlock: {
-    email: string;
-    password: string;
-  };
+	forgotPassword: {
+		email: string;
+		password: string;
+	};
+	login: {
+		email: string;
+		password: string;
+	};
+	registerFirstUser: {
+		email: string;
+		password: string;
+	};
+	unlock: {
+		email: string;
+		password: string;
+	};
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
-  name: string;
-  role: 'admin' | 'editor' | 'viewer';
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
+	id: number;
+	name: string;
+	role: "admin" | "editor" | "viewer";
+	updatedAt: string;
+	createdAt: string;
+	email: string;
+	resetPasswordToken?: string | null;
+	resetPasswordExpiration?: string | null;
+	salt?: string | null;
+	hash?: string | null;
+	loginAttempts?: number | null;
+	lockUntil?: string | null;
+	sessions?:
+		| {
+				id: string;
+				createdAt?: string | null;
+				expiresAt: string;
+		  }[]
+		| null;
+	password?: string | null;
+	collection: "users";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
-  alt?: string | null;
-  usage: 'lot' | 'collaborator' | 'auction' | 'internal' | 'estimates';
-  dominantColor?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    sm?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    md?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    lg?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xl?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    '2xl'?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
+	id: number;
+	alt?: string | null;
+	usage: "lot" | "collaborator" | "auction" | "internal" | "estimates";
+	dominantColor?: string | null;
+	updatedAt: string;
+	createdAt: string;
+	url?: string | null;
+	thumbnailURL?: string | null;
+	filename?: string | null;
+	mimeType?: string | null;
+	filesize?: number | null;
+	width?: number | null;
+	height?: number | null;
+	focalX?: number | null;
+	focalY?: number | null;
+	sizes?: {
+		thumbnail?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		sm?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		md?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		lg?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		xl?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+		"2xl"?: {
+			url?: string | null;
+			width?: number | null;
+			height?: number | null;
+			mimeType?: string | null;
+			filesize?: number | null;
+			filename?: string | null;
+		};
+	};
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collaborators".
  */
 export interface Collaborator {
-  id: number;
-  name: string;
-  email?: string | null;
-  phone?: string | null;
-  photo?: (number | null) | Media;
-  updatedAt: string;
-  createdAt: string;
+	id: number;
+	name: string;
+	email?: string | null;
+	phone?: string | null;
+	photo?: (number | null) | Media;
+	updatedAt: string;
+	createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "lots".
  */
 export interface Lot {
-  id: number;
-  auction: number | Auction;
-  title: string;
-  lotNumber: string;
-  internalLotNumber?: number | null;
-  description?: string | null;
-  characteristics?:
-    | {
-        key: string;
-        value: string;
-        id?: string | null;
-      }[]
-    | null;
-  lowEstimate?: number | null;
-  highEstimate?: number | null;
-  sold?: boolean | null;
-  salePrice?: number | null;
-  images?: (number | Media)[] | null;
-  updatedAt: string;
-  createdAt: string;
+	id: number;
+	auction: number | Auction;
+	title: string;
+	lotNumber: string;
+	internalLotNumber?: number | null;
+	description?: string | null;
+	characteristics?:
+		| {
+				key: string;
+				value: string;
+				id?: string | null;
+		  }[]
+		| null;
+	lowEstimate?: number | null;
+	highEstimate?: number | null;
+	sold?: boolean | null;
+	salePrice?: number | null;
+	images?: (number | Media)[] | null;
+	updatedAt: string;
+	createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auctions".
  */
 export interface Auction {
-  id: number;
-  title: string;
-  auctionDate: string;
-  location: string;
-  poster: number | Media;
-  description?: string | null;
-  slug: string;
-  lots?: {
-    docs?: (number | Lot)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  collaborators?:
-    | {
-        collaborator: number | Collaborator;
-        role: string;
-        id?: string | null;
-      }[]
-    | null;
-  triggerId?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+	id: number;
+	title: string;
+	auctionDate: string;
+	location: string;
+	poster: number | Media;
+	description?: string | null;
+	slug: string;
+	lots?: {
+		docs?: (number | Lot)[];
+		hasNextPage?: boolean;
+		totalDocs?: number;
+	};
+	collaborators?:
+		| {
+				collaborator: number | Collaborator;
+				role: string;
+				id?: string | null;
+		  }[]
+		| null;
+	triggerId?: string | null;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ("draft" | "published") | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "estimates".
  */
 export interface Estimate {
-  id: number;
-  civility: 'madame' | 'monsieur' | 'autre';
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  address?: string | null;
-  postalCode?: string | null;
-  city?: string | null;
-  photos: {
-    media: number | Media;
-    id?: string | null;
-  }[];
-  dimensions?: string | null;
-  descriptions?: string | null;
-  acceptedTerms: boolean;
-  allowsPhotoReuse?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+	id: number;
+	civility: "madame" | "monsieur" | "autre";
+	firstName: string;
+	lastName: string;
+	email: string;
+	phone: string;
+	address?: string | null;
+	postalCode?: string | null;
+	city?: string | null;
+	photos: {
+		media: number | Media;
+		id?: string | null;
+	}[];
+	dimensions?: string | null;
+	descriptions?: string | null;
+	acceptedTerms: boolean;
+	allowsPhotoReuse?: boolean | null;
+	updatedAt: string;
+	createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number;
-  key: string;
-  data:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+	id: number;
+	key: string;
+	data:
+		| {
+				[k: string]: unknown;
+		  }
+		| unknown[]
+		| string
+		| number
+		| boolean
+		| null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
-  document?:
-    | ({
-        relationTo: 'users';
-        value: number | User;
-      } | null)
-    | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'collaborators';
-        value: number | Collaborator;
-      } | null)
-    | ({
-        relationTo: 'lots';
-        value: number | Lot;
-      } | null)
-    | ({
-        relationTo: 'auctions';
-        value: number | Auction;
-      } | null)
-    | ({
-        relationTo: 'estimates';
-        value: number | Estimate;
-      } | null);
-  globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  updatedAt: string;
-  createdAt: string;
+	id: number;
+	document?:
+		| ({
+				relationTo: "users";
+				value: number | User;
+		  } | null)
+		| ({
+				relationTo: "media";
+				value: number | Media;
+		  } | null)
+		| ({
+				relationTo: "collaborators";
+				value: number | Collaborator;
+		  } | null)
+		| ({
+				relationTo: "lots";
+				value: number | Lot;
+		  } | null)
+		| ({
+				relationTo: "auctions";
+				value: number | Auction;
+		  } | null)
+		| ({
+				relationTo: "estimates";
+				value: number | Estimate;
+		  } | null);
+	globalSlug?: string | null;
+	user: {
+		relationTo: "users";
+		value: number | User;
+	};
+	updatedAt: string;
+	createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
-  key?: string | null;
-  value?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
+	id: number;
+	user: {
+		relationTo: "users";
+		value: number | User;
+	};
+	key?: string | null;
+	value?:
+		| {
+				[k: string]: unknown;
+		  }
+		| unknown[]
+		| string
+		| number
+		| boolean
+		| null;
+	updatedAt: string;
+	createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
-  name?: string | null;
-  batch?: number | null;
-  updatedAt: string;
-  createdAt: string;
+	id: number;
+	name?: string | null;
+	batch?: number | null;
+	updatedAt: string;
+	createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  name?: T;
-  role?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
+	name?: T;
+	role?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	email?: T;
+	resetPasswordToken?: T;
+	resetPasswordExpiration?: T;
+	salt?: T;
+	hash?: T;
+	loginAttempts?: T;
+	lockUntil?: T;
+	sessions?:
+		| T
+		| {
+				id?: T;
+				createdAt?: T;
+				expiresAt?: T;
+		  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  usage?: T;
-  dominantColor?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        sm?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        md?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        lg?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xl?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        '2xl'?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
+	alt?: T;
+	usage?: T;
+	dominantColor?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	url?: T;
+	thumbnailURL?: T;
+	filename?: T;
+	mimeType?: T;
+	filesize?: T;
+	width?: T;
+	height?: T;
+	focalX?: T;
+	focalY?: T;
+	sizes?:
+		| T
+		| {
+				thumbnail?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				sm?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				md?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				lg?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				xl?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+				"2xl"?:
+					| T
+					| {
+							url?: T;
+							width?: T;
+							height?: T;
+							mimeType?: T;
+							filesize?: T;
+							filename?: T;
+					  };
+		  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collaborators_select".
  */
 export interface CollaboratorsSelect<T extends boolean = true> {
-  name?: T;
-  email?: T;
-  phone?: T;
-  photo?: T;
-  updatedAt?: T;
-  createdAt?: T;
+	name?: T;
+	email?: T;
+	phone?: T;
+	photo?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "lots_select".
  */
 export interface LotsSelect<T extends boolean = true> {
-  auction?: T;
-  title?: T;
-  lotNumber?: T;
-  internalLotNumber?: T;
-  description?: T;
-  characteristics?:
-    | T
-    | {
-        key?: T;
-        value?: T;
-        id?: T;
-      };
-  lowEstimate?: T;
-  highEstimate?: T;
-  sold?: T;
-  salePrice?: T;
-  images?: T;
-  updatedAt?: T;
-  createdAt?: T;
+	auction?: T;
+	title?: T;
+	lotNumber?: T;
+	internalLotNumber?: T;
+	description?: T;
+	characteristics?:
+		| T
+		| {
+				key?: T;
+				value?: T;
+				id?: T;
+		  };
+	lowEstimate?: T;
+	highEstimate?: T;
+	sold?: T;
+	salePrice?: T;
+	images?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auctions_select".
  */
 export interface AuctionsSelect<T extends boolean = true> {
-  title?: T;
-  auctionDate?: T;
-  location?: T;
-  poster?: T;
-  description?: T;
-  slug?: T;
-  lots?: T;
-  collaborators?:
-    | T
-    | {
-        collaborator?: T;
-        role?: T;
-        id?: T;
-      };
-  triggerId?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
+	title?: T;
+	auctionDate?: T;
+	location?: T;
+	poster?: T;
+	description?: T;
+	slug?: T;
+	lots?: T;
+	collaborators?:
+		| T
+		| {
+				collaborator?: T;
+				role?: T;
+				id?: T;
+		  };
+	triggerId?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "estimates_select".
  */
 export interface EstimatesSelect<T extends boolean = true> {
-  civility?: T;
-  firstName?: T;
-  lastName?: T;
-  email?: T;
-  phone?: T;
-  address?: T;
-  postalCode?: T;
-  city?: T;
-  photos?:
-    | T
-    | {
-        media?: T;
-        id?: T;
-      };
-  dimensions?: T;
-  descriptions?: T;
-  acceptedTerms?: T;
-  allowsPhotoReuse?: T;
-  updatedAt?: T;
-  createdAt?: T;
+	civility?: T;
+	firstName?: T;
+	lastName?: T;
+	email?: T;
+	phone?: T;
+	address?: T;
+	postalCode?: T;
+	city?: T;
+	photos?:
+		| T
+		| {
+				media?: T;
+				id?: T;
+		  };
+	dimensions?: T;
+	descriptions?: T;
+	acceptedTerms?: T;
+	allowsPhotoReuse?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-  key?: T;
-  data?: T;
+	key?: T;
+	data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-  document?: T;
-  globalSlug?: T;
-  user?: T;
-  updatedAt?: T;
-  createdAt?: T;
+	document?: T;
+	globalSlug?: T;
+	user?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-  user?: T;
-  key?: T;
-  value?: T;
-  updatedAt?: T;
-  createdAt?: T;
+	user?: T;
+	key?: T;
+	value?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-  name?: T;
-  batch?: T;
-  updatedAt?: T;
-  createdAt?: T;
+	name?: T;
+	batch?: T;
+	updatedAt?: T;
+	createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
-  id: number;
-  siteName: string;
-  tagline: string;
-  graphics: {
-    logo: number | Media;
-    icon: number | Media;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
+	id: number;
+	siteName: string;
+	tagline: string;
+	graphics: {
+		logo: {
+			dark: number | Media;
+			light: number | Media;
+		};
+		icon: {
+			dark: number | Media;
+			light: number | Media;
+		};
+	};
+	updatedAt?: string | null;
+	createdAt?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  siteName?: T;
-  tagline?: T;
-  graphics?:
-    | T
-    | {
-        logo?: T;
-        icon?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
+	siteName?: T;
+	tagline?: T;
+	graphics?:
+		| T
+		| {
+				logo?:
+					| T
+					| {
+							dark?: T;
+							light?: T;
+					  };
+				icon?:
+					| T
+					| {
+							dark?: T;
+							light?: T;
+					  };
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
-  data?: {
-    [k: string]: unknown;
-  };
-  width: 'full';
+	data?: {
+		[k: string]: unknown;
+	};
+	width: "full";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-  [k: string]: unknown;
+	[k: string]: unknown;
 }
 
-
-declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
+declare module "payload" {
+	export interface GeneratedTypes extends Config {}
 }
