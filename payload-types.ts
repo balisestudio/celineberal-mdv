@@ -184,6 +184,7 @@ export interface Media {
 	alt?: string | null;
 	usage: "lot" | "collaborator" | "auction" | "internal" | "estimates";
 	dominantColor?: string | null;
+	prefix?: string | null;
 	updatedAt: string;
 	createdAt: string;
 	url?: string | null;
@@ -461,6 +462,7 @@ export interface MediaSelect<T extends boolean = true> {
 	alt?: T;
 	usage?: T;
 	dominantColor?: T;
+	prefix?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	url?: T;

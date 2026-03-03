@@ -2,6 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+import { s3Storage } from "@payloadcms/storage-s3";
 import { fr } from "@payloadcms/translations/languages/fr";
 import { buildConfig } from "payload";
 import sharp from "sharp";
@@ -92,5 +93,27 @@ export default buildConfig({
 		supportedLanguages: { fr },
 	},
 	sharp,
-	plugins: [],
+	plugins: [
+		s3Storage({
+			collections: {
+				media: {
+					prefix: "media",
+					disablePayloadAccessControl: true,
+					generateFileURL: ({ prefix, filename }) =>
+						`${env.S3_CDN_URL}/${prefix}/${filename}`,
+				},
+			},
+			clientUploads: true,
+			bucket: env.S3_BUCKET,
+			config: {
+				credentials: {
+					accessKeyId: env.S3_ACCESS_KEY_ID,
+					secretAccessKey: env.S3_SECRET_ACCESS_KEY,
+				},
+				region: env.S3_REGION,
+				endpoint: env.S3_ENDPOINT,
+				forcePathStyle: true,
+			},
+		}),
+	],
 });

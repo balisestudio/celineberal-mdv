@@ -1,5 +1,6 @@
 import type { CollectionConfig } from "payload";
 import { getDominantColor } from "@/lib/dominant-color";
+import { env } from "@/lib/env";
 import { can } from "@/lib/permissions";
 
 export const Media: CollectionConfig = {
@@ -74,7 +75,8 @@ export const Media: CollectionConfig = {
 		},
 	],
 	upload: {
-		adminThumbnail: "thumbnail",
+		adminThumbnail: ({ doc }) =>
+			`${env.S3_CDN_URL}/${doc.prefix}/${doc.filename}`,
 		mimeTypes: ["image/*"],
 		formatOptions: {
 			format: "webp",

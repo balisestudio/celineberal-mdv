@@ -58,7 +58,6 @@ export const Contact: GlobalConfig = {
 									label: "Nom du réseau",
 									type: "text",
 									required: true,
-									admin: { description: "Ex. Instagram, LinkedIn" },
 								},
 								{
 									name: "url",
