@@ -11,6 +11,8 @@ export const envSchema = z
 		DEFAULT_FROM_ADDRESS: z.email(),
 		DEFAULT_FROM_NAME: z.string(),
 		SITE_NAME: z.string(),
+		AI_GATEWAY_API_KEY: z.string(),
+		TRIGGER_SECRET_KEY: z.string(),
 	})
 	.parse(process.env);
 
