@@ -44,6 +44,7 @@ const AuctionLotsPage = async ({
 	return (
 		<Container className="py-0">
 			<LotSection
+				slug={slug}
 				auctionId={auction.id}
 				initialLots={lotsResult.docs as Lot[]}
 				initialTotalDocs={lotsResult.totalDocs}

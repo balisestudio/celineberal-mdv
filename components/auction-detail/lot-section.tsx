@@ -1,10 +1,9 @@
 "use client";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
-import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { fetchLotsAction } from "@/lib/actions/lots";
 import type { Lot } from "@/payload-types";
 import { LotGrid } from "./lot-grid";
@@ -48,6 +47,7 @@ const buildPaginationPages = (current: number, total: number): PageItem[] => {
 };
 
 export const LotSection = ({
+	slug,
 	auctionId,
 	initialLots,
 	initialTotalDocs,
@@ -56,6 +56,7 @@ export const LotSection = ({
 	iconSrc,
 	iconAlt,
 }: {
+	slug: string;
 	auctionId: number;
 	initialLots: Lot[];
 	initialTotalDocs: number;
@@ -66,13 +67,14 @@ export const LotSection = ({
 }) => {
 	const t = useTranslations("auction");
 	const router = useRouter();
-	const pathname = usePathname();
 	const [isPending, startTransition] = useTransition();
 
 	const [lots, setLots] = useState<Lot[]>(initialLots);
 	const [totalPages, setTotalPages] = useState(initialTotalPages);
 	const [totalDocs] = useState(initialTotalDocs);
 	const [sort, setSort] = useState("lotNumber");
+
+	const basePath = `/auctions/${slug}`;
 
 	const handleSort = (newSort: string) => {
 		if (newSort === sort) return;
@@ -86,13 +88,9 @@ export const LotSection = ({
 			setLots(result.docs as Lot[]);
 			setTotalPages(result.totalPages);
 			if (currentPage !== 1) {
-				router.replace(`${pathname}?page=1`);
+				router.replace(`${basePath}?page=1`);
 			}
 		});
-	};
-
-	const handlePage = (page: number) => {
-		router.push(`${pathname}?page=${page}`);
 	};
 
 	const pages = buildPaginationPages(currentPage, totalPages);
@@ -102,6 +100,11 @@ export const LotSection = ({
 	const sortBtnActive = "bg-bordeaux text-blanc-casse border-bordeaux";
 	const sortBtnInactive =
 		"border-sand text-muted hover:text-bordeaux hover:border-bordeaux";
+
+	const navLinkBase =
+		"flex items-center gap-1.5 px-3 py-2 text-[10px] uppercase tracking-widest transition-colors cursor-pointer";
+	const navDisabledBase =
+		"flex items-center gap-1.5 px-3 py-2 text-[10px] uppercase tracking-widest opacity-30 pointer-events-none";
 
 	return (
 		<div className="py-8">
@@ -143,15 +146,20 @@ export const LotSection = ({
 					</p>
 
 					<div className="flex items-center gap-1">
-						<button
-							type="button"
-							onClick={() => handlePage(currentPage - 1)}
-							disabled={currentPage <= 1 || isPending}
-							className={`flex items-center gap-1.5 px-3 py-2 text-[10px] uppercase tracking-widest text-muted hover:text-bordeaux transition-colors ${currentPage <= 1 ? "opacity-30 pointer-events-none" : ""}`}
-						>
-							<ArrowLeftIcon size={12} />
-							<span className="hidden sm:inline">{t("pagination.prev")}</span>
-						</button>
+						{currentPage <= 1 ? (
+							<span className={`${navDisabledBase} text-muted`}>
+								<ArrowLeftIcon size={12} />
+								<span className="hidden sm:inline">{t("pagination.prev")}</span>
+							</span>
+						) : (
+							<Link
+								href={`${basePath}?page=${currentPage - 1}`}
+								className={`${navLinkBase} text-muted hover:text-bordeaux`}
+							>
+								<ArrowLeftIcon size={12} />
+								<span className="hidden sm:inline">{t("pagination.prev")}</span>
+							</Link>
+						)}
 
 						{pages.map((item) =>
 							item.type === "ellipsis" ? (
@@ -161,32 +169,38 @@ export const LotSection = ({
 								>
 									…
 								</span>
-							) : (
-								<button
+							) : item.value === currentPage ? (
+								<span
 									key={item.value}
-									type="button"
-									onClick={() => handlePage(item.value)}
-									disabled={isPending}
-									className={`w-9 h-9 flex items-center justify-center text-xs transition-colors ${
-										item.value === currentPage
-											? "bg-bordeaux text-blanc-casse"
-											: "border border-sand text-muted hover:text-bordeaux hover:border-bordeaux"
-									}`}
+									className="w-9 h-9 flex items-center justify-center text-xs bg-bordeaux text-blanc-casse"
 								>
 									{item.value}
-								</button>
+								</span>
+							) : (
+								<Link
+									key={item.value}
+									href={`${basePath}?page=${item.value}`}
+									className="w-9 h-9 flex items-center justify-center text-xs border border-sand text-muted hover:text-bordeaux hover:border-bordeaux transition-colors cursor-pointer"
+								>
+									{item.value}
+								</Link>
 							),
 						)}
 
-						<button
-							type="button"
-							onClick={() => handlePage(currentPage + 1)}
-							disabled={currentPage >= totalPages || isPending}
-							className={`flex items-center gap-1.5 px-3 py-2 text-[10px] uppercase tracking-widest text-muted hover:text-bordeaux transition-colors ${currentPage >= totalPages ? "opacity-30 pointer-events-none" : ""}`}
-						>
-							<span className="hidden sm:inline">{t("pagination.next")}</span>
-							<ArrowRightIcon size={12} />
-						</button>
+						{currentPage >= totalPages ? (
+							<span className={`${navDisabledBase} text-muted`}>
+								<span className="hidden sm:inline">{t("pagination.next")}</span>
+								<ArrowRightIcon size={12} />
+							</span>
+						) : (
+							<Link
+								href={`${basePath}?page=${currentPage + 1}`}
+								className={`${navLinkBase} text-muted hover:text-bordeaux`}
+							>
+								<span className="hidden sm:inline">{t("pagination.next")}</span>
+								<ArrowRightIcon size={12} />
+							</Link>
+						)}
 					</div>
 				</div>
 			)}
