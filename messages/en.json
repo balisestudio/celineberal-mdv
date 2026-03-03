@@ -7,5 +7,10 @@
 			"about": "About"
 		},
 		"estimate": "Estimate"
+	},
+	"ventes": {
+		"pageTitle": "Auction calendar",
+		"lots": "{count, plural, one {# lot} other {# lots}}",
+		"empty": "No upcoming auctions at the moment. Check back soon!"
 	}
 }

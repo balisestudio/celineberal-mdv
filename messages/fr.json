@@ -7,5 +7,10 @@
 			"about": "À propos"
 		},
 		"estimate": "Estimation"
+	},
+	"ventes": {
+		"pageTitle": "Calendrier des ventes",
+		"lots": "{count, plural, one {# lot} other {# lots}}",
+		"empty": "Aucune vente à venir pour le moment. Revenez bientôt !"
 	}
 }
