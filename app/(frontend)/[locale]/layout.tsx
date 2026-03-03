@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { hasLocale } from "next-intl";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
 import { routing } from "@/i18n/routing";
@@ -21,31 +22,37 @@ const LocaleLayout = async ({
 	if (!hasLocale(routing.locales, locale)) {
 		notFound();
 	}
+	setRequestLocale(locale);
 
-	const [settings, contact] = await Promise.all([
-		getSiteSettings(),
+	const [messages, settings, contact] = await Promise.all([
+		getMessages(),
+		getSiteSettings(locale),
 		getContact(),
 	]);
 	const { logo } = getGraphicsDark(settings);
 	const { icon: iconLight } = getGraphicsLight(settings);
 
 	return (
-		<>
-			<NavBar
-				siteName={settings.siteName}
-				siteTagline={settings.tagline}
-				logoSrc={logo.src}
-				logoAlt={logo.alt}
-			/>
-			<main className="min-h-screen">{children}</main>
-			<Footer
-				siteName={settings.siteName}
-				tagline={settings.tagline}
-				iconLightSrc={iconLight.src}
-				iconLightAlt={iconLight.alt}
-				contact={contact}
-			/>
-		</>
+		<html lang={locale}>
+			<body>
+				<NextIntlClientProvider messages={messages}>
+					<NavBar
+						siteName={settings.siteName}
+						siteTagline={settings.tagline}
+						logoSrc={logo.src}
+						logoAlt={logo.alt}
+					/>
+					<main className="min-h-screen">{children}</main>
+					<Footer
+						siteName={settings.siteName}
+						tagline={settings.tagline}
+						iconLightSrc={iconLight.src}
+						iconLightAlt={iconLight.alt}
+						contact={contact}
+					/>
+				</NextIntlClientProvider>
+			</body>
+		</html>
 	);
 };
 

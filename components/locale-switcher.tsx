@@ -1,22 +1,27 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { Link, usePathname } from "@/i18n/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import type { Locale } from "@/i18n/routing";
 
 export const LocaleSwitcher = () => {
-	const locale = useLocale();
+	const locale = useLocale() as Locale;
+	const router = useRouter();
 	const pathname = usePathname();
 
-	const targetLocale = locale === "fr" ? "en" : "fr";
-	const label = targetLocale.toUpperCase();
+	const targetLocale: Locale = locale === "fr" ? "en" : "fr";
+
+	const handleSwitch = () => {
+		router.replace(pathname, { locale: targetLocale });
+	};
 
 	return (
-		<Link
-			href={pathname || "/"}
-			locale={targetLocale}
-			className="font-sans text-xs uppercase tracking-widest text-muted hover:text-bordeaux transition-colors cursor-pointer"
+		<button
+			type="button"
+			onClick={handleSwitch}
+			className="font-sans cursor-pointer text-xs uppercase tracking-widest text-muted transition-colors hover:text-bordeaux"
 		>
-			{label}
-		</Link>
+			{targetLocale.toUpperCase()}
+		</button>
 	);
 };
