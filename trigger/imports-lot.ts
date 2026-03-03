@@ -450,6 +450,9 @@ export const importLotsTask = task({
 		try {
 			let lotsCreated = 0;
 			for (const prepared of preparedLots) {
+				const adjudicationPrice = prepared.xmlLot["prix-reserve"];
+				const isSold = adjudicationPrice != null && adjudicationPrice > 0;
+
 				const frData = {
 					auction: auction.id,
 					title: prepared.fr.title,
@@ -462,6 +465,10 @@ export const importLotsTask = task({
 					lowEstimate: prepared.xmlLot["estimation-basse"],
 					highEstimate: prepared.xmlLot["estimation-haute"],
 					...(prepared.mediaIds.length > 0 && { images: prepared.mediaIds }),
+					...(isSold && {
+						sold: true,
+						salePrice: adjudicationPrice,
+					}),
 				};
 
 				const createdLot = await payload.create({
