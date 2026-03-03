@@ -50,7 +50,7 @@ export const LotCard = ({
 			}}
 		>
 			<Link
-				href={`/auctions/${auctionSlug}/lots/${lot.id}`}
+				href={`/auctions/${auctionSlug}/lots/${lot.lotNumber}`}
 				className="group flex flex-col h-full"
 			>
 				<div className="relative h-64 bg-sand/20 overflow-hidden shrink-0">

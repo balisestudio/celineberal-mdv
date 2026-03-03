@@ -7,7 +7,7 @@ import { LotInfo } from "@/components/lot-detail/lot-info";
 import { LotNav } from "@/components/lot-detail/lot-nav";
 import { Container } from "@/components/ui/container";
 import {
-	getLotById,
+	getLotByAuctionSlugAndLotNumber,
 	getNextLot,
 	getPrevLot,
 	getSimilarLots,
@@ -22,18 +22,16 @@ const LotDetailPage = async ({
 }) => {
 	const { slug, id, locale } = await params;
 
-	const lotId = Number(id);
-	if (!Number.isFinite(lotId)) notFound();
+	if (!id) notFound();
 
 	const [lot, settings] = await Promise.all([
-		getLotById(lotId, locale),
+		getLotByAuctionSlugAndLotNumber(slug, id, locale),
 		getSiteSettings(),
 	]);
 
 	if (!lot) notFound();
 
 	const auction = lot.auction as Auction;
-	if (!auction || auction.slug !== slug) notFound();
 
 	const [prevLot, nextLot, similarLots] = await Promise.all([
 		getPrevLot(auction.id, lot.internalLotNumber),

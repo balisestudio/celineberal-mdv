@@ -24,7 +24,7 @@ const LotNav = ({
 			<div className="w-1/3">
 				{prevLot ? (
 					<Link
-						href={`/auctions/${auctionSlug}/lots/${prevLot.id}`}
+						href={`/auctions/${auctionSlug}/lots/${prevLot.lotNumber}`}
 						className={linkBase}
 					>
 						<ArrowLeftIcon
@@ -47,7 +47,7 @@ const LotNav = ({
 			<div className="w-1/3 flex justify-end">
 				{nextLot ? (
 					<Link
-						href={`/auctions/${auctionSlug}/lots/${nextLot.id}`}
+						href={`/auctions/${auctionSlug}/lots/${nextLot.lotNumber}`}
 						className={linkBase}
 					>
 						{t("nextLot", { n: nextLot.lotNumber })}
