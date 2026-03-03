@@ -25,7 +25,7 @@ export const HeroBrand = ({
 					/>
 				</div>
 				<div className="flex flex-col justify-center border-l-0 lg:border-l border-sand px-6 py-10 lg:px-8 lg:py-12">
-					<p className="text-[10px] uppercase tracking-[0.2em] text-bordeaux font-sans">
+					<p className="text-[12px] uppercase tracking-[0.2em] text-bordeaux font-sans">
 						{tagline}
 					</p>
 					<h1 className="font-serif italic text-5xl lg:text-7xl text-charcoal leading-none mt-2">

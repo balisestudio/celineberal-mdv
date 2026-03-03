@@ -30,7 +30,7 @@ export const ContactEstimationSection = async ({
 						{contact && (
 							<dl className="space-y-4 text-sm">
 								<div className="flex gap-4">
-									<dt className="w-24 shrink-0 text-[10px] uppercase tracking-[0.2em] text-muted">
+									<dt className="w-24 shrink-0 text-[12px] uppercase tracking-[0.2em] text-muted">
 										{t("address")}
 									</dt>
 									<dd className="text-charcoal whitespace-pre-line">
@@ -38,7 +38,7 @@ export const ContactEstimationSection = async ({
 									</dd>
 								</div>
 								<div className="flex gap-4">
-									<dt className="w-24 shrink-0 text-[10px] uppercase tracking-[0.2em] text-muted">
+									<dt className="w-24 shrink-0 text-[12px] uppercase tracking-[0.2em] text-muted">
 										{t("email")}
 									</dt>
 									<dd>
@@ -51,7 +51,7 @@ export const ContactEstimationSection = async ({
 									</dd>
 								</div>
 								<div className="flex gap-4">
-									<dt className="w-24 shrink-0 text-[10px] uppercase tracking-[0.2em] text-muted">
+									<dt className="w-24 shrink-0 text-[12px] uppercase tracking-[0.2em] text-muted">
 										{t("phone")}
 									</dt>
 									<dd>
@@ -65,7 +65,7 @@ export const ContactEstimationSection = async ({
 								</div>
 								{contact.horaires && (
 									<div className="flex gap-4">
-										<dt className="w-24 shrink-0 text-[10px] uppercase tracking-[0.2em] text-muted">
+										<dt className="w-24 shrink-0 text-[12px] uppercase tracking-[0.2em] text-muted">
 											{t("horaires")}
 										</dt>
 										<dd className="text-charcoal whitespace-pre-line">
@@ -94,7 +94,7 @@ export const ContactEstimationSection = async ({
 					</div>
 					<div className="flex flex-col justify-center border border-sand p-8">
 						<div className="flex flex-col items-center gap-6 text-center">
-							<p className="text-[10px] uppercase tracking-[0.2em] text-bordeaux font-sans">
+							<p className="text-[12px] uppercase tracking-[0.2em] text-bordeaux font-sans">
 								{tHome("estimationTag")}
 							</p>
 							<h3 className="font-serif italic text-2xl text-charcoal">

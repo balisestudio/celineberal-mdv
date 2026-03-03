@@ -23,7 +23,7 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 			<div className="space-y-12">
 				{auction.description && (
 					<section>
-						<p className="text-[10px] uppercase tracking-widest text-muted mb-4">
+						<p className="text-[12px] uppercase tracking-widest text-muted mb-4">
 							{t("info.about")}
 						</p>
 						<p className="text-base text-charcoal leading-relaxed whitespace-pre-line">
@@ -34,7 +34,7 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 
 				{collaborators.length > 0 && (
 					<section>
-						<p className="text-[10px] uppercase tracking-widest text-muted mb-10">
+						<p className="text-[12px] uppercase tracking-widest text-muted mb-10">
 							{t("info.experts")}
 						</p>
 						<div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
@@ -68,7 +68,7 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 										</div>
 
 										{role && (
-											<p className="text-[10px] uppercase tracking-[0.2em] text-bordeaux">
+											<p className="text-[12px] uppercase tracking-[0.2em] text-bordeaux">
 												{role}
 											</p>
 										)}

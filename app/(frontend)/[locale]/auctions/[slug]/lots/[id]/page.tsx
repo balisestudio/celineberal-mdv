@@ -79,7 +79,7 @@ const LotDetailPage = async ({
 			{similarLots.length > 0 && (
 				<section className="bg-blanc-casse border-t border-sand py-20 pb-28">
 					<Container>
-						<p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-8">
+						<p className="text-[12px] uppercase tracking-[0.2em] text-muted mb-8">
 							{t("similarTitle")}
 						</p>
 						<LotGrid

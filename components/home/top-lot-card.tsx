@@ -74,7 +74,7 @@ export const TopLotCard = ({
 					)}
 				</div>
 				<div className="flex flex-col flex-1 border-t border-sand p-3">
-					<p className="text-[10px] uppercase tracking-widest text-muted">
+					<p className="text-[12px] uppercase tracking-widest text-muted">
 						{t("lot.number", { n: lot.lotNumber })}
 					</p>
 					<p className="font-serif italic text-sm text-charcoal line-clamp-2 mt-0.5 group-hover:text-bordeaux transition-colors">

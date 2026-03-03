@@ -75,7 +75,7 @@ export const AuctionItem = ({
 				</div>
 
 				<div className="flex-1 min-w-0">
-					<p className="text-[10px] uppercase tracking-widest text-muted mb-1">
+					<p className="text-[12px] uppercase tracking-widest text-muted mb-1">
 						{formattedDate}
 						{auction.location && (
 							<>

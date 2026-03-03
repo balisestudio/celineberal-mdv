@@ -79,7 +79,7 @@ export const SaleCard = ({
 					)}
 				</div>
 				<div className="border-t border-sand p-5">
-					<p className="text-[10px] uppercase tracking-widest text-muted">
+					<p className="text-[12px] uppercase tracking-widest text-muted">
 						{formattedDate}
 						{auction.location && (
 							<>
@@ -98,7 +98,7 @@ export const SaleCard = ({
 							</p>
 						)}
 						<span
-							className={`text-[10px] uppercase tracking-widest shrink-0 ${
+							className={`text-[12px] uppercase tracking-widest shrink-0 ${
 								isUpcoming ? "text-bordeaux" : "text-muted"
 							}`}
 						>

@@ -61,7 +61,7 @@ export const HeroSale = ({
 					</div>
 					<div className="flex flex-col justify-center border-l-0 lg:border-l border-sand px-6 py-10 lg:px-8 lg:py-12">
 						<motion.span
-							className="text-[10px] uppercase tracking-[0.2em] text-bordeaux font-sans"
+							className="text-[12px] uppercase tracking-[0.2em] text-bordeaux font-sans"
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
@@ -83,14 +83,14 @@ export const HeroSale = ({
 							transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
 						>
 							<div className="flex gap-4">
-								<span className="w-20 shrink-0 text-[10px] uppercase tracking-widest text-muted">
+								<span className="w-20 shrink-0 text-[12px] uppercase tracking-widest text-muted">
 									{t("date")}
 								</span>
 								<span className="text-sm text-charcoal">{formattedDate}</span>
 							</div>
 							{auction.location && (
 								<div className="flex gap-4">
-									<span className="w-20 shrink-0 text-[10px] uppercase tracking-widest text-muted">
+									<span className="w-20 shrink-0 text-[12px] uppercase tracking-widest text-muted">
 										{t("location")}
 									</span>
 									<span className="text-sm text-charcoal">
@@ -100,7 +100,7 @@ export const HeroSale = ({
 							)}
 						</motion.div>
 						<motion.div
-							className="mt-6 flex items-center gap-1 text-[10px] uppercase tracking-[0.2em] text-bordeaux font-sans"
+							className="mt-6 flex items-center gap-1 text-[12px] uppercase tracking-[0.2em] text-bordeaux font-sans"
 							initial={{ opacity: 0, y: 10 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.4, ease: "easeOut", delay: 0.4 }}

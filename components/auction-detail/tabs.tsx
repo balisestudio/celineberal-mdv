@@ -36,7 +36,7 @@ export const AuctionTabs = ({
 							className={`${tabBase} ${isLotsActive ? activeTab : inactiveTab}`}
 						>
 							{t("tabs.lots")}
-							<span className="text-[10px] text-muted">{totalLots}</span>
+							<span className="text-[12px] text-muted">{totalLots}</span>
 						</Link>
 					) : (
 						<span

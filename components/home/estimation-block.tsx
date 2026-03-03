@@ -10,7 +10,7 @@ export const EstimationBlock = async () => {
 			<Container>
 				<div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
 					<div>
-						<p className="text-[10px] uppercase tracking-[0.2em] text-bordeaux font-sans">
+						<p className="text-[12px] uppercase tracking-[0.2em] text-bordeaux font-sans">
 							{t("estimationTag")}
 						</p>
 						<h2 className="font-serif italic text-3xl text-charcoal mt-1">

@@ -9,7 +9,7 @@ export const AboutTextSection = ({
 }) => (
 	<section className="bg-white py-20">
 		<Container narrow>
-			<h2 className="text-[10px] uppercase tracking-[0.2em] text-muted font-sans mb-6">
+			<h2 className="text-[12px] uppercase tracking-[0.2em] text-muted font-sans mb-6">
 				{titleLabel}
 			</h2>
 			<p className="font-sans text-base text-charcoal leading-relaxed whitespace-pre-line">

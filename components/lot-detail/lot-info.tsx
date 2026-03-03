@@ -22,7 +22,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 	return (
 		<div className="space-y-8">
 			<div>
-				<p className="text-[10px] uppercase tracking-widest text-muted mb-2">
+				<p className="text-[12px] uppercase tracking-widest text-muted mb-2">
 					{tAuction("lot.number", { n: lot.lotNumber })}
 				</p>
 				<h1 className="font-serif italic text-3xl lg:text-4xl text-charcoal leading-snug">
@@ -34,7 +34,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 				<div className="border-y border-sand py-5 space-y-3">
 					{estimateText && (
 						<div>
-							<p className="text-[10px] uppercase tracking-widest text-muted mb-1">
+							<p className="text-[12px] uppercase tracking-widest text-muted mb-1">
 								{t("estimate")}
 							</p>
 							<p className="font-serif italic text-2xl text-charcoal">
@@ -44,7 +44,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 					)}
 					{lot.sold && salePriceText && (
 						<div>
-							<p className="text-[10px] uppercase tracking-widest text-muted mb-1">
+							<p className="text-[12px] uppercase tracking-widest text-muted mb-1">
 								{t("salePrice")}
 							</p>
 							<p className="font-serif italic text-2xl text-bordeaux">
@@ -57,7 +57,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 
 			{lot.description && (
 				<div>
-					<p className="text-[10px] uppercase tracking-widest text-muted mb-3">
+					<p className="text-[12px] uppercase tracking-widest text-muted mb-3">
 						{t("description")}
 					</p>
 					<p className="text-sm text-charcoal leading-relaxed whitespace-pre-line">
@@ -68,7 +68,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 
 			{lot.characteristics && lot.characteristics.length > 0 && (
 				<div>
-					<p className="text-[10px] uppercase tracking-widest text-muted mb-3">
+					<p className="text-[12px] uppercase tracking-widest text-muted mb-3">
 						{t("characteristics")}
 					</p>
 					<div className="flex flex-col gap-2">
