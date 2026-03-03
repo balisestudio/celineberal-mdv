@@ -3,7 +3,7 @@
 import type { Lot } from "@/payload-types";
 import { LotCard } from "./lot-card";
 
-const LotGrid = ({
+export const LotGrid = ({
 	lots,
 	iconSrc,
 	iconAlt,
@@ -26,5 +26,3 @@ const LotGrid = ({
 		</div>
 	);
 };
-
-export { LotGrid };

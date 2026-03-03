@@ -5,7 +5,6 @@ export const isMediaUsedElsewhere = async (
 	mediaId: number,
 	excludeLotId?: number,
 ): Promise<boolean> => {
-	// Lots (exclure le lot courant si fourni)
 	const lotsWhere: Parameters<Payload["count"]>[0]["where"] =
 		excludeLotId !== undefined
 			? {
@@ -44,7 +43,7 @@ export const isMediaUsedElsewhere = async (
 	);
 };
 
-const extractMediaIds = (images: unknown): number[] => {
+export const extractMediaIds = (images: unknown): number[] => {
 	if (!images || !Array.isArray(images)) return [];
 	return images
 		.map((img) =>
@@ -76,5 +75,3 @@ export const deleteOrphanLotImages = async (
 		}
 	}
 };
-
-export { extractMediaIds };

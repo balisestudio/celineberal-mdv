@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const AuctionsEmpty = ({
+export const AuctionsEmpty = ({
 	iconSrc,
 	iconAlt,
 	message,
@@ -16,5 +16,3 @@ const AuctionsEmpty = ({
 		</div>
 	);
 };
-
-export { AuctionsEmpty };

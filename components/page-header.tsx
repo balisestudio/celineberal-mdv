@@ -1,6 +1,12 @@
 import { Container } from "@/components/ui/container";
 
-const PageHeader = ({ tagline, title }: { tagline: string; title: string }) => {
+export const PageHeader = ({
+	tagline,
+	title,
+}: {
+	tagline: string;
+	title: string;
+}) => {
 	return (
 		<section className="border-b border-sand py-12">
 			<Container>
@@ -12,5 +18,3 @@ const PageHeader = ({ tagline, title }: { tagline: string; title: string }) => {
 		</section>
 	);
 };
-
-export { PageHeader };

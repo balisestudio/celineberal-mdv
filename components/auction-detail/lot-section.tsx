@@ -47,7 +47,7 @@ const buildPaginationPages = (current: number, total: number): PageItem[] => {
 	return items;
 };
 
-const LotSection = ({
+export const LotSection = ({
 	auctionId,
 	initialLots,
 	initialTotalDocs,
@@ -193,5 +193,3 @@ const LotSection = ({
 		</div>
 	);
 };
-
-export { LotSection };

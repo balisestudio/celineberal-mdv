@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import type { Auction, Media } from "@/payload-types";
 
-const AuctionItem = ({
+export const AuctionItem = ({
 	auction,
 	index,
 	iconSrc,
@@ -101,5 +101,3 @@ const AuctionItem = ({
 		</motion.div>
 	);
 };
-
-export { AuctionItem };

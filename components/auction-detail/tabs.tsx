@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
-const AuctionTabs = ({
+export const AuctionTabs = ({
 	slug,
 	totalLots,
 }: {
@@ -53,5 +53,3 @@ const AuctionTabs = ({
 		</div>
 	);
 };
-
-export { AuctionTabs };

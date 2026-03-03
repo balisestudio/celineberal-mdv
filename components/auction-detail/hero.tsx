@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
 import type { Auction, Media } from "@/payload-types";
 
-const AuctionHero = async ({
+export const AuctionHero = async ({
 	auction,
 	locale,
 }: {
@@ -33,7 +33,7 @@ const AuctionHero = async ({
 						className="object-cover opacity-30"
 						priority
 					/>
-					<div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-charcoal/70 to-charcoal" />
+					<div className="absolute inset-0 bg-linear-to-b from-charcoal/20 via-charcoal/70 to-charcoal" />
 				</>
 			)}
 
@@ -90,5 +90,3 @@ const AuctionHero = async ({
 		</section>
 	);
 };
-
-export { AuctionHero };

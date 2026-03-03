@@ -1,7 +1,7 @@
 import { AuctionItem } from "@/components/auctions/auction-item";
 import type { Auction } from "@/payload-types";
 
-const AuctionList = ({
+export const AuctionList = ({
 	auctions,
 	iconSrc,
 	iconAlt,
@@ -24,5 +24,3 @@ const AuctionList = ({
 		</div>
 	);
 };
-
-export { AuctionList };

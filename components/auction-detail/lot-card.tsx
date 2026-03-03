@@ -7,7 +7,7 @@ import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import type { Lot, Media } from "@/payload-types";
 
-const LotCard = ({
+export const LotCard = ({
 	lot,
 	index,
 	iconSrc,
@@ -103,5 +103,3 @@ const LotCard = ({
 		</motion.div>
 	);
 };
-
-export { LotCard };

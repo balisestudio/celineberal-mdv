@@ -9,7 +9,7 @@ const getInitials = (name: string) => {
 	return `${trimmed[0] ?? ""}${trimmed[trimmed.length - 1] ?? ""}`.toUpperCase();
 };
 
-const AuctionInfo = async ({ auction }: { auction: Auction }) => {
+export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 	const t = await getTranslations("auction");
 
 	const collaborators = (auction.collaborators ?? []).map((item) => ({
@@ -116,5 +116,3 @@ const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 		</Container>
 	);
 };
-
-export { AuctionInfo };

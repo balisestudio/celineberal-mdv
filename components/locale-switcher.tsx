@@ -3,7 +3,7 @@
 import { useLocale } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
-const LocaleSwitcher = () => {
+export const LocaleSwitcher = () => {
 	const locale = useLocale();
 	const pathname = usePathname();
 
@@ -20,5 +20,3 @@ const LocaleSwitcher = () => {
 		</Link>
 	);
 };
-
-export { LocaleSwitcher };
