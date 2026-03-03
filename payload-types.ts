@@ -110,9 +110,16 @@ export interface Config {
 		| null
 		| ("fr" | "en")
 		| ("fr" | "en")[];
-	globals: {};
-	globalsSelect: {};
+	globals: {
+		"site-settings": SiteSetting;
+	};
+	globalsSelect: {
+		"site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+	};
 	locale: "fr" | "en";
+	widgets: {
+		collections: CollectionsWidget;
+	};
 	user: User;
 	jobs: {
 		tasks: unknown;
@@ -652,6 +659,48 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 	batch?: T;
 	updatedAt?: T;
 	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+	id: number;
+	siteName: string;
+	tagline: string;
+	graphics: {
+		logo: number | Media;
+		icon: number | Media;
+	};
+	updatedAt?: string | null;
+	createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+	siteName?: T;
+	tagline?: T;
+	graphics?:
+		| T
+		| {
+				logo?: T;
+				icon?: T;
+		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+	data?: {
+		[k: string]: unknown;
+	};
+	width: "full";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
