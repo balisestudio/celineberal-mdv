@@ -1,9 +1,11 @@
 "use client";
 
 import { ArrowRightIcon } from "@phosphor-icons/react";
+import { format } from "date-fns";
+import { enUS, fr } from "date-fns/locale";
 import { motion, useInView } from "motion/react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import type { Auction, Media } from "@/payload-types";
@@ -20,17 +22,17 @@ export const AuctionItem = ({
 	iconAlt: string;
 }) => {
 	const t = useTranslations("ventes");
+	const locale = useLocale();
 	const ref = useRef<HTMLDivElement>(null);
 	const inView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
 
 	const poster = auction.poster as Media;
 	const totalDocs = auction.lots?.totalDocs ?? 0;
 
-	const formattedDate = new Intl.DateTimeFormat(undefined, {
-		day: "numeric",
-		month: "long",
-		year: "numeric",
-	}).format(new Date(auction.auctionDate));
+	const dateLocale = locale === "fr" ? fr : enUS;
+	const formattedDate = format(new Date(auction.auctionDate), "PPP", {
+		locale: dateLocale,
+	});
 
 	return (
 		<motion.div
