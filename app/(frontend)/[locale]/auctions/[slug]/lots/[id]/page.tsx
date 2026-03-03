@@ -12,7 +12,7 @@ import {
 	getPrevLot,
 	getSimilarLots,
 } from "@/lib/data/lots";
-import { getSiteSettings } from "@/lib/data/site-settings";
+import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
 import type { Auction, Lot, Media } from "@/payload-types";
 
 const LotDetailPage = async ({
@@ -40,9 +40,9 @@ const LotDetailPage = async ({
 	]);
 
 	const t = await getTranslations("lotDetail");
-	const icon = settings.graphics.icon as Media;
-	const iconSrc = icon.url ?? "";
-	const iconAlt = icon.alt ?? "";
+	const { icon } = getGraphicsDark(settings);
+	const iconSrc = icon.src;
+	const iconAlt = icon.alt;
 
 	return (
 		<>

@@ -3,8 +3,8 @@ import { LotSection } from "@/components/auction-detail/lot-section";
 import { Container } from "@/components/ui/container";
 import { getAuctionBySlug } from "@/lib/data/auctions";
 import { getLots } from "@/lib/data/lots";
-import { getSiteSettings } from "@/lib/data/site-settings";
-import type { Lot, Media } from "@/payload-types";
+import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import type { Lot } from "@/payload-types";
 
 const AuctionLotsPage = async ({
 	params,
@@ -39,7 +39,7 @@ const AuctionLotsPage = async ({
 		redirect(`/auctions/${slug}?page=${clampedPage}`);
 	}
 
-	const icon = settings.graphics.icon as Media;
+	const { icon } = getGraphicsDark(settings);
 
 	return (
 		<Container className="py-0">
@@ -50,8 +50,8 @@ const AuctionLotsPage = async ({
 				initialTotalDocs={lotsResult.totalDocs}
 				initialTotalPages={lotsResult.totalPages}
 				currentPage={clampedPage}
-				iconSrc={icon.url ?? ""}
-				iconAlt={icon.alt ?? ""}
+				iconSrc={icon.src}
+				iconAlt={icon.alt}
 			/>
 		</Container>
 	);

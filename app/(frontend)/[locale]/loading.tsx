@@ -1,16 +1,15 @@
 import Image from "next/image";
-import { getSiteSettings } from "@/lib/data/site-settings";
-import type { Media } from "@/payload-types";
+import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
 
 const Loading = async () => {
 	const settings = await getSiteSettings();
-	const icon = settings.graphics.icon as Media;
+	const { icon } = getGraphicsDark(settings);
 
 	return (
 		<div className="min-h-[50vh] flex items-center justify-center">
 			<Image
-				src={icon.url ?? ""}
-				alt={icon.alt ?? ""}
+				src={icon.src}
+				alt={icon.alt}
 				width={48}
 				height={48}
 				className="animate-pulse"

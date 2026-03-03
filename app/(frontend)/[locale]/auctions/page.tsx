@@ -4,8 +4,7 @@ import { AuctionsEmpty } from "@/components/auctions/auctions-empty";
 import { PageHeader } from "@/components/page-header";
 import { Container } from "@/components/ui/container";
 import { getAuctions } from "@/lib/data/auctions";
-import { getSiteSettings } from "@/lib/data/site-settings";
-import type { Media } from "@/payload-types";
+import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
 
 const AuctionsPage = async () => {
 	const t = await getTranslations("ventes");
@@ -14,9 +13,9 @@ const AuctionsPage = async () => {
 		getAuctions(),
 	]);
 
-	const icon = settings.graphics.icon as Media;
-	const iconSrc = icon.url ?? "";
-	const iconAlt = icon.alt ?? "";
+	const { icon } = getGraphicsDark(settings);
+	const iconSrc = icon.src;
+	const iconAlt = icon.alt;
 
 	return (
 		<>
