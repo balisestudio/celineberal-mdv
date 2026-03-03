@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Container } from "@/components/ui/container";
 import { Link, usePathname } from "@/i18n/navigation";
 
 export const AuctionTabs = ({
@@ -27,30 +28,32 @@ export const AuctionTabs = ({
 
 	return (
 		<div className="sticky top-16 z-20 bg-blanc-casse/95 backdrop-blur-sm border-b border-sand">
-			<div className="flex">
-				{totalLots > 0 ? (
-					<Link
-						href={lotsPath}
-						className={`${tabBase} ${isLotsActive ? activeTab : inactiveTab}`}
-					>
-						{t("tabs.lots")}
-						<span className="text-[10px] text-muted">{totalLots}</span>
-					</Link>
-				) : (
-					<span
-						className={`${tabBase} border-transparent text-muted/40 cursor-not-allowed`}
-					>
-						{t("tabs.lots")}
-					</span>
-				)}
+			<Container className="py-0">
+				<div className="flex">
+					{totalLots > 0 ? (
+						<Link
+							href={lotsPath}
+							className={`${tabBase} ${isLotsActive ? activeTab : inactiveTab}`}
+						>
+							{t("tabs.lots")}
+							<span className="text-[10px] text-muted">{totalLots}</span>
+						</Link>
+					) : (
+						<span
+							className={`${tabBase} border-transparent text-muted/40 cursor-not-allowed`}
+						>
+							{t("tabs.lots")}
+						</span>
+					)}
 
-				<Link
-					href={aboutPath}
-					className={`${tabBase} ${isAboutActive ? activeTab : inactiveTab}`}
-				>
-					{t("tabs.info")}
-				</Link>
-			</div>
+					<Link
+						href={aboutPath}
+						className={`${tabBase} ${isAboutActive ? activeTab : inactiveTab}`}
+					>
+						{t("tabs.info")}
+					</Link>
+				</div>
+			</Container>
 		</div>
 	);
 };
