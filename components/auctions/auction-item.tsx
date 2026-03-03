@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight } from "@phosphor-icons/react";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import { motion, useInView } from "motion/react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
