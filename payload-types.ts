@@ -113,10 +113,12 @@ export interface Config {
 	globals: {
 		"site-settings": SiteSetting;
 		contact: Contact;
+		about: About;
 	};
 	globalsSelect: {
 		"site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
 		contact: ContactSelect<false> | ContactSelect<true>;
+		about: AboutSelect<false> | AboutSelect<true>;
 	};
 	locale: "fr" | "en";
 	widgets: {
@@ -692,10 +694,48 @@ export interface Contact {
 	email: string;
 	phone: string;
 	address: string;
+	horaires?: string | null;
+	socialLinks?:
+		| {
+				/**
+				 * Ex. Instagram, LinkedIn
+				 */
+				name: string;
+				url: string;
+				id?: string | null;
+		  }[]
+		| null;
 	siret: string;
 	rcs: string;
 	capitalSocial: string;
 	agrement: string;
+	updatedAt?: string | null;
+	createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+	id: number;
+	manifesto: string;
+	signature: string;
+	aboutImage?: (number | null) | Media;
+	values?:
+		| {
+				title?: string | null;
+				description?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
+	aboutText: string;
+	press?:
+		| {
+				label: string;
+				url?: string | null;
+				id?: string | null;
+		  }[]
+		| null;
 	updatedAt?: string | null;
 	createdAt?: string | null;
 }
@@ -734,10 +774,45 @@ export interface ContactSelect<T extends boolean = true> {
 	email?: T;
 	phone?: T;
 	address?: T;
+	horaires?: T;
+	socialLinks?:
+		| T
+		| {
+				name?: T;
+				url?: T;
+				id?: T;
+		  };
 	siret?: T;
 	rcs?: T;
 	capitalSocial?: T;
 	agrement?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+	manifesto?: T;
+	signature?: T;
+	aboutImage?: T;
+	values?:
+		| T
+		| {
+				title?: T;
+				description?: T;
+				id?: T;
+		  };
+	aboutText?: T;
+	press?:
+		| T
+		| {
+				label?: T;
+				url?: T;
+				id?: T;
+		  };
 	updatedAt?: T;
 	createdAt?: T;
 	globalType?: T;

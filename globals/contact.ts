@@ -43,6 +43,31 @@ export const Contact: GlobalConfig = {
 							type: "textarea",
 							required: true,
 						},
+						{
+							name: "horaires",
+							label: "Horaires",
+							type: "text",
+						},
+						{
+							name: "socialLinks",
+							label: "Réseaux sociaux",
+							type: "array",
+							fields: [
+								{
+									name: "name",
+									label: "Nom du réseau",
+									type: "text",
+									required: true,
+									admin: { description: "Ex. Instagram, LinkedIn" },
+								},
+								{
+									name: "url",
+									label: "Lien",
+									type: "text",
+									required: true,
+								},
+							],
+						},
 					],
 				},
 				{
