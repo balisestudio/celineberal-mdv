@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
+import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Media } from "@/payload-types";
 
 export const AuctionItem = ({
@@ -50,9 +51,9 @@ export const AuctionItem = ({
 				className="group flex items-center gap-4 px-2 py-4 hover:bg-blanc-casse/60 transition-colors"
 			>
 				<div className="relative shrink-0 w-20 h-24 lg:w-24 lg:h-28 bg-sand/30 overflow-hidden">
-					{poster?.url ? (
+					{getMediaSrc(poster) ? (
 						<Image
-							src={poster.url}
+							src={getMediaSrc(poster, "thumbnail")}
 							alt={poster.alt ?? auction.title}
 							fill
 							className="object-cover group-hover:scale-105 transition-transform duration-500"

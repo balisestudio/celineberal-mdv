@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
+import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Media } from "@/payload-types";
 
 export const AuctionHero = async ({
@@ -24,10 +25,10 @@ export const AuctionHero = async ({
 
 	return (
 		<section className="relative bg-charcoal py-16 selection:bg-white/20 selection:text-white overflow-hidden">
-			{poster?.url && (
+			{getMediaSrc(poster) && (
 				<>
 					<Image
-						src={poster.url}
+						src={getMediaSrc(poster, "xl")}
 						alt={poster.alt ?? auction.title}
 						fill
 						className="object-cover opacity-30"

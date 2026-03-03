@@ -1,3 +1,4 @@
+import { getMediaSrc } from "@/lib/media-src";
 import { payload } from "@/lib/payload";
 import type { Media, SiteSetting } from "@/payload-types";
 
@@ -11,11 +12,11 @@ export const getGraphicsDark = (settings: SiteSetting) => {
 
 	return {
 		logo: {
-			src: logo.url ?? "",
+			src: getMediaSrc(logo, "thumbnail"),
 			alt: logo.alt ?? settings.siteName,
 		},
 		icon: {
-			src: icon.url ?? "",
+			src: getMediaSrc(icon, "thumbnail"),
 			alt: icon.alt ?? settings.siteName,
 		},
 	};

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Link } from "@/i18n/navigation";
+import { getMediaSrc } from "@/lib/media-src";
 import type { Lot, Media } from "@/payload-types";
 
 export const LotCard = ({
@@ -54,10 +55,10 @@ export const LotCard = ({
 				className="group flex flex-col h-full"
 			>
 				<div className="relative h-64 bg-sand/20 overflow-hidden shrink-0">
-					{image?.url ? (
+					{getMediaSrc(image) ? (
 						<Image
-							src={image.url}
-							alt={image.alt ?? lot.title}
+							src={getMediaSrc(image, "md")}
+							alt={image?.alt ?? lot.title}
 							fill
 							className="object-contain p-4 group-hover:scale-[1.04] transition-transform duration-500"
 							sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"

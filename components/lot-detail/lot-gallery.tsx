@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { getMediaSrc } from "@/lib/media-src";
 import type { Media } from "@/payload-types";
 
 const LotGallery = ({
@@ -50,7 +51,7 @@ const LotGallery = ({
 				onMouseLeave={handleMouseLeave}
 				onMouseMove={handleMouseMove}
 			>
-				{selectedImage?.url ? (
+				{getMediaSrc(selectedImage) ? (
 					<div
 						className="w-full h-full"
 						style={{
@@ -62,8 +63,8 @@ const LotGallery = ({
 						}}
 					>
 						<Image
-							src={selectedImage.url}
-							alt={selectedImage.alt ?? lotTitle}
+							src={getMediaSrc(selectedImage, "lg")}
+							alt={selectedImage?.alt ?? lotTitle}
 							fill
 							className="object-contain p-6"
 							sizes="(min-width: 1024px) 50vw, 100vw"
@@ -94,7 +95,7 @@ const LotGallery = ({
 						>
 							<div className="relative w-full h-full">
 								<Image
-									src={img.url ?? ""}
+									src={getMediaSrc(img, "thumbnail")}
 									alt={img.alt ?? lotTitle}
 									fill
 									className="object-contain p-1.5"
