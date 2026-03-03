@@ -1,8 +1,14 @@
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
+import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
 import { routing } from "@/i18n/routing";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { getContact } from "@/lib/data/contact";
+import {
+	getGraphicsDark,
+	getGraphicsLight,
+	getSiteSettings,
+} from "@/lib/data/site-settings";
 
 const LocaleLayout = async ({
 	children,
@@ -16,8 +22,12 @@ const LocaleLayout = async ({
 		notFound();
 	}
 
-	const settings = await getSiteSettings();
+	const [settings, contact] = await Promise.all([
+		getSiteSettings(),
+		getContact(),
+	]);
 	const { logo } = getGraphicsDark(settings);
+	const { icon: iconLight } = getGraphicsLight(settings);
 
 	return (
 		<>
@@ -27,7 +37,14 @@ const LocaleLayout = async ({
 				logoSrc={logo.src}
 				logoAlt={logo.alt}
 			/>
-			<main>{children}</main>
+			<main className="min-h-screen">{children}</main>
+			<Footer
+				siteName={settings.siteName}
+				tagline={settings.tagline}
+				iconLightSrc={iconLight.src}
+				iconLightAlt={iconLight.alt}
+				contact={contact}
+			/>
 		</>
 	);
 };
