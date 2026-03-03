@@ -2,13 +2,13 @@
 
 import { ListIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { MobileNav } from "@/components/mobile-nav";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Logotype } from "@/components/ui/logotype";
 import { Link, usePathname } from "@/i18n/navigation";
 
 const NAV_ROUTES = [
@@ -60,7 +60,13 @@ export const NavBar = ({
 				<Container>
 					<div className="flex h-16 items-center justify-between">
 						<Link href="/" className="hover:opacity-75 transition-opacity">
-							<Logotype src={logoSrc} alt={logoAlt} height={22} />
+							<Image
+								src={logoSrc}
+								alt={logoAlt}
+								height={22}
+								width={Math.round(22 * (1005 / 222))}
+								priority
+							/>
 						</Link>
 
 						<nav className="hidden lg:flex items-center gap-8">
