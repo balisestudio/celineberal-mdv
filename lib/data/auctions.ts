@@ -15,3 +15,18 @@ export const getAuctions = async () => {
 		depth: 1,
 	});
 };
+
+export const getPastAuctions = async () => {
+	const payload = await getPayload({ config });
+	return payload.find({
+		collection: "auctions",
+		where: {
+			and: [
+				{ _status: { equals: "published" } },
+				{ auctionDate: { less_than: new Date().toISOString() } },
+			],
+		},
+		sort: "-auctionDate",
+		depth: 1,
+	});
+};
