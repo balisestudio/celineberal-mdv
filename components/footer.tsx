@@ -96,14 +96,12 @@ export const Footer = ({
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 						{contact ? (
 							<p className="text-xs text-blanc-casse/40">
-								{[
-									contact.siret,
-									contact.rcs,
-									contact.capitalSocial,
-									contact.agrement,
-								]
-									.filter(Boolean)
-									.join(" · ")}
+								{tFooter("legal", {
+									siret: contact.siret,
+									rcs: contact.rcs,
+									capitalSocial: contact.capitalSocial,
+									agrement: contact.agrement,
+								})}
 							</p>
 						) : (
 							<span />
