@@ -30,7 +30,11 @@ const AuctionsPage = async () => {
 							iconAlt={iconAlt}
 						/>
 					) : (
-						<AuctionsEmpty iconSrc={iconSrc} iconAlt={iconAlt} />
+						<AuctionsEmpty
+							iconSrc={iconSrc}
+							iconAlt={iconAlt}
+							message={t("empty")}
+						/>
 					)}
 				</Container>
 			</section>
