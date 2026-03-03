@@ -13,9 +13,13 @@ import type { Auction, Media } from "@/payload-types";
 export const HeroSale = ({
 	auction,
 	isUpcoming,
+	iconSrc,
+	iconAlt,
 }: {
 	auction: Auction;
 	isUpcoming: boolean;
+	iconSrc: string;
+	iconAlt: string;
 }) => {
 	const t = useTranslations("home");
 	const locale = useLocale();
@@ -32,7 +36,7 @@ export const HeroSale = ({
 			<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 				<Link
 					href={`/auctions/${auction.slug}`}
-					className="group block min-h-[300px] lg:min-h-[500px] grid grid-cols-1 lg:grid-cols-[55%_45%]"
+					className="group min-h-[300px] lg:min-h-[500px] grid grid-cols-1 lg:grid-cols-[55%_45%]"
 				>
 					<div className="relative min-h-[300px] lg:min-h-[500px] bg-charcoal/5 overflow-hidden">
 						{hasPoster ? (
@@ -46,9 +50,13 @@ export const HeroSale = ({
 							/>
 						) : (
 							<div className="absolute inset-0 flex items-center justify-center bg-sand/30">
-								<span className="font-serif italic text-bordeaux text-[120px] leading-none select-none">
-									CB
-								</span>
+								<Image
+									src={iconSrc}
+									alt={iconAlt}
+									width={120}
+									height={120}
+									className="opacity-60 object-contain"
+								/>
 							</div>
 						)}
 					</div>

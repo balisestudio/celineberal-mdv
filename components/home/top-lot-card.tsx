@@ -63,19 +63,13 @@ export const TopLotCard = ({
 						/>
 					) : (
 						<div className="absolute inset-0 flex items-center justify-center bg-sand/20">
-							{iconSrc ? (
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={40}
-									height={40}
-									className="opacity-40"
-								/>
-							) : (
-								<span className="font-serif italic text-bordeaux text-4xl leading-none select-none">
-									CB
-								</span>
-							)}
+							<Image
+								src={iconSrc}
+								alt={iconAlt}
+								width={40}
+								height={40}
+								className="opacity-40 object-contain"
+							/>
 						</div>
 					)}
 				</div>

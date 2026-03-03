@@ -68,19 +68,13 @@ export const SaleCard = ({
 						<div
 							className={`absolute inset-0 flex items-center justify-center ${sandVariant}`}
 						>
-							{iconSrc ? (
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={48}
-									height={48}
-									className="opacity-60"
-								/>
-							) : (
-								<span className="font-serif italic text-bordeaux text-4xl leading-none select-none">
-									CB
-								</span>
-							)}
+							<Image
+								src={iconSrc}
+								alt={iconAlt}
+								width={48}
+								height={48}
+								className="opacity-60 object-contain"
+							/>
 						</div>
 					)}
 				</div>

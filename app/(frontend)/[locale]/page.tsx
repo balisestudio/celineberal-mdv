@@ -5,7 +5,11 @@ import { SalesSection } from "@/components/home/sales-section";
 import { TopLotsSection } from "@/components/home/top-lots-section";
 import { getAuctions, getPastAuctions } from "@/lib/data/auctions";
 import { getTopLots } from "@/lib/data/lots";
-import { getGraphicsLight, getSiteSettings } from "@/lib/data/site-settings";
+import {
+	getGraphicsDark,
+	getGraphicsLight,
+	getSiteSettings,
+} from "@/lib/data/site-settings";
 import type { Auction } from "@/payload-types";
 
 const HomePage = async () => {
@@ -23,14 +27,25 @@ const HomePage = async () => {
 	const isUpcoming = Boolean(upcoming[0] && heroAuction?.id === upcoming[0].id);
 	const allAuctions = [...upcoming, ...past];
 	const topLots = topLotsResult.docs ?? [];
+	const { icon: iconDark } = getGraphicsDark(settings);
 	const { icon: iconLight } = getGraphicsLight(settings);
 
 	return (
 		<>
 			{heroAuction ? (
-				<HeroSale auction={heroAuction} isUpcoming={isUpcoming} />
+				<HeroSale
+					auction={heroAuction}
+					isUpcoming={isUpcoming}
+					iconSrc={iconDark.src}
+					iconAlt={iconDark.alt}
+				/>
 			) : (
-				<HeroBrand siteName={settings.siteName} tagline={settings.tagline} />
+				<HeroBrand
+					siteName={settings.siteName}
+					tagline={settings.tagline}
+					iconSrc={iconDark.src}
+					iconAlt={iconDark.alt}
+				/>
 			)}
 
 			{allAuctions.length > 0 && (
