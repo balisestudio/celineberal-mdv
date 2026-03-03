@@ -1,5 +1,6 @@
 "use server";
 
+import { getLocale } from "next-intl/server";
 import { getLots } from "@/lib/data/lots";
 
 export const fetchLotsAction = async ({
@@ -11,5 +12,6 @@ export const fetchLotsAction = async ({
 	page: number;
 	sort: string;
 }) => {
-	return getLots({ auctionId, page, sort });
+	const locale = await getLocale();
+	return getLots({ auctionId, page, sort, locale });
 };

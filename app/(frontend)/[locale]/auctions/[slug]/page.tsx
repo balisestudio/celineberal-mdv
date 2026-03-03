@@ -27,7 +27,11 @@ const AuctionLotsPage = async ({
 	const safePage =
 		Number.isFinite(rawPage) && rawPage >= 1 ? Math.floor(rawPage) : 1;
 
-	const lotsResult = await getLots({ auctionId: auction.id, page: safePage });
+	const lotsResult = await getLots({
+		auctionId: auction.id,
+		page: safePage,
+		locale,
+	});
 
 	if (lotsResult.totalDocs === 0) {
 		redirect(`/auctions/${slug}/about`);

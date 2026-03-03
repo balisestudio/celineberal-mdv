@@ -14,11 +14,13 @@ export const getLots = async ({
 	page = 1,
 	sort = "lotNumber",
 	limit = 24,
+	locale = "fr",
 }: {
 	auctionId: number;
 	page?: number;
 	sort?: string;
 	limit?: number;
+	locale?: string;
 }) => {
 	return payload.find({
 		collection: "lots",
@@ -27,6 +29,7 @@ export const getLots = async ({
 		page,
 		limit,
 		depth: 1,
+		locale: (locale as "fr" | "en") ?? "fr",
 		overrideAccess: true,
 	});
 };
@@ -76,6 +79,7 @@ export const getLotByAuctionSlugAndLotNumber = async (
 export const getPrevLot = async (
 	auctionId: number,
 	currentInternalLotNumber: number | null | undefined,
+	locale?: string,
 ) => {
 	if (!currentInternalLotNumber) return null;
 	const result = await payload.find({
@@ -89,6 +93,7 @@ export const getPrevLot = async (
 		sort: "-internalLotNumber",
 		limit: 1,
 		depth: 0,
+		locale: (locale as "fr" | "en") ?? "fr",
 		overrideAccess: true,
 	});
 	return (result.docs[0] as Lot) ?? null;
@@ -97,6 +102,7 @@ export const getPrevLot = async (
 export const getNextLot = async (
 	auctionId: number,
 	currentInternalLotNumber: number | null | undefined,
+	locale?: string,
 ) => {
 	if (!currentInternalLotNumber) return null;
 	const result = await payload.find({
@@ -110,6 +116,7 @@ export const getNextLot = async (
 		sort: "internalLotNumber",
 		limit: 1,
 		depth: 0,
+		locale: (locale as "fr" | "en") ?? "fr",
 		overrideAccess: true,
 	});
 	return (result.docs[0] as Lot) ?? null;
@@ -120,8 +127,10 @@ export const getSimilarLots = async (
 	currentLowEstimate: number | null | undefined,
 	excludeLotId: number,
 	limit = 8,
+	locale?: string,
 ) => {
 	const half = Math.ceil(limit / 2);
+	const resolvedLocale = (locale as "fr" | "en") ?? "fr";
 
 	const refPrice = currentLowEstimate ?? 0;
 
@@ -140,6 +149,7 @@ export const getSimilarLots = async (
 			sort: "-lowEstimate",
 			limit: half,
 			depth: 1,
+			locale: resolvedLocale,
 			overrideAccess: true,
 		}),
 		payload.find({
@@ -156,6 +166,7 @@ export const getSimilarLots = async (
 			sort: "lowEstimate",
 			limit: half,
 			depth: 1,
+			locale: resolvedLocale,
 			overrideAccess: true,
 		}),
 	]);

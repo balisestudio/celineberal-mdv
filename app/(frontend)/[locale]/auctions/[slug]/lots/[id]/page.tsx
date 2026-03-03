@@ -34,9 +34,9 @@ const LotDetailPage = async ({
 	const auction = lot.auction as Auction;
 
 	const [prevLot, nextLot, similarLots] = await Promise.all([
-		getPrevLot(auction.id, lot.internalLotNumber),
-		getNextLot(auction.id, lot.internalLotNumber),
-		getSimilarLots(auction.id, lot.lowEstimate, lot.id, 8),
+		getPrevLot(auction.id, lot.internalLotNumber, locale),
+		getNextLot(auction.id, lot.internalLotNumber, locale),
+		getSimilarLots(auction.id, lot.lowEstimate, lot.id, 8, locale),
 	]);
 
 	const t = await getTranslations("lotDetail");
