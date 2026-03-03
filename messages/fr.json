@@ -1,5 +1,9 @@
 {
 	"common": {},
+	"footer": {
+		"navLabel": "Navigation",
+		"contactLabel": "Contact"
+	},
 	"navbar": {
 		"links": {
 			"auctions": "Ventes",

@@ -21,3 +21,19 @@ export const getGraphicsDark = (settings: SiteSetting) => {
 		},
 	};
 };
+
+export const getGraphicsLight = (settings: SiteSetting) => {
+	const logo = settings.graphics.logo.light as Media;
+	const icon = settings.graphics.icon.light as Media;
+
+	return {
+		logo: {
+			src: getMediaSrc(logo, "thumbnail"),
+			alt: logo.alt ?? settings.siteName,
+		},
+		icon: {
+			src: getMediaSrc(icon, "thumbnail"),
+			alt: icon.alt ?? settings.siteName,
+		},
+	};
+};
