@@ -1,0 +1,158 @@
+"use server";
+
+import { runs } from "@trigger.dev/sdk/v3";
+import { XMLParser, XMLValidator } from "fast-xml-parser";
+import { headers } from "next/headers";
+import { payload } from "@/lib/payload";
+import { can } from "@/lib/permissions";
+import type { InterenchersLots } from "@/lib/schemas/interenchers";
+import { interenchersSchema } from "@/lib/schemas/interenchers";
+import type { Auction, User } from "@/payload-types";
+import { importLotsTask } from "@/trigger/imports-lot";
+
+/**
+ * Constants
+ */
+
+const ERRORS = {
+	UNAUTHORIZED:
+		"Vous ne disposez pas des droits requis pour téléverser un fichier d'importation.",
+	INVALID_XML:
+		"Le fichier téléversé n'est pas un document XML valide. Veuillez vérifier votre fichier Interencheres.",
+	INVALID_STRUCTURE:
+		"La structure du document est incorrecte. Veuillez vous assurer qu'il s'agit d'un export Interencheres conforme.",
+	TASK_FAILED:
+		"Impossible de lancer la tâche d'importation. Veuillez réessayer.",
+} as const;
+
+const XML_PARSER_OPTIONS = {
+	ignoreAttributes: false,
+	parseTagValue: false,
+	parseAttributeValue: false,
+} as const;
+
+/**
+ * Helpers
+ */
+
+const getAuthenticatedUser = async () => {
+	const { user } = await payload.auth({ headers: await headers() });
+	return user;
+};
+
+const getAuctionWithLockStatus = async (auctionId: number, user: User) =>
+	(await payload.findByID({
+		collection: "auctions",
+		id: auctionId,
+		includeLockStatus: true,
+		depth: 0,
+		user,
+		overrideAccess: false,
+	})) as Auction & { _isLocked: boolean; _userEditing: User | null };
+
+const parseAndValidateXml = (xml: string): InterenchersLots => {
+	if (XMLValidator.validate(xml) !== true) {
+		throw new Error(ERRORS.INVALID_XML);
+	}
+
+	const parser = new XMLParser(XML_PARSER_OPTIONS);
+	const data = parser.parse(xml);
+	const result = interenchersSchema.safeParse(data);
+
+	if (!result.success) {
+		throw new Error(ERRORS.INVALID_STRUCTURE);
+	}
+
+	return result.data["import-lots"].lots;
+};
+
+/**
+ * Public API
+ */
+
+export const isAllowedToImportLots = async (
+	auctionId: number,
+): Promise<boolean> => {
+	const user = await getAuthenticatedUser();
+	if (!user || !can(user, "editor")) return false;
+
+	const auction = await getAuctionWithLockStatus(auctionId, user as User);
+	if (auction._isLocked) return false;
+
+	if (auction.triggerId) {
+		const trigger = await runs.retrieve(auction.triggerId);
+		if (trigger.isExecuting) return false;
+		await payload.update({
+			collection: "auctions",
+			id: auctionId,
+			data: { triggerId: null },
+		});
+	}
+
+	return true;
+};
+
+export type ImportLotsOptions = {
+	translateContent: boolean;
+	optimizeContent: boolean;
+};
+
+export type ImportLotsResult =
+	| { success: true }
+	| { success: false; error: string };
+
+export const importLots = async (
+	xml: string,
+	auctionId: number,
+	options: ImportLotsOptions,
+): Promise<ImportLotsResult> => {
+	const allowed = await isAllowedToImportLots(auctionId);
+	if (!allowed) return { success: false, error: ERRORS.UNAUTHORIZED };
+
+	let lots: InterenchersLots;
+	try {
+		lots = parseAndValidateXml(xml);
+	} catch (error) {
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : ERRORS.INVALID_STRUCTURE,
+		};
+	}
+
+	const [auction, user] = await Promise.all([
+		payload.findByID({
+			collection: "auctions",
+			id: auctionId,
+			depth: 0,
+		}) as Promise<Auction>,
+		getAuthenticatedUser(),
+	]);
+
+	if (!user) return { success: false, error: ERRORS.UNAUTHORIZED };
+
+	try {
+		const trigger = await importLotsTask.trigger({
+			lots,
+			auction,
+			options,
+			user: user as User,
+		});
+
+		await payload.update({
+			collection: "auctions",
+			id: auctionId,
+			data: { triggerId: trigger.id },
+		});
+		return { success: true };
+	} catch (error) {
+		await payload.update({
+			collection: "auctions",
+			id: auctionId,
+			data: { triggerId: null },
+		});
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : ERRORS.TASK_FAILED,
+		};
+	}
+};
