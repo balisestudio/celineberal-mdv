@@ -1,5 +1,9 @@
 import { generateText, Output } from "ai";
 import { z } from "zod";
+import {
+	AUCTION_CATALOG_SYSTEM_PROMPT,
+	TRANSLATE_TO_LOCALE_INSTRUCTIONS,
+} from "@/lib/ai/prompts";
 import { model } from "@/lib/ai/provider";
 
 const translateLotSchema = z.object({
@@ -25,24 +29,12 @@ export type TranslateLotInput = {
 	characteristics?: { key: string; value: string }[];
 };
 
-const SYSTEM_PROMPT = `Tu es un traducteur professionnel spécialisé dans les ventes aux enchères et le marché de l'art.
-
-Tu reçois le titre, la description et les caractéristiques d'un lot de vente aux enchères en français.
-Tu dois les traduire fidèlement dans la langue cible.
-
-Règles strictes :
-- Traduire fidèlement sans rien modifier, ajouter ou supprimer.
-- Conserver le ton professionnel du catalogue.
-- Les noms propres (artistes, marques, lieux) restent inchangés.
-- Les unités de mesure restent dans le système métrique.
-- Le nombre de caractéristiques en sortie doit être identique à celui en entrée, dans le même ordre.
-- Si le tableau de caractéristiques en entrée est vide, retourner un tableau vide.`;
-
 export const translateLot = async (
 	input: TranslateLotInput,
 	targetLocale: string,
 ): Promise<TranslateLotResult> => {
-	const prompt = `Traduis en ${targetLocale === "en" ? "anglais" : targetLocale} le contenu suivant :
+	const langLabel = targetLocale === "en" ? "anglais" : targetLocale;
+	const prompt = `Traduis en ${langLabel} le contenu suivant en respectant les règles de traduction du titre (noms propres et titres d'oeuvres inchangés, partie descriptive traduite). Conserve le ton et ne reformule pas.
 
 Titre : ${input.title}
 
@@ -58,7 +50,7 @@ ${
 	const { output } = await generateText({
 		model,
 		output: Output.object({ schema: translateLotSchema }),
-		system: SYSTEM_PROMPT,
+		system: `${AUCTION_CATALOG_SYSTEM_PROMPT}${TRANSLATE_TO_LOCALE_INSTRUCTIONS}`,
 		prompt,
 	});
 
