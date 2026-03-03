@@ -50,5 +50,17 @@
 			"contact": "A question about this auction?",
 			"contactBtn": "Contact us"
 		}
+	},
+	"lotDetail": {
+		"breadcrumb": "Auctions",
+		"allLots": "All lots",
+		"prevLot": "Lot {n}",
+		"nextLot": "Lot {n}",
+		"estimate": "Estimate",
+		"salePrice": "Sale price",
+		"description": "Description",
+		"characteristics": "Characteristics",
+		"cta": "Get a similar item appraised",
+		"similarTitle": "You might also like"
 	}
 }

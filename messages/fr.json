@@ -50,5 +50,17 @@
 			"contact": "Une question sur cette vente ?",
 			"contactBtn": "Nous contacter"
 		}
+	},
+	"lotDetail": {
+		"breadcrumb": "Ventes",
+		"allLots": "Tous les lots",
+		"prevLot": "Lot {n}",
+		"nextLot": "Lot {n}",
+		"estimate": "Estimation",
+		"salePrice": "Prix de vente",
+		"description": "Description",
+		"characteristics": "Caractéristiques",
+		"cta": "Faire estimer un objet similaire",
+		"similarTitle": "Ces lots peuvent vous intéresser"
 	}
 }
