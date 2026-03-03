@@ -16,5 +16,39 @@
 	"resultats": {
 		"pageTitle": "Results",
 		"empty": "No results available at the moment."
+	},
+	"auction": {
+		"breadcrumb": "Auctions",
+		"upcoming": "Upcoming auction",
+		"past": "Past auction",
+		"sellItem": "Consign an item",
+		"date": "Date",
+		"locationLabel": "Location",
+		"tabs": {
+			"lots": "Lots",
+			"info": "Information"
+		},
+		"sort": {
+			"label": "Sort by:",
+			"lotNumber": "Lot no.",
+			"alpha": "A–Z",
+			"estimateAsc": "Estimate ↑",
+			"estimateDesc": "Estimate ↓"
+		},
+		"lot": {
+			"number": "Lot {n}",
+			"sold": "Sold"
+		},
+		"pagination": {
+			"page": "Page {current} of {total}",
+			"prev": "Previous",
+			"next": "Next"
+		},
+		"info": {
+			"about": "About the auction",
+			"experts": "Experts",
+			"contact": "A question about this auction?",
+			"contactBtn": "Contact us"
+		}
 	}
 }

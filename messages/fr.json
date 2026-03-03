@@ -16,5 +16,39 @@
 	"resultats": {
 		"pageTitle": "Résultats",
 		"empty": "Aucun résultat disponible pour le moment."
+	},
+	"auction": {
+		"breadcrumb": "Ventes",
+		"upcoming": "Vente à venir",
+		"past": "Vente passée",
+		"sellItem": "Vendre un objet",
+		"date": "Date",
+		"locationLabel": "Lieu",
+		"tabs": {
+			"lots": "Lots",
+			"info": "Informations"
+		},
+		"sort": {
+			"label": "Trier par :",
+			"lotNumber": "N° de lot",
+			"alpha": "Alphabétique",
+			"estimateAsc": "Estimation croissante",
+			"estimateDesc": "Estimation décroissante"
+		},
+		"lot": {
+			"number": "Lot {n}",
+			"sold": "Vendu"
+		},
+		"pagination": {
+			"page": "Page {current} sur {total}",
+			"prev": "Précédent",
+			"next": "Suivant"
+		},
+		"info": {
+			"about": "À propos de la vente",
+			"experts": "Experts",
+			"contact": "Une question sur cette vente ?",
+			"contactBtn": "Nous contacter"
+		}
 	}
 }
