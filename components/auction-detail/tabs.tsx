@@ -16,7 +16,8 @@ export const AuctionTabs = ({
 	const lotsPath = `/auctions/${slug}`;
 	const aboutPath = `/auctions/${slug}/about`;
 
-	const isLotsActive = pathname === lotsPath;
+	const isLotsActive =
+		pathname === lotsPath || pathname.startsWith(`${lotsPath}/lots/`);
 	const isAboutActive = pathname === aboutPath;
 
 	const tabBase =

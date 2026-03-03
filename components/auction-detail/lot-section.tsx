@@ -136,7 +136,12 @@ export const LotSection = ({
 				className={isPending ? "opacity-0 pointer-events-none" : "opacity-100"}
 				style={{ transition: "opacity 300ms 100ms" }}
 			>
-				<LotGrid lots={lots} iconSrc={iconSrc} iconAlt={iconAlt} />
+				<LotGrid
+					lots={lots}
+					iconSrc={iconSrc}
+					iconAlt={iconAlt}
+					auctionSlug={slug}
+				/>
 			</div>
 
 			{totalPages > 1 && (

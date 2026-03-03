@@ -7,13 +7,22 @@ export const LotGrid = ({
 	lots,
 	iconSrc,
 	iconAlt,
+	auctionSlug,
+	columns = "default",
 }: {
 	lots: Lot[];
 	iconSrc: string;
 	iconAlt: string;
+	auctionSlug: string;
+	columns?: "default" | "wide";
 }) => {
+	const gridClass =
+		columns === "wide"
+			? "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-10"
+			: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10";
+
 	return (
-		<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+		<div className={gridClass}>
 			{lots.map((lot, index) => (
 				<LotCard
 					key={lot.id}
@@ -21,6 +30,7 @@ export const LotGrid = ({
 					index={index}
 					iconSrc={iconSrc}
 					iconAlt={iconAlt}
+					auctionSlug={auctionSlug}
 				/>
 			))}
 		</div>

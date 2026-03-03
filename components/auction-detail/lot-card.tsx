@@ -12,11 +12,13 @@ export const LotCard = ({
 	index,
 	iconSrc,
 	iconAlt,
+	auctionSlug,
 }: {
 	lot: Lot;
 	index: number;
 	iconSrc: string;
 	iconAlt: string;
+	auctionSlug: string;
 }) => {
 	const t = useTranslations("auction");
 	const ref = useRef<HTMLDivElement>(null);
@@ -47,7 +49,10 @@ export const LotCard = ({
 				delay: Math.min(index * 0.055, 0.35),
 			}}
 		>
-			<Link href={`/lots/${lot.id}`} className="group flex flex-col h-full">
+			<Link
+				href={`/auctions/${auctionSlug}/lots/${lot.id}`}
+				className="group flex flex-col h-full"
+			>
 				<div className="relative h-64 bg-sand/20 overflow-hidden shrink-0">
 					{image?.url ? (
 						<Image
