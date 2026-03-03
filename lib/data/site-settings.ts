@@ -1,0 +1,7 @@
+import config from "@payload-config";
+import { getPayload } from "payload";
+
+export const getSiteSettings = async () => {
+	const payload = await getPayload({ config });
+	return payload.findGlobal({ slug: "site-settings", depth: 1 });
+};
