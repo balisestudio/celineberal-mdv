@@ -1,4 +1,5 @@
 import { logger, task } from "@trigger.dev/sdk/v3";
+import { fileTypeFromBuffer } from "file-type";
 import pLimit from "p-limit";
 import type { ImportLotsOptions } from "@/components/payload/imports-lots/action";
 import { optimizeLot } from "@/lib/ai/optimize-lot";
@@ -43,12 +44,33 @@ const downloadImage = async (
 
 	const arrayBuffer = await response.arrayBuffer();
 	const buffer = Buffer.from(arrayBuffer);
-	const contentType = response.headers.get("content-type") ?? "image/jpeg";
+	const rawContentType = response.headers.get("content-type") ?? "";
+	const contentType = rawContentType.split(";")[0].trim().toLowerCase();
+
+	let mimeType: string;
+	let filename: string;
 
 	const urlPath = new URL(url).pathname;
-	const filename = urlPath.split("/").pop() ?? "image.jpg";
+	const urlFilename = urlPath.split("/").pop() ?? "image";
 
-	return { buffer, mimeType: contentType, filename };
+	if (contentType.startsWith("image/")) {
+		mimeType = contentType;
+		filename = urlFilename.includes(".") ? urlFilename : `${urlFilename}.jpg`;
+	} else {
+		const detected = await fileTypeFromBuffer(buffer);
+		if (detected?.mime?.startsWith("image/")) {
+			mimeType = detected.mime;
+			const base = urlFilename.includes(".")
+				? urlFilename.split(".").slice(0, -1).join(".")
+				: urlFilename;
+			filename = `${base}.${detected.ext}`;
+		} else {
+			mimeType = "image/jpeg";
+			filename = urlFilename.includes(".") ? urlFilename : `${urlFilename}.jpg`;
+		}
+	}
+
+	return { buffer, mimeType, filename };
 };
 
 const formatImageIndex = (index: number): string =>
