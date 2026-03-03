@@ -80,11 +80,6 @@ export const MobileNav = ({
 		return () => document.removeEventListener("keydown", handleKeyDown);
 	}, [handleKeyDown]);
 
-	const mobileLinks = [
-		...links,
-		{ href: "/estimation", label: t("links.estimate") },
-	];
-
 	return (
 		<AnimatePresence>
 			{isOpen && (
@@ -125,7 +120,7 @@ export const MobileNav = ({
 
 						<nav className="flex flex-col flex-1 overflow-y-auto px-6 py-8">
 							<ul className="flex flex-col gap-6">
-								{mobileLinks.map(({ href, label }) => {
+								{links.map(({ href, label }) => {
 									const isActive = pathname === href;
 									return (
 										<li key={href}>

@@ -12,7 +12,7 @@ import { Logotype } from "@/components/ui/logotype";
 import { Link, usePathname } from "@/i18n/navigation";
 
 const NAV_ROUTES = [
-	{ href: "/ventes", key: "auctions" },
+	{ href: "/auctions", key: "auctions" },
 	{ href: "/resultats", key: "results" },
 	{ href: "/la-maison", key: "about" },
 ] as const;
