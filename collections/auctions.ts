@@ -65,6 +65,14 @@ export const Auctions: CollectionConfig = {
 				return data;
 			},
 		],
+		beforeDelete: [
+			async ({ id, req }) => {
+				await req.payload.delete({
+					collection: "lots",
+					where: { auction: { equals: id } },
+				});
+			},
+		],
 	},
 	fields: [
 		{
