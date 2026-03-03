@@ -1,0 +1,87 @@
+import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
+import { LotGrid } from "@/components/auction-detail/lot-grid";
+import { LotBreadcrumb } from "@/components/lot-detail/lot-breadcrumb";
+import { LotGallery } from "@/components/lot-detail/lot-gallery";
+import { LotInfo } from "@/components/lot-detail/lot-info";
+import { LotNav } from "@/components/lot-detail/lot-nav";
+import { Container } from "@/components/ui/container";
+import {
+	getLotById,
+	getNextLot,
+	getPrevLot,
+	getSimilarLots,
+} from "@/lib/data/lots";
+import { getSiteSettings } from "@/lib/data/site-settings";
+import type { Auction, Lot, Media } from "@/payload-types";
+
+const LotDetailPage = async ({
+	params,
+}: {
+	params: Promise<{ slug: string; id: string; locale: string }>;
+}) => {
+	const { slug, id, locale } = await params;
+
+	const lotId = Number(id);
+	if (!Number.isFinite(lotId)) notFound();
+
+	const [lot, settings] = await Promise.all([
+		getLotById(lotId, locale),
+		getSiteSettings(),
+	]);
+
+	if (!lot) notFound();
+
+	const auction = lot.auction as Auction;
+	if (!auction || auction.slug !== slug) notFound();
+
+	const [prevLot, nextLot, similarLots] = await Promise.all([
+		getPrevLot(auction.id, lot.internalLotNumber),
+		getNextLot(auction.id, lot.internalLotNumber),
+		getSimilarLots(auction.id, lot.lowEstimate, lot.id, 8),
+	]);
+
+	const t = await getTranslations("lotDetail");
+	const icon = settings.graphics.icon as Media;
+	const iconSrc = icon.url ?? "";
+	const iconAlt = icon.alt ?? "";
+
+	return (
+		<>
+			<LotBreadcrumb auction={auction} lotNumber={lot.lotNumber} />
+
+			<Container className="py-12">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+					<LotGallery
+						images={lot.images as (number | Media)[]}
+						iconSrc={iconSrc}
+						iconAlt={iconAlt}
+						lotTitle={lot.title}
+					/>
+					<LotInfo lot={lot} />
+				</div>
+
+				<LotNav auctionSlug={slug} prevLot={prevLot} nextLot={nextLot} />
+			</Container>
+
+			{similarLots.length > 0 && (
+				<section className="bg-blanc-casse border-t border-sand py-20 pb-28">
+					<Container>
+						<p className="text-[10px] uppercase tracking-[0.2em] text-muted mb-8">
+							{t("similarTitle")}
+						</p>
+						<LotGrid
+							lots={similarLots as Lot[]}
+							iconSrc={iconSrc}
+							iconAlt={iconAlt}
+							auctionSlug={slug}
+							columns="wide"
+						/>
+					</Container>
+				</section>
+			)}
+		</>
+	);
+};
+
+export default LotDetailPage;
