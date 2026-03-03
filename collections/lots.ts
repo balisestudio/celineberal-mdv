@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { deleteOrphanLotImages, extractMediaIds } from "@/lib/media-usage";
 import { can } from "@/lib/permissions";
 
 export const Lots: CollectionConfig = {
@@ -25,6 +26,32 @@ export const Lots: CollectionConfig = {
 					data.internalLotNumber = Number(data.lotNumber.split("-")[0]);
 				}
 				return data;
+			},
+		],
+		beforeDelete: [
+			async ({ id, req }) => {
+				const lot = await req.payload.findByID({
+					collection: "lots",
+					id,
+					depth: 0,
+				});
+				const mediaIds = extractMediaIds(lot.images);
+				if (mediaIds.length > 0) {
+					await deleteOrphanLotImages(req.payload, mediaIds, lot.id, req);
+				}
+			},
+		],
+		afterChange: [
+			async ({ doc, previousDoc, req, operation }) => {
+				if (operation !== "update" || !previousDoc) return;
+				const previousIds = new Set(
+					extractMediaIds((previousDoc as { images?: unknown }).images),
+				);
+				const currentIds = new Set(extractMediaIds(doc.images));
+				const removedIds = [...previousIds].filter((id) => !currentIds.has(id));
+				if (removedIds.length > 0) {
+					await deleteOrphanLotImages(req.payload, removedIds, doc.id, req);
+				}
 			},
 		],
 	},
