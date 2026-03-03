@@ -356,7 +356,10 @@ export const importLotsTask = task({
 						content.enCharacteristics &&
 						content.enCharacteristics.length > 0
 					) {
-						enData.characteristics = content.enCharacteristics;
+						enData.characteristics = content.enCharacteristics.map((c, i) => ({
+							...c,
+							id: createdLot.characteristics?.[i]?.id,
+						}));
 					}
 
 					logger.info("Mise à jour locale EN", {
