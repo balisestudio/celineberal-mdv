@@ -138,20 +138,9 @@ export const Auctions: CollectionConfig = {
 						{
 							name: "lots",
 							label: "Lots",
-							type: "array",
-							labels: {
-								singular: "Lot",
-								plural: "Lots",
-							},
-							fields: [
-								{
-									name: "lot",
-									label: "Lot",
-									type: "relationship",
-									relationTo: "lots",
-									required: true,
-								},
-							],
+							type: "join",
+							collection: "lots",
+							on: "auction",
 						},
 					],
 				},

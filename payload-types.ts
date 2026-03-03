@@ -78,7 +78,11 @@ export interface Config {
 		"payload-preferences": PayloadPreference;
 		"payload-migrations": PayloadMigration;
 	};
-	collectionsJoins: {};
+	collectionsJoins: {
+		auctions: {
+			lots: "lots";
+		};
+	};
 	collectionsSelect: {
 		users: UsersSelect<false> | UsersSelect<true>;
 		media: MediaSelect<false> | MediaSelect<true>;
@@ -250,6 +254,7 @@ export interface Collaborator {
  */
 export interface Lot {
 	id: number;
+	auction: number | Auction;
 	title: string;
 	lotNumber: string;
 	internalLotNumber?: number | null;
@@ -281,12 +286,11 @@ export interface Auction {
 	poster: number | Media;
 	description?: string | null;
 	slug: string;
-	lots?:
-		| {
-				lot: number | Lot;
-				id?: string | null;
-		  }[]
-		| null;
+	lots?: {
+		docs?: (number | Lot)[];
+		hasNextPage?: boolean;
+		totalDocs?: number;
+	};
 	collaborators?:
 		| {
 				collaborator: number | Collaborator;
@@ -539,6 +543,7 @@ export interface CollaboratorsSelect<T extends boolean = true> {
  * via the `definition` "lots_select".
  */
 export interface LotsSelect<T extends boolean = true> {
+	auction?: T;
 	title?: T;
 	lotNumber?: T;
 	internalLotNumber?: T;
@@ -569,12 +574,7 @@ export interface AuctionsSelect<T extends boolean = true> {
 	poster?: T;
 	description?: T;
 	slug?: T;
-	lots?:
-		| T
-		| {
-				lot?: T;
-				id?: T;
-		  };
+	lots?: T;
 	collaborators?:
 		| T
 		| {

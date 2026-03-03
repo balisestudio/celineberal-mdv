@@ -57,6 +57,16 @@ export const Lots: CollectionConfig = {
 	},
 	fields: [
 		{
+			name: "auction",
+			label: "Vente",
+			type: "relationship",
+			relationTo: "auctions",
+			required: true,
+			admin: {
+				position: "sidebar",
+			},
+		},
+		{
 			type: "tabs",
 			tabs: [
 				{
