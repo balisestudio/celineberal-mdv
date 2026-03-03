@@ -1,5 +1,57 @@
-const Root = () => {
-	return <div></div>;
+import { EstimationBlock } from "@/components/home/estimation-block";
+import { HeroBrand } from "@/components/home/hero-brand";
+import { HeroSale } from "@/components/home/hero-sale";
+import { SalesSection } from "@/components/home/sales-section";
+import { TopLotsSection } from "@/components/home/top-lots-section";
+import { getAuctions, getPastAuctions } from "@/lib/data/auctions";
+import { getTopLots } from "@/lib/data/lots";
+import { getGraphicsLight, getSiteSettings } from "@/lib/data/site-settings";
+import type { Auction } from "@/payload-types";
+
+const HomePage = async () => {
+	const [upcomingResult, pastResult, topLotsResult, settings] =
+		await Promise.all([
+			getAuctions(),
+			getPastAuctions(),
+			getTopLots(10),
+			getSiteSettings(),
+		]);
+
+	const upcoming = upcomingResult.docs as Auction[];
+	const past = pastResult.docs as Auction[];
+	const heroAuction: Auction | null = upcoming[0] ?? past[0] ?? null;
+	const isUpcoming = Boolean(upcoming[0] && heroAuction?.id === upcoming[0].id);
+	const allAuctions = [...upcoming, ...past];
+	const topLots = topLotsResult.docs ?? [];
+	const { icon: iconLight } = getGraphicsLight(settings);
+
+	return (
+		<>
+			{heroAuction ? (
+				<HeroSale auction={heroAuction} isUpcoming={isUpcoming} />
+			) : (
+				<HeroBrand siteName={settings.siteName} tagline={settings.tagline} />
+			)}
+
+			{allAuctions.length > 0 && (
+				<SalesSection
+					auctions={allAuctions}
+					iconSrc={iconLight.src}
+					iconAlt={iconLight.alt}
+				/>
+			)}
+
+			{topLots.length > 0 && (
+				<TopLotsSection
+					lots={topLots}
+					iconSrc={iconLight.src}
+					iconAlt={iconLight.alt}
+				/>
+			)}
+
+			<EstimationBlock />
+		</>
+	);
 };
 
-export { Root as default };
+export { HomePage as default };

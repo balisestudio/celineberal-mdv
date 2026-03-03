@@ -169,3 +169,15 @@ export const getSimilarLots = async (
 
 	return combined.slice(0, limit);
 };
+
+export const getTopLots = async (limit = 10) =>
+	payload.find({
+		collection: "lots",
+		where: {
+			and: [{ sold: { equals: true } }, { salePrice: { exists: true } }],
+		},
+		sort: "-salePrice",
+		limit,
+		depth: 2,
+		overrideAccess: true,
+	});

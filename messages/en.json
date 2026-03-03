@@ -1,8 +1,24 @@
 {
 	"common": {},
+	"home": {
+		"nextSale": "Next sale",
+		"pastSale": "Past sale",
+		"discoverSale": "Discover the sale",
+		"date": "Date",
+		"location": "Location",
+		"lots": "Lots",
+		"salesTitle": "Our sales",
+		"seeAllSales": "See all sales",
+		"topLotsTitle": "Exceptional results",
+		"estimationTag": "Free & confidential service",
+		"estimationTitle": "Get an object appraised",
+		"estimationDesc": "You own an object and would like to know its value? Our experts offer a free and confidential appraisal.",
+		"estimationCta": "Request an appraisal"
+	},
 	"footer": {
 		"navLabel": "Navigation",
-		"contactLabel": "Contact"
+		"contactLabel": "Contact",
+		"legal": "SIRET {siret} - Trade Register {rcs} - Share capital {capitalSocial} - License {agrement}"
 	},
 	"navbar": {
 		"links": {

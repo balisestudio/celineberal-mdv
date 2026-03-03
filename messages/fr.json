@@ -1,8 +1,24 @@
 {
 	"common": {},
+	"home": {
+		"nextSale": "Prochaine vente",
+		"pastSale": "Vente passée",
+		"discoverSale": "Découvrir la vente",
+		"date": "Date",
+		"location": "Lieu",
+		"lots": "Lots",
+		"salesTitle": "Nos ventes",
+		"seeAllSales": "Voir toutes les ventes",
+		"topLotsTitle": "Résultats d'exception",
+		"estimationTag": "Service gratuit & confidentiel",
+		"estimationTitle": "Faire estimer un objet",
+		"estimationDesc": "Vous possédez un objet et souhaitez en connaître la valeur ? Nos experts vous proposent une estimation gratuite et confidentielle.",
+		"estimationCta": "Demander une estimation"
+	},
 	"footer": {
 		"navLabel": "Navigation",
-		"contactLabel": "Contact"
+		"contactLabel": "Contact",
+		"legal": "SIRET {siret} - RCS {rcs} - Capital social {capitalSocial} - Agrément {agrement}"
 	},
 	"navbar": {
 		"links": {
