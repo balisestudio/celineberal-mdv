@@ -12,10 +12,13 @@
 }
 
 @theme {
-	--color-bordeaux: #651c23; /* RVB 101-28-35 | CMJN 35-94-69-55 — institution, expertise */
-	--color-lila: #cd98dc; /* RVB 205-152-220 | CMJN 27-47-0-0 — affirmation, féminité */
-	--color-rose-clair: #f8dbdd; /* RVB 248-219-221 | CMJN 2-19-9-0 — proximité, délicatesse */
-	--color-blanc-casse: #fcfaf7; /* RVB 252-250-247 | CMJN 1-2-3-0 — fond sobre, respiration */
+	--color-bordeaux: #651c23;
+	--color-lila: #cd98dc;
+	--color-rose-clair: #f8dbdd;
+	--color-blanc-casse: #fcfaf7;
+	--color-charcoal: #1c1917;
+	--color-sand: #e2dad6;
+	--color-muted: #6b6360;
 
 	--color-primary: var(--color-bordeaux);
 	--color-accent: var(--color-lila);
@@ -39,33 +42,5 @@ h4,
 h5,
 h6 {
 	@apply font-serif font-light tracking-tight;
-	letter-spacing: var(--letter-spacing-serif);
-}
-
-a {
-	@apply text-bordeaux;
-}
-
-.text-on-bordeaux {
-	@apply text-rose-clair;
-}
-.text-on-bordeaux--lila {
-	@apply text-lila;
-}
-.text-on-bordeaux--blanc {
-	@apply text-blanc-casse;
-}
-
-.bg-rose-clair .text-on-light,
-.bg-lila .text-on-light,
-.bg-blanc-casse .text-on-light {
-	@apply text-bordeaux;
-}
-
-.text-body-brand {
-	@apply font-sans text-justify;
-}
-.text-display-brand {
-	@apply font-serif font-light;
 	letter-spacing: var(--letter-spacing-serif);
 }
