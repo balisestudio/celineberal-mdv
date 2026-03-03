@@ -1,10 +1,14 @@
-import type React from "react";
 import "@/styles/globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+	const locale = await getLocale();
 	return (
-		<html lang="en">
-			<body>{children}</body>
+		<html lang={locale}>
+			<body>
+				<NextIntlClientProvider>{children}</NextIntlClientProvider>
+			</body>
 		</html>
 	);
 };
