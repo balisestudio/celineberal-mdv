@@ -31,15 +31,46 @@ export const getLots = async ({
 	});
 };
 
-export const getLotById = async (id: number, locale?: string) => {
-	const result = await payload.findByID({
+export const getLotByLotNumber = async (
+	auctionId: number,
+	lotNumber: string,
+	locale?: string,
+) => {
+	const result = await payload.find({
 		collection: "lots",
-		id,
+		where: {
+			and: [
+				{ auction: { equals: auctionId } },
+				{ lotNumber: { equals: lotNumber } },
+			],
+		},
 		depth: 2,
+		limit: 1,
 		locale: (locale as "fr" | "en") ?? "fr",
 		overrideAccess: true,
 	});
-	return result ?? null;
+	return (result.docs[0] as Lot) ?? null;
+};
+
+export const getLotByAuctionSlugAndLotNumber = async (
+	auctionSlug: string,
+	lotNumber: string,
+	locale?: string,
+) => {
+	const result = await payload.find({
+		collection: "lots",
+		where: {
+			and: [
+				{ "auction.slug": { equals: auctionSlug } },
+				{ lotNumber: { equals: lotNumber } },
+			],
+		},
+		depth: 2,
+		limit: 1,
+		locale: (locale as "fr" | "en") ?? "fr",
+		overrideAccess: true,
+	});
+	return (result.docs[0] as Lot) ?? null;
 };
 
 export const getPrevLot = async (
