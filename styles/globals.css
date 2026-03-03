@@ -44,3 +44,16 @@ h6 {
 	@apply font-serif font-light tracking-tight;
 	letter-spacing: var(--letter-spacing-serif);
 }
+
+.about-marquee {
+	animation: about-marquee 30s linear infinite;
+}
+
+@keyframes about-marquee {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-16.666%);
+	}
+}

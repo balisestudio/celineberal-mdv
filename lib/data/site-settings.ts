@@ -2,8 +2,12 @@ import { getMediaSrc } from "@/lib/media-src";
 import { payload } from "@/lib/payload";
 import type { Media, SiteSetting } from "@/payload-types";
 
-export const getSiteSettings = async () => {
-	return payload.findGlobal({ slug: "site-settings", depth: 1 });
+export const getSiteSettings = async (locale?: string) => {
+	return payload.findGlobal({
+		slug: "site-settings",
+		depth: 1,
+		...(locale && { locale: locale as "fr" | "en" }),
+	});
 };
 
 export const getGraphicsDark = (settings: SiteSetting) => {
