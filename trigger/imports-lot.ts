@@ -264,77 +264,78 @@ const uploadLotImages = async (
 	return mediaIds;
 };
 
-type ProcessSingleLotResult =
-	| { success: true; lotNumber: string }
-	| { success: false; lotNumber: string; error: string };
+type PreparedLot = {
+	lotNumber: string;
+	xmlLot: InterenchersLot;
+	mediaIds: number[];
+	fr: {
+		title: string;
+		description: string;
+		characteristics: { key: string; value: string }[];
+	};
+	en?: {
+		title: string;
+		description: string;
+		characteristics: { key: string; value: string }[];
+	};
+};
 
-const processSingleLot = async (
+const prepareSingleLot = async (
 	xmlLot: InterenchersLot,
 	lotNumber: string,
 	options: ImportLotsOptions,
-	auctionId: number,
-): Promise<ProcessSingleLotResult> => {
+): Promise<PreparedLot | null> => {
 	try {
 		const content = await processLotContent(xmlLot, lotNumber, options);
 
-		const lotData = {
-			auction: auctionId,
-			title: content.frTitle,
-			lotNumber,
-			description: content.frDescription,
-			characteristics:
-				content.frCharacteristics.length > 0
-					? content.frCharacteristics
-					: undefined,
-			lowEstimate: xmlLot["estimation-basse"],
-			highEstimate: xmlLot["estimation-haute"],
-		};
-
-		const createdLot = await payload.create({
-			collection: "lots",
-			data: lotData,
-			locale: "fr",
-		});
-
-		if (content.enTitle && content.enDescription) {
-			const enData: Record<string, unknown> = {
-				title: content.enTitle,
-				description: content.enDescription,
-			};
-
-			if (content.enCharacteristics && content.enCharacteristics.length > 0) {
-				enData.characteristics = content.enCharacteristics.map((c, i) => ({
-					...c,
-					id: createdLot.characteristics?.[i]?.id,
-				}));
-			}
-
-			await payload.update({
-				collection: "lots",
-				id: createdLot.id,
-				data: enData,
-				locale: "en",
-			});
-		}
-
 		const mediaIds = await uploadLotImages(xmlLot, content.frTitle, lotNumber);
 
-		if (mediaIds.length > 0) {
-			await payload.update({
-				collection: "lots",
-				id: createdLot.id,
-				data: { images: mediaIds },
-			});
-		}
+		const hasEnglish =
+			content.enTitle !== undefined || content.enDescription !== undefined;
 
-		return { success: true, lotNumber };
+		return {
+			lotNumber,
+			xmlLot,
+			mediaIds,
+			fr: {
+				title: content.frTitle,
+				description: content.frDescription,
+				characteristics: content.frCharacteristics,
+			},
+			...(hasEnglish && {
+				en: {
+					title: content.enTitle ?? content.frTitle,
+					description: content.enDescription ?? content.frDescription,
+					characteristics:
+						content.enCharacteristics ?? content.frCharacteristics,
+				},
+			}),
+		};
 	} catch (error) {
 		const errorMessage = error instanceof Error ? error.message : String(error);
-		logger.error("Lot non importé", {
+		logger.error("Préparation lot échouée", {
 			lotNumber,
 			error: errorMessage,
 		});
-		return { success: false, lotNumber, error: errorMessage };
+		return null;
+	}
+};
+
+const cleanupOrphanMedia = async (mediaIds: number[]) => {
+	if (mediaIds.length === 0) return;
+	try {
+		await payload.delete({
+			collection: "media",
+			where: { id: { in: mediaIds } },
+		});
+		logger.info("Médias orphelins supprimés", { count: mediaIds.length });
+	} catch (cleanupError) {
+		logger.warn("Échec nettoyage médias orphelins", {
+			error:
+				cleanupError instanceof Error
+					? cleanupError.message
+					: String(cleanupError),
+		});
 	}
 };
 
@@ -409,42 +410,118 @@ export const importLotsTask = task({
 			throw error;
 		}
 
-		// Phase 2: Process lots in parallel (no transaction)
+		// Phase 2: Prepare all lots in parallel (AI + images, no DB transaction)
 		const limit = pLimit(CONCURRENCY);
-		const results: ProcessSingleLotResult[] = await Promise.all(
+		const prepareResults = await Promise.all(
 			xmlLots.map((xmlLot) =>
-				limit(() =>
-					processSingleLot(xmlLot, buildLotNumber(xmlLot), options, auction.id),
-				),
+				limit(() => prepareSingleLot(xmlLot, buildLotNumber(xmlLot), options)),
 			),
 		);
 
-		const lotsCreated = results.filter(
-			(
-				r: ProcessSingleLotResult,
-			): r is ProcessSingleLotResult & { success: true } => r.success,
-		).length;
-		const lotsFailed = results.filter(
-			(
-				r: ProcessSingleLotResult,
-			): r is ProcessSingleLotResult & { success: false } => !r.success,
+		const preparedLots = prepareResults.filter(
+			(r): r is PreparedLot => r !== null,
 		);
+		const preparedFailed = xmlLots.length - preparedLots.length;
 
-		logger.info("Import terminé", {
+		if (preparedLots.length === 0) {
+			const allMediaIds = prepareResults
+				.flatMap((r) => (r !== null ? r.mediaIds : []))
+				.filter((_, i, arr) => arr.indexOf(_) === i);
+			await cleanupOrphanMedia(allMediaIds);
+			throw new Error("Aucun lot n'a pu être préparé, import annulé");
+		}
+
+		logger.info("Préparation terminée", {
 			auctionId: auction.id,
-			lotsCreated,
-			lotsFailed: lotsFailed.length,
+			prepared: preparedLots.length,
+			failed: preparedFailed,
 			totalLots: xmlLots.length,
 		});
 
-		if (lotsFailed.length > 0) {
-			logger.warn("Lots non importés", {
+		const newMediaIds = preparedLots.flatMap((p) => p.mediaIds);
+
+		// Phase 3: Save all lots sequentially inside a transaction
+		const saveTransactionID = await payload.db.beginTransaction();
+		if (!saveTransactionID) {
+			await cleanupOrphanMedia(newMediaIds);
+			throw new Error("Impossible de démarrer la transaction d'écriture");
+		}
+
+		try {
+			let lotsCreated = 0;
+			for (const prepared of preparedLots) {
+				const frData = {
+					auction: auction.id,
+					title: prepared.fr.title,
+					lotNumber: prepared.lotNumber,
+					description: prepared.fr.description,
+					characteristics:
+						prepared.fr.characteristics.length > 0
+							? prepared.fr.characteristics
+							: undefined,
+					lowEstimate: prepared.xmlLot["estimation-basse"],
+					highEstimate: prepared.xmlLot["estimation-haute"],
+					...(prepared.mediaIds.length > 0 && { images: prepared.mediaIds }),
+				};
+
+				const createdLot = await payload.create({
+					collection: "lots",
+					locale: "fr",
+					data: frData,
+					req: { transactionID: saveTransactionID } as never,
+				});
+
+				if (prepared.en) {
+					const savedChars = createdLot.characteristics ?? [];
+					await payload.update({
+						collection: "lots",
+						id: createdLot.id,
+						locale: "en",
+						data: {
+							title: prepared.en.title,
+							description: prepared.en.description,
+							characteristics: savedChars.map((item, i) => ({
+								id: item.id,
+								key:
+									prepared.en!.characteristics[i]?.key ??
+									prepared.fr.characteristics[i]?.key ??
+									"",
+								value:
+									prepared.en!.characteristics[i]?.value ??
+									prepared.fr.characteristics[i]?.value ??
+									"",
+							})),
+						},
+						req: { transactionID: saveTransactionID } as never,
+					});
+				}
+
+				lotsCreated++;
+			}
+
+			await payload.db.commitTransaction(saveTransactionID);
+
+			logger.info("Import terminé", {
 				auctionId: auction.id,
-				failed: lotsFailed.map((r) => ({
-					lotNumber: r.lotNumber,
-					error: r.error,
-				})),
+				lotsCreated,
+				lotsFailed: preparedFailed,
+				totalLots: xmlLots.length,
 			});
+
+			if (preparedFailed > 0) {
+				logger.warn("Lots non préparés (ignorés)", {
+					auctionId: auction.id,
+					count: preparedFailed,
+				});
+			}
+		} catch (error) {
+			logger.error("Erreur pendant l'écriture des lots - rollback", {
+				auctionId: auction.id,
+				error: error instanceof Error ? error.message : String(error),
+			});
+			await payload.db.rollbackTransaction(saveTransactionID);
+			await cleanupOrphanMedia(newMediaIds);
+			throw error;
 		}
 	},
 });
