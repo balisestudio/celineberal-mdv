@@ -1,4 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
+import { runs } from "@trigger.dev/sdk/v3";
 import type { CollectionConfig } from "payload";
 import { slugify } from "payload/shared";
 import { can } from "@/lib/permissions";
@@ -13,6 +14,13 @@ export const Auctions: CollectionConfig = {
 		group: "Ventes",
 		useAsTitle: "title",
 		defaultColumns: ["title", "auctionDate", "location", "updatedAt"],
+		components: {
+			edit: {
+				beforeDocumentControls: [
+					"/components/payload/imports-lots#ImportsLots",
+				],
+			},
+		},
 	},
 	access: {
 		create: ({ req: { user } }) => can(user, "editor"),
@@ -20,8 +28,29 @@ export const Auctions: CollectionConfig = {
 			if (user && can(user, "viewer")) return true;
 			return { _status: { equals: "published" } };
 		},
-		update: ({ req: { user } }) => can(user, "editor"),
-		delete: ({ req: { user } }) => can(user, "editor"),
+		update: async ({ req: { user, payload, data } }) => {
+			if (!user || !can(user, "editor")) return false;
+
+			if (data?.triggerId) {
+				const trigger = await runs.retrieve(data.triggerId);
+				if (trigger.isExecuting) return false;
+				await payload.update({
+					collection: "auctions",
+					id: data.id,
+					data: { triggerId: null },
+				});
+			}
+
+			return true;
+		},
+		delete: async ({ req: { user, payload, data } }) => {
+			if (!user || !can(user, "editor")) return false;
+			if (data?.triggerId) {
+				const trigger = await runs.retrieve(data.triggerId);
+				if (trigger.isExecuting) return false;
+			}
+			return true;
+		},
 	},
 	versions: {
 		drafts: true,
@@ -157,6 +186,13 @@ export const Auctions: CollectionConfig = {
 					],
 				},
 			],
+		},
+		{
+			name: "triggerId",
+			type: "text",
+			admin: {
+				hidden: true,
+			},
 		},
 	],
 };

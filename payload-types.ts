@@ -294,6 +294,7 @@ export interface Auction {
 				id?: string | null;
 		  }[]
 		| null;
+	triggerId?: string | null;
 	updatedAt: string;
 	createdAt: string;
 	_status?: ("draft" | "published") | null;
@@ -581,6 +582,7 @@ export interface AuctionsSelect<T extends boolean = true> {
 				role?: T;
 				id?: T;
 		  };
+	triggerId?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	_status?: T;
