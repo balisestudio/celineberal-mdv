@@ -58,13 +58,13 @@ export const NavBar = ({
 				}`}
 			>
 				<Container>
-					<div className="flex h-16 items-center justify-between">
+					<div className="flex h-20 items-center justify-between">
 						<Link href="/" className="hover:opacity-75 transition-opacity">
 							<Image
 								src={logoSrc}
 								alt={logoAlt}
-								height={22}
-								width={Math.round(22 * (1005 / 222))}
+								height={40}
+								width={Math.round(40 * (1005 / 222))}
 								priority
 							/>
 						</Link>
