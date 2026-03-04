@@ -79,7 +79,7 @@ export const AuctionHero = async ({
 					{isUpcoming && (
 						<div className="lg:flex lg:items-end lg:shrink-0">
 							<Link
-								href="/estimation"
+								href="/estimate"
 								className="inline-flex items-center font-sans uppercase text-xs tracking-widest px-6 py-2.5 border border-white text-white hover:bg-white hover:text-bordeaux transition-colors"
 							>
 								{t("sellItem")}

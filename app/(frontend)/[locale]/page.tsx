@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import { EstimationBlock } from "@/components/home/estimation-block";
+import { EstimateBlock } from "@/components/home/estimate-block";
 import { HeroBrand } from "@/components/home/hero-brand";
 import { HeroSale } from "@/components/home/hero-sale";
 import { SalesSection } from "@/components/home/sales-section";
@@ -74,7 +74,7 @@ const HomePage = async () => {
 				/>
 			)}
 
-			<EstimationBlock />
+			<EstimateBlock />
 		</>
 	);
 };

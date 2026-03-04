@@ -86,7 +86,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 
 			<div className="flex justify-center pt-2">
 				<Button
-					href="/estimation"
+					href="/estimate"
 					variant="outline"
 					size="md"
 					className="w-full justify-center"

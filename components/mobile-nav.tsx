@@ -140,7 +140,7 @@ export const MobileNav = ({
 
 							<div className="mt-auto pt-10 flex flex-col items-center gap-4">
 								<Button
-									href="/estimation"
+									href="/estimate"
 									variant="primary"
 									size="lg"
 									className="w-full justify-center"

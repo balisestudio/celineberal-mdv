@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { AboutTextSection } from "@/components/about/about-text-section";
-import { ContactEstimationSection } from "@/components/about/contact-estimation-section";
+import { ContactEstimateSection } from "@/components/about/contact-estimate-section";
 import { AboutHero } from "@/components/about/hero";
 import { LegalMentions } from "@/components/about/legal-mentions";
 import { ManifestoSection } from "@/components/about/manifesto-section";
@@ -73,7 +73,7 @@ const AboutPage = async () => {
 				<PressMarquee press={press} label={t("pressLabel")} />
 			)}
 
-			<ContactEstimationSection contact={contact} />
+			<ContactEstimateSection contact={contact} />
 
 			<LegalMentions contact={contact} />
 		</>

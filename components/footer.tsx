@@ -9,7 +9,7 @@ import type { Contact as ContactType } from "@/payload-types";
 const FOOTER_NAV = [
 	{ href: "/auctions", navKey: "links.auctions" as const },
 	{ href: "/results", navKey: "links.results" as const },
-	{ href: "/estimation", navKey: "estimate" as const },
+	{ href: "/estimate", navKey: "estimate" as const },
 	{ href: "/about", navKey: "links.about" as const },
 ] as const;
 

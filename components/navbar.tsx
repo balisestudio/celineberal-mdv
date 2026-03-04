@@ -92,7 +92,7 @@ export const NavBar = ({
 							</div>
 
 							<Button
-								href="/estimation"
+								href="/estimate"
 								variant="primary"
 								size="sm"
 								className="hidden sm:inline-flex"
