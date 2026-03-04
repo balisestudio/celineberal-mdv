@@ -58,7 +58,7 @@ export const NavBar = ({
 				}`}
 			>
 				<Container>
-					<div className="flex h-20 items-center justify-between">
+					<div className="flex h-24 items-center justify-between">
 						<Link href="/" className="hover:opacity-75 transition-opacity">
 							<Image
 								src={logoSrc}
