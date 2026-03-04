@@ -24,7 +24,12 @@ export const getLots = async ({
 }) => {
 	return payload.find({
 		collection: "lots",
-		where: { auction: { equals: auctionId } },
+		where: {
+			and: [
+				{ auction: { equals: auctionId } },
+				{ "auction._status": { equals: "published" } },
+			],
+		},
 		sort: SORT_MAP[sort] ?? "internalLotNumber",
 		page,
 		limit,
@@ -45,6 +50,7 @@ export const getLotByLotNumber = async (
 			and: [
 				{ auction: { equals: auctionId } },
 				{ lotNumber: { equals: lotNumber } },
+				{ "auction._status": { equals: "published" } },
 			],
 		},
 		depth: 2,
@@ -66,6 +72,7 @@ export const getLotByAuctionSlugAndLotNumber = async (
 			and: [
 				{ "auction.slug": { equals: auctionSlug } },
 				{ lotNumber: { equals: lotNumber } },
+				{ "auction._status": { equals: "published" } },
 			],
 		},
 		depth: 2,
@@ -88,6 +95,7 @@ export const getPrevLot = async (
 			and: [
 				{ auction: { equals: auctionId } },
 				{ internalLotNumber: { less_than: currentInternalLotNumber } },
+				{ "auction._status": { equals: "published" } },
 			],
 		},
 		sort: "-internalLotNumber",
@@ -111,6 +119,7 @@ export const getNextLot = async (
 			and: [
 				{ auction: { equals: auctionId } },
 				{ internalLotNumber: { greater_than: currentInternalLotNumber } },
+				{ "auction._status": { equals: "published" } },
 			],
 		},
 		sort: "internalLotNumber",
@@ -141,6 +150,7 @@ export const getSimilarLots = async (
 				and: [
 					{ auction: { equals: auctionId } },
 					{ id: { not_equals: excludeLotId } },
+					{ "auction._status": { equals: "published" } },
 					...(refPrice > 0
 						? [{ lowEstimate: { less_than_equal: refPrice } }]
 						: []),
@@ -158,6 +168,7 @@ export const getSimilarLots = async (
 				and: [
 					{ auction: { equals: auctionId } },
 					{ id: { not_equals: excludeLotId } },
+					{ "auction._status": { equals: "published" } },
 					...(refPrice > 0
 						? [{ lowEstimate: { greater_than: refPrice } }]
 						: []),
@@ -185,7 +196,11 @@ export const getTopLots = async (limit = 10) =>
 	payload.find({
 		collection: "lots",
 		where: {
-			and: [{ sold: { equals: true } }, { salePrice: { exists: true } }],
+			and: [
+				{ sold: { equals: true } },
+				{ salePrice: { exists: true } },
+				{ "auction._status": { equals: "published" } },
+			],
 		},
 		sort: "-salePrice",
 		limit,
