@@ -1,5 +1,11 @@
 {
 	"common": {},
+	"errors": {
+		"notFoundTitle": "Page introuvable",
+		"notFoundDesc": "La page que vous recherchez n'existe pas ou a été déplacée.",
+		"backHome": "Retour à l'accueil",
+		"viewSales": "Voir les ventes"
+	},
 	"about": {
 		"manifestoLabel": "Manifeste",
 		"valuesTitle": "Nos valeurs",
