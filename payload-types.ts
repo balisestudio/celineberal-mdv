@@ -321,7 +321,7 @@ export interface Auction {
  */
 export interface Estimate {
 	id: number;
-	civility: "madame" | "monsieur" | "autre";
+	civility: "woman" | "man" | "other";
 	firstName: string;
 	lastName: string;
 	email: string;

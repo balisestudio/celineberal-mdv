@@ -31,9 +31,9 @@ export const Estimates: CollectionConfig = {
 							type: "select",
 							required: true,
 							options: [
-								{ label: "Madame", value: "madame" },
-								{ label: "Monsieur", value: "monsieur" },
-								{ label: "Autre", value: "autre" },
+								{ label: "Madame", value: "woman" },
+								{ label: "Monsieur", value: "man" },
+								{ label: "Autre", value: "other" },
 							],
 						},
 						{
