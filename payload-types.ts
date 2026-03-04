@@ -728,6 +728,7 @@ export interface About {
 		  }[]
 		| null;
 	aboutText: string;
+	featuredCollaborators?: (number | Collaborator)[] | null;
 	press?:
 		| {
 				label: string;
@@ -804,6 +805,7 @@ export interface AboutSelect<T extends boolean = true> {
 				id?: T;
 		  };
 	aboutText?: T;
+	featuredCollaborators?: T;
 	press?:
 		| T
 		| {

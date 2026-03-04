@@ -76,6 +76,18 @@ export const About: GlobalConfig = {
 					],
 				},
 				{
+					label: "Équipe",
+					fields: [
+						{
+							name: "featuredCollaborators",
+							label: "Collaborateurs à afficher",
+							type: "relationship",
+							relationTo: "collaborators",
+							hasMany: true,
+						},
+					],
+				},
+				{
 					label: "Presse",
 					fields: [
 						{
