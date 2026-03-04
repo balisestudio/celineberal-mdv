@@ -18,7 +18,9 @@ export const getAuctions = async () => {
 export const getAuctionBySlug = async (slug: string, locale?: string) => {
 	const result = await payload.find({
 		collection: "auctions",
-		where: { slug: { equals: slug } },
+		where: {
+			and: [{ slug: { equals: slug } }, { _status: { equals: "published" } }],
+		},
 		depth: 2,
 		limit: 1,
 		locale: (locale as "fr" | "en") ?? "fr",
