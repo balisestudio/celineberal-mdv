@@ -13,7 +13,7 @@ export const ValuesSection = ({
 	values: ValueItem[];
 	titleLabel: string;
 }) => (
-	<section className="bg-sand/30 py-20">
+	<section className="bg-blanc-casse py-20">
 		<Container>
 			<h2 className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-10">
 				{titleLabel}

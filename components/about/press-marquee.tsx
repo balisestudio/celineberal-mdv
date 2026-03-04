@@ -25,7 +25,7 @@ export const PressMarquee = ({
 	press: PressItem[];
 	label: string;
 }) => (
-	<section className="border-t border-sand bg-blanc-casse py-16">
+	<section className="bg-blanc-casse py-16">
 		<Container>
 			<p className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-8">
 				{label}

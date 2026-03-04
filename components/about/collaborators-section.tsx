@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
+import { getCollaboratorInitials } from "@/lib/get-initials";
 import { getMediaSrc } from "@/lib/media-src";
 import type { Collaborator, Media } from "@/payload-types";
 
@@ -19,7 +20,7 @@ export const CollaboratorsSection = ({
 	if (list.length === 0) return null;
 
 	return (
-		<section className="border-t border-sand py-20">
+		<section className="bg-blanc-casse py-20">
 			<Container>
 				<h2 className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-10">
 					{titleLabel}
@@ -49,7 +50,7 @@ export const CollaboratorsSection = ({
 								) : (
 									<div className="flex aspect-square w-40 items-center justify-center border border-sand bg-sand/20 text-muted">
 										<span className="text-4xl font-serif italic">
-											{collab.name.charAt(0)}
+											{getCollaboratorInitials(collab.name)}
 										</span>
 									</div>
 								)}

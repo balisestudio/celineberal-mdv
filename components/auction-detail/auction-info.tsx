@@ -2,13 +2,9 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { getCollaboratorInitials } from "@/lib/get-initials";
 import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Collaborator, Media } from "@/payload-types";
-
-const getInitials = (name: string) => {
-	const trimmed = name.trim();
-	return `${trimmed[0] ?? ""}${trimmed[trimmed.length - 1] ?? ""}`.toUpperCase();
-};
 
 export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 	const t = await getTranslations("auction");
@@ -61,7 +57,7 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 											) : (
 												<div className="w-full h-full bg-sand flex items-center justify-center">
 													<span className="font-serif italic text-2xl text-bordeaux/50">
-														{getInitials(collaborator.name)}
+														{getCollaboratorInitials(collaborator.name)}
 													</span>
 												</div>
 											)}

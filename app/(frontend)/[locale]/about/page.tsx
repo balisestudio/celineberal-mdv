@@ -59,8 +59,8 @@ const AboutPage = async () => {
 				manifestoLabel={t("manifestoLabel")}
 			/>
 
-			{values.length > 0 && (
-				<ValuesSection values={values} titleLabel={t("valuesTitle")} />
+			{press.length > 0 && (
+				<PressMarquee press={press} label={t("pressLabel")} />
 			)}
 
 			{about.aboutText && (
@@ -75,8 +75,8 @@ const AboutPage = async () => {
 				titleLabel={t("collaboratorsTitle")}
 			/>
 
-			{press.length > 0 && (
-				<PressMarquee press={press} label={t("pressLabel")} />
+			{values.length > 0 && (
+				<ValuesSection values={values} titleLabel={t("valuesTitle")} />
 			)}
 
 			<ContactEstimateSection contact={contact} />
