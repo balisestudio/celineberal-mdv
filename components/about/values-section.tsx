@@ -15,7 +15,7 @@ export const ValuesSection = ({
 }) => (
 	<section className="bg-sand/30 py-20">
 		<Container>
-			<h2 className="text-[12px] uppercase tracking-[0.2em] text-muted font-sans mb-10">
+			<h2 className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-10">
 				{titleLabel}
 			</h2>
 			<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
@@ -27,7 +27,7 @@ export const ValuesSection = ({
 							</h3>
 						)}
 						{item.description && (
-							<p className="mt-2 text-xs text-muted leading-relaxed">
+							<p className="mt-2 text-sm text-muted leading-relaxed">
 								{item.description}
 							</p>
 						)}

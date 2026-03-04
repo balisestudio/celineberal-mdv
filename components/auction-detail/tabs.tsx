@@ -22,7 +22,7 @@ export const AuctionTabs = ({
 	const isAboutActive = pathname === aboutPath;
 
 	const tabBase =
-		"flex items-center gap-2 px-6 py-4 text-xs uppercase tracking-widest border-b-2 transition-colors";
+		"flex items-center gap-2 px-6 py-4 text-sm uppercase tracking-widest border-b-2 transition-colors";
 	const activeTab = "border-bordeaux text-bordeaux";
 	const inactiveTab = "border-transparent text-muted hover:text-charcoal";
 
@@ -36,7 +36,7 @@ export const AuctionTabs = ({
 							className={`${tabBase} ${isLotsActive ? activeTab : inactiveTab}`}
 						>
 							{t("tabs.lots")}
-							<span className="text-[12px] text-muted">{totalLots}</span>
+							<span className="text-sm text-muted">{totalLots}</span>
 						</Link>
 					) : (
 						<span

@@ -17,7 +17,7 @@ const LotNav = ({
 	const t = useTranslations("lotDetail");
 
 	const linkBase =
-		"group flex items-center gap-1.5 text-[12px] uppercase tracking-widest text-muted hover:text-bordeaux transition-colors";
+		"group flex items-center gap-1.5 text-sm uppercase tracking-widest text-muted hover:text-bordeaux transition-colors";
 
 	return (
 		<div className="border-t border-sand mt-16 pt-8 flex items-center justify-between">

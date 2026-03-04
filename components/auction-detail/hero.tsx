@@ -39,7 +39,7 @@ export const AuctionHero = async ({
 			)}
 
 			<Container className="relative">
-				<div className="flex items-center gap-1.5 text-[12px] uppercase tracking-widest text-white/50 mb-8 min-w-0">
+				<div className="flex items-center gap-1.5 text-sm uppercase tracking-widest text-white/50 mb-8 min-w-0">
 					<Link
 						href="/auctions"
 						className="hover:text-white transition-colors shrink-0"
@@ -52,7 +52,7 @@ export const AuctionHero = async ({
 
 				<div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
 					<div className="flex flex-col gap-4">
-						<span className="self-start text-[12px] uppercase tracking-widest text-white/70 bg-charcoal/60 border border-blanc-casse/20 px-3 py-1">
+						<span className="self-start text-sm uppercase tracking-widest text-white/70 bg-charcoal/60 border border-blanc-casse/20 px-3 py-1">
 							{isUpcoming ? t("upcoming") : t("past")}
 						</span>
 
@@ -61,12 +61,12 @@ export const AuctionHero = async ({
 						</h1>
 
 						<div className="flex flex-wrap gap-x-6 gap-y-1 mt-2">
-							<p className="text-[12px] uppercase tracking-widest">
+							<p className="text-sm uppercase tracking-widest">
 								<span className="text-white/40 mr-2">{t("date")}</span>
 								<span className="text-white/70">{formattedDate}</span>
 							</p>
 							{auction.location && (
-								<p className="text-[12px] uppercase tracking-widest">
+								<p className="text-sm uppercase tracking-widest">
 									<span className="text-white/40 mr-2">
 										{t("locationLabel")}
 									</span>
@@ -80,7 +80,7 @@ export const AuctionHero = async ({
 						<div className="lg:flex lg:items-end lg:shrink-0">
 							<Link
 								href="/estimate"
-								className="inline-flex items-center font-sans uppercase text-xs tracking-widest px-6 py-2.5 border border-white text-white hover:bg-white hover:text-bordeaux transition-colors"
+								className="inline-flex items-center font-sans uppercase text-sm tracking-widest px-6 py-2.5 border border-white text-white hover:bg-white hover:text-bordeaux transition-colors"
 							>
 								{t("sellItem")}
 							</Link>

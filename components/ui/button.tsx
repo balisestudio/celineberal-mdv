@@ -11,9 +11,9 @@ const variantClasses = {
 } as const;
 
 const sizeClasses = {
-	sm: "px-4 py-1.5 text-xs tracking-widest",
-	md: "px-6 py-2.5 text-sm tracking-widest",
-	lg: "px-8 py-3.5 text-sm tracking-widest",
+	sm: "px-4 py-2 text-sm tracking-widest",
+	md: "px-6 py-3 text-base tracking-widest",
+	lg: "px-8 py-4 text-base tracking-widest",
 } as const;
 
 const baseClasses =

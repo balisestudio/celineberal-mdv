@@ -76,7 +76,7 @@ export const NavBar = ({
 									<Link
 										key={href}
 										href={href}
-										className={`font-sans text-xs uppercase tracking-widest transition-colors hover:text-bordeaux ${
+										className={`font-sans text-sm uppercase tracking-widest transition-colors hover:text-bordeaux ${
 											isActive ? "text-bordeaux" : "text-charcoal"
 										}`}
 									>

@@ -22,7 +22,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 	return (
 		<div className="space-y-8">
 			<div>
-				<p className="text-[12px] uppercase tracking-widest text-muted mb-2">
+				<p className="text-sm uppercase tracking-widest text-muted mb-2">
 					{tAuction("lot.number", { n: lot.lotNumber })}
 				</p>
 				<h1 className="font-serif italic text-3xl lg:text-4xl text-charcoal leading-snug">
@@ -34,7 +34,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 				<div className="border-y border-sand py-5 space-y-3">
 					{estimateText && (
 						<div>
-							<p className="text-[12px] uppercase tracking-widest text-muted mb-1">
+							<p className="text-sm uppercase tracking-widest text-muted mb-1">
 								{t("estimate")}
 							</p>
 							<p className="font-serif italic text-2xl text-charcoal">
@@ -44,7 +44,7 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 					)}
 					{lot.sold && salePriceText && (
 						<div>
-							<p className="text-[12px] uppercase tracking-widest text-muted mb-1">
+							<p className="text-sm uppercase tracking-widest text-muted mb-1">
 								{t("salePrice")}
 							</p>
 							<p className="font-serif italic text-2xl text-bordeaux">
@@ -57,10 +57,10 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 
 			{lot.description && (
 				<div>
-					<p className="text-[12px] uppercase tracking-widest text-muted mb-3">
+					<p className="text-sm uppercase tracking-widest text-muted mb-3">
 						{t("description")}
 					</p>
-					<p className="text-sm text-charcoal leading-relaxed whitespace-pre-line">
+					<p className="text-base text-charcoal leading-relaxed whitespace-pre-line">
 						{lot.description}
 					</p>
 				</div>
@@ -68,16 +68,16 @@ const LotInfo = async ({ lot }: { lot: Lot }) => {
 
 			{lot.characteristics && lot.characteristics.length > 0 && (
 				<div>
-					<p className="text-[12px] uppercase tracking-widest text-muted mb-3">
+					<p className="text-sm uppercase tracking-widest text-muted mb-3">
 						{t("characteristics")}
 					</p>
 					<div className="flex flex-col gap-2">
 						{lot.characteristics.map((char) => (
 							<div key={char.id ?? char.key} className="flex items-start gap-4">
-								<span className="text-xs text-muted w-32 shrink-0">
+								<span className="text-sm text-muted w-32 shrink-0">
 									{char.key}
 								</span>
-								<span className="text-xs text-charcoal">{char.value}</span>
+								<span className="text-sm text-charcoal">{char.value}</span>
 							</div>
 						))}
 					</div>

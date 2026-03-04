@@ -31,8 +31,13 @@
 	--tracking-serif: var(--letter-spacing-serif);
 }
 
+html {
+	font-size: 18px;
+}
+
 body {
-	@apply font-sans bg-blanc-casse text-bordeaux leading-normal antialiased;
+	@apply font-sans bg-blanc-casse text-bordeaux antialiased;
+	line-height: 1.6;
 }
 
 h1,

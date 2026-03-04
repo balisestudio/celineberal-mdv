@@ -19,7 +19,7 @@ export const Checkbox = ({
 		<input type="checkbox" className={inputClasses} {...props} />
 		{children != null && (
 			<span
-				className={twMerge("text-sm font-sans text-charcoal", labelClassName)}
+				className={twMerge("text-base font-sans text-charcoal", labelClassName)}
 			>
 				{children}
 			</span>

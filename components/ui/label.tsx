@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 const baseClasses =
-	"block text-[11px] uppercase tracking-[0.15em] text-muted font-sans";
+	"block text-sm uppercase tracking-[0.15em] text-muted font-sans";
 
 export const Label = ({
 	className,

@@ -96,25 +96,25 @@ export const LotSection = ({
 	const pages = buildPaginationPages(currentPage, totalPages);
 
 	const sortBtnBase =
-		"cursor-pointer px-3 py-1.5 text-[12px] uppercase tracking-widest border transition-colors";
+		"cursor-pointer px-3 py-1.5 text-sm uppercase tracking-widest border transition-colors";
 	const sortBtnActive = "bg-bordeaux text-blanc-casse border-bordeaux";
 	const sortBtnInactive =
 		"border-sand text-muted hover:text-bordeaux hover:border-bordeaux";
 
 	const navLinkBase =
-		"flex items-center gap-1.5 px-3 py-2 text-[12px] uppercase tracking-widest transition-colors cursor-pointer";
+		"flex items-center gap-1.5 px-3 py-2 text-sm uppercase tracking-widest transition-colors cursor-pointer";
 	const navDisabledBase =
-		"flex items-center gap-1.5 px-3 py-2 text-[12px] uppercase tracking-widest opacity-30 pointer-events-none";
+		"flex items-center gap-1.5 px-3 py-2 text-sm uppercase tracking-widest opacity-30 pointer-events-none";
 
 	return (
 		<div className="py-8">
 			{totalDocs > 0 && (
 				<div className="flex items-center justify-between pb-4 mb-6 border-b border-sand">
-					<p className="text-xs text-muted">{totalDocs} lots</p>
+					<p className="text-sm text-muted">{totalDocs} lots</p>
 					<div
 						className={`flex items-center gap-2 transition-opacity ${isPending ? "opacity-50" : ""}`}
 					>
-						<span className="hidden sm:inline text-[12px] uppercase tracking-widest text-muted">
+						<span className="hidden sm:inline text-sm uppercase tracking-widest text-muted">
 							{t("sort.label")}
 						</span>
 						{SORT_OPTIONS.map((opt) => (
@@ -146,7 +146,7 @@ export const LotSection = ({
 
 			{totalPages > 1 && (
 				<div className="mt-12 flex flex-col items-center gap-4">
-					<p className="text-xs text-muted">
+					<p className="text-sm text-muted">
 						{t("pagination.page", { current: currentPage, total: totalPages })}
 					</p>
 
@@ -170,14 +170,14 @@ export const LotSection = ({
 							item.type === "ellipsis" ? (
 								<span
 									key={item.key}
-									className="w-9 h-9 flex items-center justify-center text-xs text-muted"
+									className="w-9 h-9 flex items-center justify-center text-sm text-muted"
 								>
 									…
 								</span>
 							) : item.value === currentPage ? (
 								<span
 									key={item.value}
-									className="w-9 h-9 flex items-center justify-center text-xs bg-bordeaux text-blanc-casse"
+									className="w-9 h-9 flex items-center justify-center text-sm bg-bordeaux text-blanc-casse"
 								>
 									{item.value}
 								</span>
@@ -185,7 +185,7 @@ export const LotSection = ({
 								<Link
 									key={item.value}
 									href={`${basePath}?page=${item.value}`}
-									className="w-9 h-9 flex items-center justify-center text-xs border border-sand text-muted hover:text-bordeaux hover:border-bordeaux transition-colors cursor-pointer"
+									className="w-9 h-9 flex items-center justify-center text-sm border border-sand text-muted hover:text-bordeaux hover:border-bordeaux transition-colors cursor-pointer"
 								>
 									{item.value}
 								</Link>

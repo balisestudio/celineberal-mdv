@@ -78,28 +78,28 @@ export const LotCard = ({
 					)}
 
 					{lot.sold && (
-						<span className="absolute top-2 right-2 bg-charcoal/80 text-blanc-casse text-[12px] uppercase tracking-widest px-2 py-0.5">
+						<span className="absolute top-2 right-2 bg-charcoal/80 text-blanc-casse text-sm uppercase tracking-widest px-2 py-0.5">
 							{t("lot.sold")}
 						</span>
 					)}
 				</div>
 
 				<div className="flex flex-col flex-1 pt-3 gap-1">
-					<p className="text-[12px] uppercase tracking-widest text-muted">
+					<p className="text-sm uppercase tracking-widest text-muted">
 						{t("lot.number", { n: lot.lotNumber })}
 					</p>
-					<p className="text-sm text-charcoal line-clamp-2 group-hover:text-bordeaux transition-colors">
+					<p className="text-base text-charcoal line-clamp-2 group-hover:text-bordeaux transition-colors">
 						{lot.title}
 					</p>
 
 					<div className="mt-auto pt-2 flex flex-col gap-0.5">
 						{estimateText && (
-							<p className="font-serif italic text-sm text-muted">
+							<p className="font-serif italic text-base text-muted">
 								{estimateText}
 							</p>
 						)}
 						{lot.sold && lot.salePrice && (
-							<p className="font-serif italic text-sm text-bordeaux">
+							<p className="font-serif italic text-base text-bordeaux">
 								{lot.salePrice.toLocaleString()} €
 							</p>
 						)}

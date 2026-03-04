@@ -24,13 +24,13 @@ export const SectionHeader = ({
 			transition={{ duration: 0.4, ease: "easeOut" }}
 			className="flex items-center justify-between gap-4 border-b border-sand pb-4"
 		>
-			<h2 className="font-sans text-sm font-semibold uppercase text-charcoal shrink-0">
+			<h2 className="font-sans text-base font-semibold uppercase text-charcoal shrink-0">
 				{title}
 			</h2>
 			{linkHref != null && linkLabel != null && (
 				<Link
 					href={linkHref}
-					className="font-sans text-sm uppercase text-charcoal hover:text-bordeaux transition-colors shrink-0"
+					className="font-sans text-base uppercase text-charcoal hover:text-bordeaux transition-colors shrink-0"
 				>
 					{linkLabel}
 				</Link>

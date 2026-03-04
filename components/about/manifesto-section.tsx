@@ -26,7 +26,7 @@ export const ManifestoSection = ({
 			<Container>
 				<div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1fr]">
 					<div className="space-y-6">
-						<p className="text-[12px] uppercase tracking-[0.2em] text-muted font-sans">
+						<p className="text-sm uppercase tracking-[0.2em] text-muted font-sans">
 							{manifestoLabel}
 						</p>
 						{blocks.length > 0 && (
@@ -41,7 +41,7 @@ export const ManifestoSection = ({
 										</p>
 									))}
 								</div>
-								<p className="text-[12px] uppercase tracking-[0.2em] text-muted font-sans pt-2">
+								<p className="text-sm uppercase tracking-[0.2em] text-muted font-sans pt-2">
 									{signature}
 								</p>
 							</>

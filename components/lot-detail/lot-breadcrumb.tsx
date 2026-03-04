@@ -15,7 +15,7 @@ const LotBreadcrumb = async ({
 	return (
 		<div className="bg-blanc-casse border-b border-sand py-3">
 			<Container>
-				<div className="flex items-center gap-1.5 text-[12px] uppercase tracking-widest text-muted min-w-0">
+				<div className="flex items-center gap-1.5 text-sm uppercase tracking-widest text-muted min-w-0">
 					<Link
 						href="/auctions"
 						className="hover:text-bordeaux transition-colors shrink-0"

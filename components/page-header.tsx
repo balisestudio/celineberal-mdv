@@ -10,7 +10,7 @@ export const PageHeader = ({
 	return (
 		<section className="border-b border-sand py-12">
 			<Container>
-				<p className="text-xs uppercase tracking-widest text-muted mb-2">
+				<p className="text-sm uppercase tracking-widest text-muted mb-2">
 					{tagline}
 				</p>
 				<h1 className="font-serif italic text-4xl text-charcoal">{title}</h1>

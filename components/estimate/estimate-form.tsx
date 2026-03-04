@@ -219,7 +219,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 					<h2 className="mt-6 font-serif text-3xl italic text-charcoal">
 						{t("confirmation.title")}
 					</h2>
-					<p className="mt-3 max-w-[448px] text-sm leading-relaxed text-muted">
+					<p className="mt-3 max-w-[448px] text-base leading-relaxed text-muted">
 						{t("confirmation.message", { siteName })}
 					</p>
 					<Button href="/" variant="outline" size="lg" className="mt-8">
@@ -259,7 +259,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 								className="flex flex-col items-center gap-1"
 							>
 								<span
-									className={`flex h-8 w-8 shrink-0 items-center justify-center border text-sm font-sans ${
+									className={`flex h-8 w-8 shrink-0 items-center justify-center border text-base font-sans ${
 										isPast
 											? "border-bordeaux bg-bordeaux text-blanc-casse"
 											: isCurrent
@@ -270,7 +270,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 									{isPast ? <span aria-hidden>✓</span> : s + 1}
 								</span>
 								<span
-									className={`text-[11px] uppercase tracking-wider ${
+									className={`text-sm uppercase tracking-wider ${
 										isCurrent ? "text-bordeaux" : "text-muted"
 									}`}
 								>
@@ -303,7 +303,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 										}
 										className="accent-bordeaux"
 									/>
-									<span className="text-sm text-charcoal">
+									<span className="text-base text-charcoal">
 										{t("step0.civilityMr")}
 									</span>
 								</label>
@@ -318,13 +318,13 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 										}
 										className="accent-bordeaux"
 									/>
-									<span className="text-sm text-charcoal">
+									<span className="text-base text-charcoal">
 										{t("step0.civilityMrs")}
 									</span>
 								</label>
 							</div>
 							{step0Errors.civility && (
-								<p className="mt-1 text-sm text-red-600">
+								<p className="mt-1 text-base text-red-600">
 									{step0Errors.civility}
 								</p>
 							)}
@@ -342,7 +342,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 									}
 								/>
 								{step0Errors.firstName && (
-									<p className="mt-1 text-sm text-red-600">
+									<p className="mt-1 text-base text-red-600">
 										{step0Errors.firstName}
 									</p>
 								)}
@@ -359,7 +359,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 									}
 								/>
 								{step0Errors.lastName && (
-									<p className="mt-1 text-sm text-red-600">
+									<p className="mt-1 text-base text-red-600">
 										{step0Errors.lastName}
 									</p>
 								)}
@@ -378,7 +378,9 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 								}
 							/>
 							{step0Errors.email && (
-								<p className="mt-1 text-sm text-red-600">{step0Errors.email}</p>
+								<p className="mt-1 text-base text-red-600">
+									{step0Errors.email}
+								</p>
 							)}
 						</div>
 						<div>
@@ -394,7 +396,9 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 								}
 							/>
 							{step0Errors.phone && (
-								<p className="mt-1 text-sm text-red-600">{step0Errors.phone}</p>
+								<p className="mt-1 text-base text-red-600">
+									{step0Errors.phone}
+								</p>
 							)}
 						</div>
 						<div>
@@ -476,7 +480,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 											: "border-sand bg-blanc-casse hover:border-bordeaux/40 hover:bg-sand/20"
 								}`}
 							>
-								<span className="text-center text-sm text-muted">
+								<span className="text-center text-base text-muted">
 									{photos.length > 0
 										? t("step1.photosCount", {
 												current: photos.length,
@@ -484,12 +488,12 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 											})
 										: t("step1.photosDrop")}
 								</span>
-								<span className="mt-1 text-xs text-muted">
+								<span className="mt-1 text-sm text-muted">
 									{t("step1.photosHint")}
 								</span>
 							</label>
 							{photoError && (
-								<p className="mt-1 text-sm text-red-600">{photoError}</p>
+								<p className="mt-1 text-base text-red-600">{photoError}</p>
 							)}
 							{photos.length > 0 && (
 								<div className="mt-3 flex gap-2 overflow-x-auto pb-2">
@@ -594,7 +598,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 								</span>
 							</Checkbox>
 							{step2Error && (
-								<p className="mt-1 text-sm text-red-600">{step2Error}</p>
+								<p className="mt-1 text-base text-red-600">{step2Error}</p>
 							)}
 						</div>
 						<div>
@@ -605,11 +609,11 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 								{t("step2.photoReuseLabel", { siteName })}
 							</Checkbox>
 						</div>
-						<div className="border border-sand bg-sand/10 px-4 py-3 text-sm text-muted">
+						<div className="border border-sand bg-sand/10 px-4 py-3 text-base text-muted">
 							{t("step2.reminder")}
 						</div>
 						{globalError && (
-							<div className="border-2 border-bordeaux/30 bg-bordeaux/10 px-4 py-3 text-sm text-bordeaux">
+							<div className="border-2 border-bordeaux/30 bg-bordeaux/10 px-4 py-3 text-base text-bordeaux">
 								{globalError}
 							</div>
 						)}

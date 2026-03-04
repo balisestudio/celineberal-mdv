@@ -105,7 +105,7 @@ export const MobileNav = ({
 						className="fixed inset-y-0 right-0 z-50 flex max-w-sm w-full flex-col bg-blanc-casse"
 					>
 						<div className="flex items-center justify-between px-6 py-5 border-b border-sand">
-							<span className="font-serif italic text-sm text-muted">
+							<span className="font-serif italic text-base text-muted">
 								{siteName}
 							</span>
 							<button
@@ -152,7 +152,7 @@ export const MobileNav = ({
 						</nav>
 
 						<div className="px-6 py-5 border-t border-sand">
-							<p className="font-sans text-xs uppercase tracking-widest text-muted text-center">
+							<p className="font-sans text-sm uppercase tracking-widest text-muted text-center">
 								{siteTagline}
 							</p>
 						</div>

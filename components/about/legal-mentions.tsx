@@ -8,7 +8,7 @@ export const LegalMentions = ({ contact }: { contact: ContactType | null }) => {
 	return (
 		<section className="border-t border-sand py-8">
 			<Container>
-				<p className="text-xs text-muted">
+				<p className="text-sm text-muted">
 					{t("legal", {
 						siret: contact?.siret,
 						rcs: contact?.rcs,

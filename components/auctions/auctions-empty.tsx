@@ -12,7 +12,7 @@ export const AuctionsEmpty = ({
 	return (
 		<div className="py-24 flex flex-col items-center gap-4 text-center">
 			{iconSrc && <Image src={iconSrc} alt={iconAlt} width={48} height={48} />}
-			<p className="text-muted text-sm">{message}</p>
+			<p className="text-muted text-base">{message}</p>
 		</div>
 	);
 };

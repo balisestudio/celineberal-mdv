@@ -47,13 +47,13 @@ export const Footer = ({
 								unoptimized={iconLightSrc.startsWith("http")}
 							/>
 						</Link>
-						<p className="text-xs uppercase tracking-[0.18em] text-blanc-casse/60">
+						<p className="text-sm uppercase tracking-[0.18em] text-blanc-casse/60">
 							{tagline}
 						</p>
 					</div>
 
 					<div>
-						<p className="mb-4 text-xs uppercase tracking-widest text-blanc-casse/40">
+						<p className="mb-4 text-sm uppercase tracking-widest text-blanc-casse/40">
 							{tFooter("navLabel")}
 						</p>
 						<nav>
@@ -62,7 +62,7 @@ export const Footer = ({
 									<li key={href}>
 										<Link
 											href={href}
-											className="font-sans text-sm text-blanc-casse/80 transition-colors hover:text-blanc-casse"
+											className="font-sans text-base text-blanc-casse/80 transition-colors hover:text-blanc-casse"
 										>
 											{tNav(navKey)}
 										</Link>
@@ -73,11 +73,11 @@ export const Footer = ({
 					</div>
 
 					<div>
-						<p className="mb-4 text-xs uppercase tracking-widest text-blanc-casse/40">
+						<p className="mb-4 text-sm uppercase tracking-widest text-blanc-casse/40">
 							{tFooter("contactLabel")}
 						</p>
 						{contact ? (
-							<div className="space-y-3 font-sans text-sm text-blanc-casse/80">
+							<div className="space-y-3 font-sans text-base text-blanc-casse/80">
 								<address className="not-italic whitespace-pre-line leading-4">
 									{contact.address}
 								</address>
@@ -95,7 +95,7 @@ export const Footer = ({
 				<div className="border-t border-white/20 py-6">
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 						{contact ? (
-							<p className="text-xs text-blanc-casse/40">
+							<p className="text-sm text-blanc-casse/40">
 								{tFooter("legal", {
 									siret: contact.siret,
 									rcs: contact.rcs,
@@ -106,7 +106,7 @@ export const Footer = ({
 						) : (
 							<span />
 						)}
-						<p className="text-xs text-blanc-casse/40">
+						<p className="text-sm text-blanc-casse/40">
 							© {year} {siteName}
 						</p>
 					</div>

@@ -80,7 +80,7 @@ export const SaleCard = ({
 					)}
 				</div>
 				<div className="flex min-h-0 flex-1 flex-col border-t border-sand p-5">
-					<p className="text-[12px] uppercase tracking-widest text-muted">
+					<p className="text-sm uppercase tracking-widest text-muted">
 						{formattedDate}
 						{auction.location && (
 							<>
@@ -94,12 +94,12 @@ export const SaleCard = ({
 					</p>
 					<div className="mt-auto flex items-center justify-between gap-2 pt-3">
 						{totalDocs > 0 && (
-							<p className="text-xs text-muted">
+							<p className="text-sm text-muted">
 								{tVentes("lots", { count: totalDocs })}
 							</p>
 						)}
 						<span
-							className={`text-[12px] uppercase tracking-widest shrink-0 ${
+							className={`text-sm uppercase tracking-widest shrink-0 ${
 								isUpcoming ? "text-bordeaux" : "text-muted"
 							}`}
 						>

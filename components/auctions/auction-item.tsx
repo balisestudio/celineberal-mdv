@@ -75,7 +75,7 @@ export const AuctionItem = ({
 				</div>
 
 				<div className="flex-1 min-w-0">
-					<p className="text-[12px] uppercase tracking-widest text-muted mb-1">
+					<p className="text-sm uppercase tracking-widest text-muted mb-1">
 						{formattedDate}
 						{auction.location && (
 							<>
@@ -88,7 +88,7 @@ export const AuctionItem = ({
 						{auction.title}
 					</p>
 					{totalDocs > 0 && (
-						<p className="text-xs text-muted mt-1">
+						<p className="text-sm text-muted mt-1">
 							{t("lots", { count: totalDocs })}
 						</p>
 					)}

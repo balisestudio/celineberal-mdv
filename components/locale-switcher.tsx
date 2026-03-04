@@ -19,7 +19,7 @@ export const LocaleSwitcher = () => {
 		<button
 			type="button"
 			onClick={handleSwitch}
-			className="font-sans cursor-pointer text-xs uppercase tracking-widest text-muted transition-colors hover:text-bordeaux"
+			className="font-sans cursor-pointer text-sm uppercase tracking-widest text-muted transition-colors hover:text-bordeaux"
 		>
 			{targetLocale.toUpperCase()}
 		</button>
