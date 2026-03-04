@@ -29,10 +29,10 @@
 		"salesTitle": "Nos ventes",
 		"seeAllSales": "Voir toutes les ventes",
 		"topLotsTitle": "Résultats d'exception",
-		"estimationTag": "Service gratuit & confidentiel",
-		"estimationTitle": "Faire estimer un objet",
-		"estimationDesc": "Vous possédez un objet et souhaitez en connaître la valeur ? Nos experts vous proposent une estimation gratuite et confidentielle.",
-		"estimationCta": "Demander une estimation"
+		"estimateTag": "Service gratuit & confidentiel",
+		"estimateTitle": "Faire estimer un objet",
+		"estimateDesc": "Vous possédez un objet et souhaitez en connaître la valeur ? Nos experts vous proposent une estimation gratuite et confidentielle.",
+		"estimateCta": "Demander une estimation"
 	},
 	"footer": {
 		"navLabel": "Navigation",
@@ -101,5 +101,67 @@
 		"characteristics": "Caractéristiques",
 		"cta": "Faire estimer un objet similaire",
 		"similarTitle": "Ces lots peuvent vous intéresser"
+	},
+	"estimate": {
+		"surtitle": "Service gratuit & confidentiel",
+		"title": "Estimer un objet",
+		"description": "Décrivez votre objet en quelques clics. {siteName} vous recontactera pour une estimation gratuite et confidentielle.",
+		"stepper": {
+			"coords": "Coordonnées",
+			"object": "L'objet",
+			"consents": "Consentements"
+		},
+		"step0": {
+			"title": "Vos coordonnées",
+			"civility": "Civilité",
+			"civilityMr": "M.",
+			"civilityMrs": "Mme",
+			"firstName": "Prénom",
+			"lastName": "Nom",
+			"email": "Email",
+			"phone": "Téléphone",
+			"address": "Adresse",
+			"postalCode": "Code postal",
+			"city": "Ville",
+			"continue": "Continuer"
+		},
+		"step1": {
+			"title": "Décrivez votre objet",
+			"photosLabel": "Photos (1 à 5 photos)",
+			"photosCount": "{current} / 5 — {count, plural, one {# photo sélectionnée} other {# photos sélectionnées}}",
+			"photosDrop": "Cliquez ou glissez-déposez vos photos",
+			"photosHint": "JPG, PNG, WEBP · Max 5 photos",
+			"removePhoto": "Retirer cette photo",
+			"dimensions": "Dimensions",
+			"dimensionsPlaceholder": "ex : 45 × 30 × 20 cm",
+			"comment": "Commentaire",
+			"commentPlaceholder": "Décrivez l'objet…",
+			"back": "Retour",
+			"continue": "Continuer"
+		},
+		"step2": {
+			"title": "Consentements",
+			"cguLabel": "J'accepte les <terms>conditions générales</terms> et la <privacy>politique de confidentialité</privacy>.",
+			"photoReuseLabel": "J'autorise {siteName} à utiliser les photos de mon objet à des fins de communication (site, réseaux sociaux).",
+			"reminder": "Cette demande est gratuite, confidentielle. Vous serez recontacté sous les délais indiqués.",
+			"back": "Retour",
+			"submit": "Envoyer la demande",
+			"submitting": "Envoi en cours…"
+		},
+		"confirmation": {
+			"title": "Demande envoyée",
+			"message": "Merci pour votre demande. {siteName} vous recontactera dans les meilleurs délais.",
+			"backHome": "Retour à l'accueil"
+		},
+		"errors": {
+			"required": "Champ obligatoire",
+			"invalidEmail": "Email invalide",
+			"minPhotos": "Ajoutez au moins une photo.",
+			"maxPhotos": "Maximum 5 photos.",
+			"photoType": "Types acceptés : JPG, PNG, WEBP.",
+			"cguRequired": "Veuillez accepter les conditions générales.",
+			"uploadFailed": "Erreur lors de l'envoi des photos.",
+			"submitFailed": "Une erreur est survenue. Veuillez réessayer."
+		}
 	}
 }
