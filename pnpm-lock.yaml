@@ -11,6 +11,12 @@ importers:
       '@ai-sdk/openai':
         specifier: ^3.0.39
         version: 3.0.39(zod@4.3.6)
+      '@aws-sdk/client-s3':
+        specifier: ^3.1001.0
+        version: 3.1001.0
+      '@aws-sdk/s3-request-presigner':
+        specifier: ^3.1001.0
+        version: 3.1001.0
       '@paralleldrive/cuid2':
         specifier: ^3.3.0
         version: 3.3.0
@@ -89,6 +95,9 @@ importers:
       react-dom:
         specifier: 19.2.1
         version: 19.2.1(react@19.2.1)
+      sanitize-s3-objectkey:
+        specifier: ^0.0.1
+        version: 0.0.1
       sharp:
         specifier: 0.34.2
         version: 0.34.2
@@ -117,6 +126,9 @@ importers:
       '@types/react-dom':
         specifier: 19.2.3
         version: 19.2.3(@types/react@19.2.9)
+      '@types/sanitize-s3-objectkey':
+        specifier: ^0.0.0
+        version: 0.0.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -2119,6 +2131,9 @@ packages:
   '@types/react@19.2.9':
     resolution: {integrity: sha512-Lpo8kgb/igvMIPeNV2rsYKTgaORYdO1XGVZ4Qz3akwOj0ySGYMPlQWa8BaLn0G63D1aSaAQ5ldR06wCpChQCjA==}
 
+  '@types/sanitize-s3-objectkey@0.0.0':
+    resolution: {integrity: sha512-yXwxPPLWMu93YwUEowxeYDd/QmHLW6rJcSQwVZ0EsBWvujPyViw4bjkpzv+icerpuFbOBFAgxVNbt0PKTP3Suw==}
+
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
@@ -3504,6 +3519,9 @@ packages:
 
   sanitize-filename@1.6.3:
     resolution: {integrity: sha512-y/52Mcy7aw3gRm7IrcGDFx/bCk4AhRh2eI9luHOQM86nZsqwiRkkq2GekHXBBD+SmPidc8i2PqtYZl+pWJ8Oeg==}
+
+  sanitize-s3-objectkey@0.0.1:
+    resolution: {integrity: sha512-ZTk7aqLxy4sD40GWcYWoLfbe05XLmkKvh6vGKe13ADlei24xlezcvjgKy1qRArlaIbIMYaqK7PCalvZtulZlaQ==}
 
   sass@1.77.4:
     resolution: {integrity: sha512-vcF3Ckow6g939GMA4PeU7b2K/9FALXk2KF9J87txdHzXbUF9XRQRwSxcAs/fGaTnJeBFd7UoV22j3lzMLdM0Pw==}
@@ -6198,6 +6216,8 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
+  '@types/sanitize-s3-objectkey@0.0.0': {}
+
   '@types/trusted-types@2.0.7':
     optional: true
 
@@ -7546,6 +7566,8 @@ snapshots:
   sanitize-filename@1.6.3:
     dependencies:
       truncate-utf8-bytes: 1.0.2
+
+  sanitize-s3-objectkey@0.0.1: {}
 
   sass@1.77.4:
     dependencies:
