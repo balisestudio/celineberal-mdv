@@ -11,7 +11,7 @@ import { getAbout } from "@/lib/data/about";
 import { getContact } from "@/lib/data/contact";
 import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
 import { getMediaSrc } from "@/lib/media-src";
-import type { About as AboutType } from "@/payload-types";
+import type { About as AboutType, Media } from "@/payload-types";
 
 export const generateMetadata = async () => {
 	const locale = await getLocale();
@@ -43,7 +43,10 @@ const AboutPage = async () => {
 	const { icon } = getGraphicsDark(settings);
 	const aboutImage = resolveAboutImage(about);
 	const values = about.values ?? [];
-	const press = about.press ?? [];
+	const press = (about.press ?? []).filter(
+		(item): item is typeof item & { logo: Media } =>
+			typeof item.logo === "object" && item.logo !== null,
+	);
 
 	return (
 		<>

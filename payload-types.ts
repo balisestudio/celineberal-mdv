@@ -732,6 +732,7 @@ export interface About {
 	press?:
 		| {
 				label: string;
+				logo: number | Media;
 				id?: string | null;
 		  }[]
 		| null;
@@ -810,6 +811,7 @@ export interface AboutSelect<T extends boolean = true> {
 		| T
 		| {
 				label?: T;
+				logo?: T;
 				id?: T;
 		  };
 	updatedAt?: T;

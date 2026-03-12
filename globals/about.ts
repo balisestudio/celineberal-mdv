@@ -97,8 +97,15 @@ export const About: GlobalConfig = {
 							fields: [
 								{
 									name: "label",
-									label: "Nom / titre",
+									label: "Source",
 									type: "text",
+									required: true,
+								},
+								{
+									name: "logo",
+									label: "Logo",
+									type: "upload",
+									relationTo: "media",
 									required: true,
 								},
 							],
