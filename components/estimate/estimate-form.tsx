@@ -1,5 +1,6 @@
 "use client";
 
+import { Check } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import { Fragment, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -200,21 +201,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 						className="flex h-16 w-16 items-center justify-center border border-sand bg-sand text-bordeaux"
 						aria-hidden
 					>
-						{/* Decorative checkmark, parent has aria-hidden */}
-						{/* biome-ignore lint/a11y/noSvgWithoutTitle: decorative icon */}
-						<svg
-							className="h-8 w-8"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M5 13l4 4L19 7"
-							/>
-						</svg>
+						<Check size={32} weight="light" />
 					</div>
 					<h2 className="mt-6 font-serif text-3xl italic text-charcoal">
 						{t("confirmation.title")}
