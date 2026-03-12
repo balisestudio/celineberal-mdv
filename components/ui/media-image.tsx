@@ -7,7 +7,7 @@ import type { Media } from "@/payload-types";
 
 type MediaSizeKey = keyof NonNullable<Media["sizes"]>;
 
-export interface MediaImageProps {
+interface MediaImageProps {
 	media: Media | null | undefined;
 	iconSrc?: string;
 	iconAlt?: string;
