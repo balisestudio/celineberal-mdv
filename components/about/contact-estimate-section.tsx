@@ -28,7 +28,7 @@ export const ContactEstimateSection = async ({
 						</div>
 						{contact && (
 							<dl className="space-y-4 text-base">
-								<div className="flex gap-4">
+								<div className="flex items-baseline gap-6">
 									<dt className="w-24 shrink-0 text-sm uppercase tracking-[0.2em] text-muted">
 										{t("address")}
 									</dt>
@@ -36,7 +36,7 @@ export const ContactEstimateSection = async ({
 										{contact.address}
 									</dd>
 								</div>
-								<div className="flex gap-4">
+								<div className="flex items-baseline gap-6">
 									<dt className="w-24 shrink-0 text-sm uppercase tracking-[0.2em] text-muted">
 										{t("email")}
 									</dt>
@@ -49,7 +49,7 @@ export const ContactEstimateSection = async ({
 										</a>
 									</dd>
 								</div>
-								<div className="flex gap-4">
+								<div className="flex items-baseline gap-6">
 									<dt className="w-24 shrink-0 text-sm uppercase tracking-[0.2em] text-muted">
 										{t("phone")}
 									</dt>
@@ -63,7 +63,7 @@ export const ContactEstimateSection = async ({
 									</dd>
 								</div>
 								{contact.horaires && (
-									<div className="flex gap-4">
+									<div className="flex items-baseline gap-6">
 										<dt className="w-24 shrink-0 text-sm uppercase tracking-[0.2em] text-muted">
 											{t("horaires")}
 										</dt>

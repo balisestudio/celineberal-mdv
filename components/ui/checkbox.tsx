@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "@phosphor-icons/react";
+import { CheckIcon } from "@phosphor-icons/react";
 import { twMerge } from "tailwind-merge";
 
 const wrapperClasses = "inline-flex items-start gap-2 cursor-pointer";
@@ -32,7 +32,7 @@ export const Checkbox = ({
 				checked ? "bg-bordeaux" : "bg-transparent",
 			)}
 		>
-			<Check
+			<CheckIcon
 				size={11}
 				color="#fcfaf7"
 				weight="bold"
