@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const envSchema = z
+export const env = z
 	.object({
 		DATABASE_URL: z.string(),
 		PAYLOAD_SECRET: z.string(),
@@ -21,5 +21,3 @@ export const envSchema = z
 		S3_CDN_URL: z.string(),
 	})
 	.parse(process.env);
-
-export const env = envSchema;

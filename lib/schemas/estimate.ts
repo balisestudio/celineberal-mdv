@@ -29,9 +29,9 @@ export const estimateConsentsSchema = z.object({
 	allowsPhotoReuse: z.boolean().optional(),
 });
 
-export type EstimateConsents = z.infer<typeof estimateConsentsSchema>;
+type EstimateConsents = z.infer<typeof estimateConsentsSchema>;
 
-export const presignFileSchema = z.object({
+const presignFileSchema = z.object({
 	filename: z.string().min(1),
 	mimeType: z.enum(ALLOWED_IMAGE_TYPES as unknown as [string, ...string[]], {
 		message: "photoType",
@@ -67,6 +67,6 @@ export const submitBodySchema = estimateCoordsSchema
 			.max(MAX_PHOTOS, "maxPhotos"),
 	});
 
-export type SubmitBody = z.infer<typeof submitBodySchema>;
+type SubmitBody = z.infer<typeof submitBodySchema>;
 
-export { ALLOWED_IMAGE_TYPES, MAX_PHOTOS, MIN_PHOTOS };
+export { MAX_PHOTOS, MIN_PHOTOS };

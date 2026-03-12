@@ -1,6 +1,6 @@
 import type { Payload } from "payload";
 
-export const isMediaUsedElsewhere = async (
+const isMediaUsedElsewhere = async (
 	payload: Payload,
 	mediaId: number,
 	excludeLotId?: number,

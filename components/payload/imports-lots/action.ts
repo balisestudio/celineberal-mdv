@@ -97,9 +97,7 @@ export type ImportLotsOptions = {
 	optimizeContent: boolean;
 };
 
-export type ImportLotsResult =
-	| { success: true }
-	| { success: false; error: string };
+type ImportLotsResult = { success: true } | { success: false; error: string };
 
 export const importLots = async (
 	xml: string,

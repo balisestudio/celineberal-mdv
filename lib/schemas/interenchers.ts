@@ -81,4 +81,4 @@ export type InterenchersLot = z.infer<typeof lotSchema>;
 export type InterenchersLots = z.infer<
 	typeof interenchersSchema
 >["import-lots"]["lots"];
-export type InterenchersSchema = z.infer<typeof interenchersSchema>;
+type InterenchersSchema = z.infer<typeof interenchersSchema>;

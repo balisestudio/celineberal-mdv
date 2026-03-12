@@ -30,7 +30,7 @@ const optimizeLotSchema = z.object({
 		),
 });
 
-export type OptimizeLotResult = z.infer<typeof optimizeLotSchema>;
+type OptimizeLotResult = z.infer<typeof optimizeLotSchema>;
 
 export const optimizeLot = async (
 	description: string,

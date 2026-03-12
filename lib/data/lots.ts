@@ -39,7 +39,7 @@ export const getLots = async ({
 	});
 };
 
-export const getLotByLotNumber = async (
+const getLotByLotNumber = async (
 	auctionId: number,
 	lotNumber: string,
 	locale?: string,

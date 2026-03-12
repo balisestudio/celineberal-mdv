@@ -21,9 +21,9 @@ const translateLotSchema = z.object({
 		),
 });
 
-export type TranslateLotResult = z.infer<typeof translateLotSchema>;
+type TranslateLotResult = z.infer<typeof translateLotSchema>;
 
-export type TranslateLotInput = {
+type TranslateLotInput = {
 	title: string;
 	description: string;
 	characteristics?: { key: string; value: string }[];
