@@ -69,8 +69,8 @@ const HomePage = async () => {
 			{topLots.length > 0 && (
 				<TopLotsSection
 					lots={topLots}
-					iconSrc={iconLight.src}
-					iconAlt={iconLight.alt}
+					iconSrc={iconDark.src}
+					iconAlt={iconDark.alt}
 				/>
 			)}
 

@@ -1,11 +1,10 @@
 "use client";
 
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
+import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
-import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Lot, Media } from "@/payload-types";
 
 export const TopLotCard = ({
@@ -28,7 +27,6 @@ export const TopLotCard = ({
 		typeof firstImage === "object" && firstImage !== null
 			? (firstImage as Media)
 			: null;
-	const hasImage = Boolean(getMediaSrc(image));
 	const auction =
 		typeof lot.auction === "object" && lot.auction !== null
 			? (lot.auction as Auction)
@@ -53,27 +51,16 @@ export const TopLotCard = ({
 				}
 				className="group flex flex-col h-full border border-sand bg-white transition-colors hover:border-bordeaux/30"
 			>
-				<div className="relative aspect-square overflow-hidden bg-sand/20">
-					{hasImage ? (
-						<Image
-							src={getMediaSrc(image) ?? ""}
-							alt={image?.alt ?? lot.title}
-							fill
-							className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-							sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
-						/>
-					) : (
-						<div className="absolute inset-0 flex items-center justify-center bg-sand/20">
-							<Image
-								src={iconSrc}
-								alt={iconAlt}
-								width={40}
-								height={40}
-								className="opacity-40 object-contain"
-							/>
-						</div>
-					)}
-				</div>
+				<MediaImage
+					media={image}
+					iconSrc={iconSrc}
+					iconAlt={iconAlt}
+					size="md"
+					className="aspect-square"
+					imageClassName="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+					alt={image?.alt ?? lot.title}
+					sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+				/>
 				<div className="flex flex-col flex-1 border-t border-sand p-3">
 					<p className="text-sm uppercase tracking-widest text-muted">
 						{t("lot.number", { n: lot.lotNumber })}

@@ -3,14 +3,11 @@
 import { format } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef } from "react";
+import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
-import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Media } from "@/payload-types";
-
-const SAND_VARIANTS = ["bg-sand/50", "bg-sand/30", "bg-sand/20"] as const;
 
 export const SaleCard = ({
 	auction,
@@ -32,13 +29,11 @@ export const SaleCard = ({
 
 	const poster = auction.poster as Media;
 	const totalDocs = auction.lots?.totalDocs ?? 0;
-	const hasPoster = Boolean(getMediaSrc(poster));
 	const isUpcoming = new Date(auction.auctionDate) > new Date();
 	const dateLocale = locale === "fr" ? fr : enUS;
 	const formattedDate = format(new Date(auction.auctionDate), "PPP", {
 		locale: dateLocale,
 	});
-	const sandVariant = SAND_VARIANTS[index % SAND_VARIANTS.length];
 
 	return (
 		<motion.div
@@ -56,29 +51,18 @@ export const SaleCard = ({
 				href={`/auctions/${auction.slug}`}
 				className="group flex h-full flex-col border border-sand bg-white transition-colors hover:border-bordeaux/30"
 			>
-				<div className="relative h-52 shrink-0 overflow-hidden">
-					{hasPoster ? (
-						<Image
-							src={getMediaSrc(poster) ?? ""}
-							alt={poster?.alt ?? auction.title}
-							fill
-							className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-							sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-						/>
-					) : (
-						<div
-							className={`absolute inset-0 flex items-center justify-center ${sandVariant}`}
-						>
-							<Image
-								src={iconSrc}
-								alt={iconAlt}
-								width={48}
-								height={48}
-								className="opacity-60 object-contain"
-							/>
-						</div>
-					)}
-				</div>
+				<MediaImage
+					media={poster}
+					iconSrc={iconSrc}
+					iconAlt={iconAlt}
+					size="md"
+					className="h-52 shrink-0"
+					imageClassName="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+					iconSize={48}
+					iconClassName="object-contain"
+					alt={poster?.alt ?? auction.title}
+					sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+				/>
 				<div className="flex min-h-0 flex-1 flex-col border-t border-sand p-5">
 					<p className="text-sm uppercase tracking-widest text-muted">
 						{formattedDate}

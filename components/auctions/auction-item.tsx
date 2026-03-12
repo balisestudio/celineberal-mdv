@@ -4,11 +4,10 @@ import { ArrowRightIcon } from "@phosphor-icons/react";
 import { format } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useRef } from "react";
+import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
-import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Media } from "@/payload-types";
 
 export const AuctionItem = ({
@@ -50,29 +49,18 @@ export const AuctionItem = ({
 				href={`/auctions/${auction.slug}`}
 				className="group flex items-center gap-4 px-2 py-4 hover:bg-blanc-casse/60 transition-colors"
 			>
-				<div className="relative shrink-0 w-20 h-24 lg:w-24 lg:h-28 bg-sand/30 overflow-hidden">
-					{getMediaSrc(poster) ? (
-						<Image
-							src={getMediaSrc(poster, "thumbnail")}
-							alt={poster.alt ?? auction.title}
-							fill
-							className="object-cover group-hover:scale-105 transition-transform duration-500"
-							sizes="(min-width: 1024px) 96px, 80px"
-						/>
-					) : (
-						<div className="w-full h-full flex items-center justify-center">
-							{iconSrc && (
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={40}
-									height={40}
-									className="opacity-60"
-								/>
-							)}
-						</div>
-					)}
-				</div>
+				<MediaImage
+					media={poster}
+					iconSrc={iconSrc}
+					iconAlt={iconAlt}
+					size="thumbnail"
+					className="w-20 h-24 lg:w-24 lg:h-28 shrink-0"
+					imageClassName="object-cover group-hover:scale-105 transition-transform duration-500"
+					iconSize={40}
+					iconClassName="object-contain"
+					alt={poster.alt ?? auction.title}
+					sizes="(min-width: 1024px) 96px, 80px"
+				/>
 
 				<div className="flex-1 min-w-0">
 					<p className="text-sm uppercase tracking-widest text-muted mb-1">

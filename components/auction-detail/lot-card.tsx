@@ -1,11 +1,10 @@
 "use client";
 
 import { motion, useInView } from "motion/react";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
+import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
-import { getMediaSrc } from "@/lib/media-src";
 import type { Lot, Media } from "@/payload-types";
 
 export const LotCard = ({
@@ -54,29 +53,17 @@ export const LotCard = ({
 				href={`/auctions/${auctionSlug}/lots/${lot.lotNumber}`}
 				className="group flex flex-col h-full"
 			>
-				<div className="relative h-64 bg-sand/20 overflow-hidden shrink-0">
-					{getMediaSrc(image) ? (
-						<Image
-							src={getMediaSrc(image, "md")}
-							alt={image?.alt ?? lot.title}
-							fill
-							className="object-contain p-4 group-hover:scale-[1.04] transition-transform duration-500"
-							sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-						/>
-					) : (
-						<div className="w-full h-full flex items-center justify-center">
-							{iconSrc && (
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={40}
-									height={40}
-									className="opacity-40"
-								/>
-							)}
-						</div>
-					)}
-
+				<div className="relative h-64 shrink-0">
+					<MediaImage
+						media={image}
+						iconSrc={iconSrc}
+						iconAlt={iconAlt}
+						size="md"
+						className="h-full w-full"
+						imageClassName="object-contain p-4 group-hover:scale-[1.04] transition-transform duration-500"
+						alt={image?.alt ?? lot.title}
+						sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+					/>
 					{lot.sold && (
 						<span className="absolute top-2 right-2 bg-charcoal/80 text-blanc-casse text-sm uppercase tracking-widest px-2 py-0.5">
 							{t("lot.sold")}

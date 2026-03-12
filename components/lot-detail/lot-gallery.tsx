@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
-import { getMediaSrc } from "@/lib/media-src";
+import { MediaImage } from "@/components/ui/media-image";
 import type { Media } from "@/payload-types";
 
 const LotGallery = ({
@@ -51,33 +50,29 @@ const LotGallery = ({
 				onMouseLeave={handleMouseLeave}
 				onMouseMove={handleMouseMove}
 			>
-				{getMediaSrc(selectedImage) ? (
-					<div
-						className="w-full h-full"
-						style={{
-							transform: isZoomed ? "scale(2.5)" : "scale(1)",
-							transformOrigin,
-							transition: isZoomed
+				<div
+					className="w-full h-full"
+					style={{
+						transform: selectedImage && isZoomed ? "scale(2.5)" : "scale(1)",
+						transformOrigin,
+						transition:
+							selectedImage && isZoomed
 								? "transform 250ms ease-out"
 								: "transform 0ms",
-						}}
-					>
-						<Image
-							src={getMediaSrc(selectedImage, "lg")}
-							alt={selectedImage?.alt ?? lotTitle}
-							fill
-							className="object-contain p-6"
-							sizes="(min-width: 1024px) 50vw, 100vw"
-							draggable={false}
-						/>
-					</div>
-				) : (
-					<div className="w-full h-full bg-sand/20 flex items-center justify-center">
-						{iconSrc && (
-							<Image src={iconSrc} alt={iconAlt} width={64} height={64} />
-						)}
-					</div>
-				)}
+					}}
+				>
+					<MediaImage
+						media={selectedImage}
+						iconSrc={iconSrc}
+						iconAlt={iconAlt}
+						size="lg"
+						className="h-full w-full"
+						imageClassName="object-contain p-6"
+						iconSize={64}
+						alt={selectedImage?.alt ?? lotTitle}
+						sizes="(min-width: 1024px) 50vw, 100vw"
+					/>
+				</div>
 			</div>
 
 			{populatedImages.length > 1 && (
@@ -93,15 +88,17 @@ const LotGallery = ({
 									: "border border-sand hover:border-bordeaux/50"
 							}`}
 						>
-							<div className="relative w-full h-full">
-								<Image
-									src={getMediaSrc(img, "thumbnail")}
-									alt={img.alt ?? lotTitle}
-									fill
-									className="object-contain p-1.5"
-									sizes="64px"
-								/>
-							</div>
+							<MediaImage
+								media={img}
+								iconSrc={iconSrc}
+								iconAlt={iconAlt}
+								size="thumbnail"
+								className="w-full h-full"
+								imageClassName="object-contain p-1.5"
+								iconSize={40}
+								alt={img.alt ?? lotTitle}
+								sizes="64px"
+							/>
 						</button>
 					))}
 				</div>
