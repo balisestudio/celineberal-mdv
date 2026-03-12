@@ -3,6 +3,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/footer";
 import { NavBar } from "@/components/navbar";
+import { ScrollToTop } from "@/components/scroll-to-top";
 import { routing } from "@/i18n/routing";
 import { getContact } from "@/lib/data/contact";
 import {
@@ -36,6 +37,7 @@ const LocaleLayout = async ({
 		<html lang={locale}>
 			<body>
 				<NextIntlClientProvider messages={messages}>
+					<ScrollToTop />
 					<NavBar
 						siteName={settings.siteName}
 						siteTagline={settings.tagline}
