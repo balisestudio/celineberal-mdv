@@ -15,6 +15,7 @@ export const AuctionHero = async ({
 	locale: string;
 }) => {
 	const t = await getTranslations("auction");
+	const tNav = await getTranslations("navbar");
 	const poster = auction.poster as Media;
 	const isUpcoming = new Date(auction.auctionDate) > new Date();
 
@@ -41,10 +42,10 @@ export const AuctionHero = async ({
 			<Container className="relative">
 				<div className="flex items-center gap-1.5 text-sm uppercase tracking-widest text-white/50 mb-8 min-w-0">
 					<Link
-						href="/auctions"
+						href={isUpcoming ? "/auctions" : "/results"}
 						className="hover:text-white transition-colors shrink-0"
 					>
-						{t("breadcrumb")}
+						{isUpcoming ? tNav("links.auctions") : tNav("links.results")}
 					</Link>
 					<span className="shrink-0">›</span>
 					<span className="text-white/80 truncate">{auction.title}</span>
