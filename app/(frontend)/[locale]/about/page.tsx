@@ -3,7 +3,6 @@ import { AboutTextSection } from "@/components/about/about-text-section";
 import { CollaboratorsSection } from "@/components/about/collaborators-section";
 import { ContactEstimateSection } from "@/components/about/contact-estimate-section";
 import { AboutHero } from "@/components/about/hero";
-import { LegalMentions } from "@/components/about/legal-mentions";
 import { ManifestoSection } from "@/components/about/manifesto-section";
 import { PressMarquee } from "@/components/about/press-marquee";
 import { ValuesSection } from "@/components/about/values-section";
@@ -62,8 +61,8 @@ const AboutPage = async () => {
 				manifestoLabel={t("manifestoLabel")}
 			/>
 
-			{press.length > 0 && (
-				<PressMarquee press={press} label={t("pressLabel")} />
+			{values.length > 0 && (
+				<ValuesSection values={values} titleLabel={t("valuesTitle")} />
 			)}
 
 			{about.aboutText && (
@@ -78,13 +77,11 @@ const AboutPage = async () => {
 				titleLabel={t("collaboratorsTitle")}
 			/>
 
-			{values.length > 0 && (
-				<ValuesSection values={values} titleLabel={t("valuesTitle")} />
+			{press.length > 0 && (
+				<PressMarquee press={press} label={t("pressLabel")} />
 			)}
 
 			<ContactEstimateSection contact={contact} />
-
-			<LegalMentions contact={contact} />
 		</>
 	);
 };

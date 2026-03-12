@@ -20,9 +20,9 @@ export const CollaboratorsSection = ({
 	if (list.length === 0) return null;
 
 	return (
-		<section className="bg-blanc-casse py-20">
+		<section className="bg-blanc-casse py-20 border-t border-sand/50">
 			<Container>
-				<h2 className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-10">
+				<h2 className="font-serif italic text-3xl text-charcoal mb-10">
 					{titleLabel}
 				</h2>
 				<ul className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,4 +1,3 @@
-import { LinkSimpleIcon } from "@phosphor-icons/react/dist/ssr";
 import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -15,7 +14,7 @@ export const ContactEstimateSection = async ({
 	]);
 
 	return (
-		<section className="border-t border-sand py-20">
+		<section className="bg-blanc-casse border-t border-sand py-20">
 			<Container>
 				<div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1fr]">
 					<div className="space-y-8">
@@ -76,16 +75,16 @@ export const ContactEstimateSection = async ({
 							</dl>
 						)}
 						{contact?.socialLinks && contact.socialLinks.length > 0 && (
-							<div className="flex gap-2 pt-2">
+							<div className="flex flex-wrap gap-4 pt-2">
 								{contact.socialLinks.map((link, i) => (
 									<a
 										key={link.id ?? i}
 										href={link.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="flex h-9 w-9 shrink-0 items-center justify-center border border-sand text-muted transition-colors hover:border-bordeaux hover:text-bordeaux"
+										className="text-sm uppercase tracking-[0.2em] text-charcoal transition-colors hover:text-bordeaux"
 									>
-										<LinkSimpleIcon size={16} />
+										{link.name}
 									</a>
 								))}
 							</div>

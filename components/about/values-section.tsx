@@ -13,9 +13,9 @@ export const ValuesSection = ({
 	values: ValueItem[];
 	titleLabel: string;
 }) => (
-	<section className="bg-blanc-casse py-20">
+	<section className="bg-blanc-casse py-20 border-t border-sand/50">
 		<Container>
-			<h2 className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-10">
+			<h2 className="font-serif italic text-3xl text-charcoal mb-10">
 				{titleLabel}
 			</h2>
 			<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
@@ -27,7 +27,7 @@ export const ValuesSection = ({
 							</h3>
 						)}
 						{item.description && (
-							<p className="mt-2 text-sm text-muted leading-relaxed">
+							<p className="mt-2 text-base text-muted leading-relaxed">
 								{item.description}
 							</p>
 						)}

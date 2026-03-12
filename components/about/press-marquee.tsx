@@ -35,11 +35,9 @@ export const PressMarquee = ({
 	press: PressItem[];
 	label: string;
 }) => (
-	<section className="bg-blanc-casse py-16">
+	<section className="bg-white border-t border-sand/50 py-12">
 		<Container>
-			<p className="text-sm uppercase tracking-[0.2em] text-muted font-sans mb-8">
-				{label}
-			</p>
+			<h2 className="font-serif italic text-3xl text-charcoal mb-6">{label}</h2>
 		</Container>
 		<div className="overflow-hidden">
 			<div className="about-marquee flex w-max gap-16 py-2">

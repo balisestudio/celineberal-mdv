@@ -22,13 +22,13 @@ export const ManifestoSection = ({
 }) => {
 	const blocks = paragraphs(manifesto);
 	return (
-		<section className="bg-white py-20">
+		<section className="bg-white py-20 border-t border-sand/40">
 			<Container>
 				<div className="grid grid-cols-1 gap-16 lg:grid-cols-[1fr_1fr]">
 					<div className="space-y-6">
-						<p className="text-sm uppercase tracking-[0.2em] text-muted font-sans">
+						<h2 className="font-serif italic text-3xl text-charcoal">
 							{manifestoLabel}
-						</p>
+						</h2>
 						{blocks.length > 0 && (
 							<>
 								<div className="space-y-6">
