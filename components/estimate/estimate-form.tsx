@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useCallback, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Container } from "@/components/ui/container";
@@ -231,35 +231,26 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 	}
 
 	return (
-		<Container size="hero" className="pb-16">
-			{/* Stepper */}
-			<div className="mx-3.5 mb-10">
-				<div className="relative h-0.5 w-full bg-sand">
-					<div
-						className="absolute left-0 top-0 h-full bg-bordeaux transition-all duration-300"
-						style={{ width: `${progressPercent}%` }}
-					/>
-				</div>
-				<div className="mt-4 flex justify-between">
-					{([0, 1, 2] as const).map((s) => {
-						const isPast = step > s;
-						const isCurrent = step === s;
-						const label =
-							s === 0
-								? t("stepper.coords")
-								: s === 1
-									? t("stepper.object")
-									: t("stepper.consents");
-						return (
-							<button
-								key={s}
-								type="button"
-								onClick={isPast ? () => setStep(s) : undefined}
-								disabled={!isPast}
-								className="flex flex-col items-center gap-1"
-							>
-								<span
-									className={`flex h-8 w-8 shrink-0 items-center justify-center border text-base font-sans ${
+		<Container size="hero" className="pt-8 pb-16">
+			{/* Stepper: squares row with bars aligned to their center, labels below */}
+			<div className="mx-3.5 mb-10 flex items-start">
+				{([0, 1, 2] as const).map((s) => {
+					const isPast = step > s;
+					const isCurrent = step === s;
+					const label =
+						s === 0
+							? t("stepper.coords")
+							: s === 1
+								? t("stepper.object")
+								: t("stepper.consents");
+					return (
+						<Fragment key={s}>
+							<div className="flex flex-1 flex-col items-center">
+								<button
+									type="button"
+									onClick={isPast ? () => setStep(s) : undefined}
+									disabled={!isPast}
+									className={`flex h-8 w-8 shrink-0 items-center justify-center border text-base font-sans transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bordeaux disabled:cursor-not-allowed disabled:opacity-60 ${
 										isPast
 											? "border-bordeaux bg-bordeaux text-blanc-casse"
 											: isCurrent
@@ -268,18 +259,33 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 									}`}
 								>
 									{isPast ? <span aria-hidden>✓</span> : s + 1}
-								</span>
+								</button>
 								<span
-									className={`text-sm uppercase tracking-wider ${
+									className={`mt-1.5 text-center text-sm uppercase tracking-wider ${
 										isCurrent ? "text-bordeaux" : "text-muted"
 									}`}
 								>
 									{label}
 								</span>
-							</button>
-						);
-					})}
-				</div>
+							</div>
+							{s < 2 && (
+								<div
+									className="flex h-8 flex-1 min-w-[20px] items-center px-2"
+									aria-hidden
+								>
+									<div className="relative h-px w-full bg-sand">
+										<div
+											className="absolute inset-y-0 left-0 bg-bordeaux transition-all duration-300"
+											style={{
+												width: step > s ? "100%" : "0%",
+											}}
+										/>
+									</div>
+								</div>
+							)}
+						</Fragment>
+					);
+				})}
 			</div>
 
 			{/* Step 0 */}

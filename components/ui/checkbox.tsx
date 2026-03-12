@@ -1,9 +1,8 @@
 import { twMerge } from "tailwind-merge";
 
-const wrapperClasses =
-	"inline-flex items-center gap-2 cursor-pointer focus-within:ring-2 focus-within:ring-bordeaux focus-within:ring-offset-1";
+const wrapperClasses = "inline-flex items-start gap-2 cursor-pointer";
 const inputClasses =
-	"h-4 w-4 border border-sand text-bordeaux focus:ring-bordeaux accent-bordeaux";
+	"mt-0.5 h-5 w-5 shrink-0 rounded border border-sand text-bordeaux accent-bordeaux outline-none focus-visible:ring-2 focus-visible:ring-bordeaux focus-visible:ring-offset-1";
 
 export const Checkbox = ({
 	className,
