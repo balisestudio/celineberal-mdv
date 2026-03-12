@@ -55,7 +55,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 	const [photos, setPhotos] = useState<File[]>([]);
 	const [photoError, setPhotoError] = useState<string | null>(null);
 	const [consentsAccepted, setConsentsAccepted] = useState(false);
-	const [consentsReuse, setConsentsReuse] = useState(false);
+	const [refusePhotoReuse, setRefusePhotoReuse] = useState(false);
 	const [consentsError, setConsentsError] = useState<string | null>(null);
 
 	const progressPercent = step === 0 ? 0 : step === 1 ? 50 : 100;
@@ -91,7 +91,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 	const handleConsentsSubmit = useCallback(async () => {
 		const result = estimateConsentsSchema.safeParse({
 			acceptedTerms: consentsAccepted,
-			allowsPhotoReuse: consentsReuse,
+			allowsPhotoReuse: !refusePhotoReuse,
 		});
 		if (!result.success) {
 			setConsentsError(tErrors("cguRequired"));
@@ -149,7 +149,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 					...coords,
 					...details,
 					acceptedTerms: true,
-					allowsPhotoReuse: consentsReuse,
+					allowsPhotoReuse: !refusePhotoReuse,
 					photos: refs,
 				}),
 			});
@@ -164,7 +164,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 			setGlobalError(tErrors("submitFailed"));
 		}
 		setSubmitting(false);
-	}, [consentsAccepted, consentsReuse, photos, coords, details, tErrors]);
+	}, [consentsAccepted, refusePhotoReuse, photos, coords, details, tErrors]);
 
 	const addPhotos = useCallback(
 		(files: FileList | null) => {
@@ -608,8 +608,8 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 						</div>
 						<div>
 							<Checkbox
-								checked={consentsReuse}
-								onChange={(e) => setConsentsReuse(e.target.checked)}
+								checked={refusePhotoReuse}
+								onChange={(e) => setRefusePhotoReuse(e.target.checked)}
 							>
 								{t("consents.photoReuseLabel", { siteName })}
 							</Checkbox>

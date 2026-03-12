@@ -143,7 +143,7 @@
 		"consents": {
 			"title": "Consentements",
 			"cguLabel": "J'accepte les <terms>conditions générales</terms> et la <privacy>politique de confidentialité</privacy>.",
-			"photoReuseLabel": "J'autorise {siteName} à utiliser les photos de mon objet à des fins de communication (site, réseaux sociaux).",
+			"photoReuseLabel": "Je n'autorise pas {siteName} à utiliser les photos de mon objet à des fins de communication (site, réseaux sociaux).",
 			"reminder": "Cette demande est gratuite et sans engagement. Vous serez recontacté dans les meilleurs délais.",
 			"back": "Retour",
 			"submit": "Envoyer la demande",
