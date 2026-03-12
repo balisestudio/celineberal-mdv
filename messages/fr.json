@@ -13,7 +13,7 @@
 		"collaboratorsTitle": "Notre équipe",
 		"pressLabel": "Ils parlent de nous",
 		"contactTitle": "Nous contacter",
-		"contactDesc": "Une question ? N’hésitez pas à nous joindre.",
+		"contactDesc": "Une question ? Écrivez-nous, nous vous répondrons avec plaisir.",
 		"address": "Adresse",
 		"email": "Email",
 		"phone": "Téléphone",
@@ -30,9 +30,9 @@
 		"salesTitle": "Nos ventes",
 		"seeAllSales": "Voir toutes les ventes",
 		"topLotsTitle": "Résultats d'exception",
-		"estimateTag": "Service gratuit & confidentiel",
+		"estimateTag": "Gratuit & sans engagement",
 		"estimateTitle": "Faire estimer un objet",
-		"estimateDesc": "Vous possédez un objet et souhaitez en connaître la valeur ? Nos experts vous proposent une estimation gratuite et confidentielle.",
+		"estimateDesc": "Vous possédez un objet et souhaitez en connaître la valeur ? Nos experts vous proposent une estimation gratuite et sans engagement.",
 		"estimateCta": "Demander une estimation"
 	},
 	"footer": {
@@ -104,9 +104,9 @@
 		"similarTitle": "Ces lots peuvent vous intéresser"
 	},
 	"estimate": {
-		"surtitle": "Service gratuit & confidentiel",
+		"surtitle": "Gratuit & sans engagement",
 		"title": "Estimer un objet",
-		"description": "Décrivez votre objet en quelques clics. {siteName} vous recontactera pour une estimation gratuite et confidentielle.",
+		"description": "Décrivez votre objet en quelques clics. {siteName} vous recontactera pour une estimation gratuite et sans engagement.",
 		"stepper": {
 			"coords": "Coordonnées",
 			"object": "L'objet",
@@ -144,7 +144,7 @@
 			"title": "Consentements",
 			"cguLabel": "J'accepte les <terms>conditions générales</terms> et la <privacy>politique de confidentialité</privacy>.",
 			"photoReuseLabel": "J'autorise {siteName} à utiliser les photos de mon objet à des fins de communication (site, réseaux sociaux).",
-			"reminder": "Cette demande est gratuite, confidentielle. Vous serez recontacté sous les délais indiqués.",
+			"reminder": "Cette demande est gratuite et sans engagement. Vous serez recontacté dans les meilleurs délais.",
 			"back": "Retour",
 			"submit": "Envoyer la demande",
 			"submitting": "Envoi en cours…"
@@ -156,12 +156,12 @@
 		},
 		"errors": {
 			"required": "Champ obligatoire",
-			"invalidEmail": "Email invalide",
+			"invalidEmail": "Adresse email invalide",
 			"minPhotos": "Ajoutez au moins une photo.",
 			"maxPhotos": "Maximum 5 photos.",
 			"photoType": "Types acceptés : JPG, PNG, WEBP.",
 			"cguRequired": "Veuillez accepter les conditions générales.",
-			"uploadFailed": "Erreur lors de l'envoi des photos.",
+			"uploadFailed": "Une erreur est survenue lors de l'envoi des photos.",
 			"submitFailed": "Une erreur est survenue. Veuillez réessayer."
 		}
 	}

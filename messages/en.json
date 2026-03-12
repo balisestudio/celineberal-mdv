@@ -4,16 +4,16 @@
 		"notFoundTitle": "Page not found",
 		"notFoundDesc": "The page you are looking for does not exist or has been moved.",
 		"backHome": "Back to home",
-		"viewSales": "View sales"
+		"viewSales": "View auctions"
 	},
 	"about": {
 		"manifestoLabel": "Manifesto",
 		"valuesTitle": "Our values",
 		"aboutTitle": "About",
 		"collaboratorsTitle": "Our team",
-		"pressLabel": "They talk about us",
+		"pressLabel": "Press",
 		"contactTitle": "Contact us",
-		"contactDesc": "Have a question? Feel free to get in touch.",
+		"contactDesc": "Any questions? Write to us — we'll be happy to help.",
 		"address": "Address",
 		"email": "Email",
 		"phone": "Phone",
@@ -21,24 +21,24 @@
 	},
 	"home": {
 		"pageTitle": "Home",
-		"nextSale": "Next sale",
-		"pastSale": "Past sale",
-		"discoverSale": "Discover the sale",
+		"nextSale": "Upcoming auction",
+		"pastSale": "Past auction",
+		"discoverSale": "Discover the auction",
 		"date": "Date",
 		"location": "Location",
 		"lots": "Lots",
-		"salesTitle": "Our sales",
-		"seeAllSales": "See all sales",
+		"salesTitle": "Our auctions",
+		"seeAllSales": "View all auctions",
 		"topLotsTitle": "Exceptional results",
-		"estimateTag": "Free & confidential service",
-		"estimateTitle": "Get an object appraised",
-		"estimateDesc": "You own an object and would like to know its value? Our experts offer a free and confidential appraisal.",
-		"estimateCta": "Request an appraisal"
+		"estimateTag": "Free & no obligation",
+		"estimateTitle": "Get an item valued",
+		"estimateDesc": "Do you own an item and want to know its value? Our experts offer a free, no-obligation valuation.",
+		"estimateCta": "Request a valuation"
 	},
 	"footer": {
 		"navLabel": "Navigation",
 		"contactLabel": "Contact",
-		"legal": "SIRET {siret} - Trade Register {rcs} - Share capital {capitalSocial} - License {agrement}"
+		"legal": "SIRET {siret} - RCS {rcs} - Share capital {capitalSocial} - Licence {agrement}"
 	},
 	"navbar": {
 		"links": {
@@ -46,7 +46,7 @@
 			"results": "Results",
 			"about": "About"
 		},
-		"estimate": "Estimate"
+		"estimate": "Valuation"
 	},
 	"ventes": {
 		"pageTitle": "Auction calendar",
@@ -61,7 +61,7 @@
 		"breadcrumb": "Auctions",
 		"upcoming": "Upcoming auction",
 		"past": "Past auction",
-		"sellItem": "Consign an item",
+		"sellItem": "Sell an item",
 		"date": "Date",
 		"locationLabel": "Location",
 		"tabs": {
@@ -70,10 +70,10 @@
 		},
 		"sort": {
 			"label": "Sort by:",
-			"lotNumber": "Lot no.",
-			"alpha": "A–Z",
-			"estimateAsc": "Estimate ↑",
-			"estimateDesc": "Estimate ↓"
+			"lotNumber": "Lot number",
+			"alpha": "Alphabetical",
+			"estimateAsc": "Estimate: low to high",
+			"estimateDesc": "Estimate: high to low"
 		},
 		"lot": {
 			"number": "Lot {n}",
@@ -85,7 +85,7 @@
 			"next": "Next"
 		},
 		"info": {
-			"about": "About the auction",
+			"about": "About this auction",
 			"experts": "Experts",
 			"contact": "A question about this auction?",
 			"contactBtn": "Contact us"
@@ -100,34 +100,34 @@
 		"salePrice": "Sale price",
 		"description": "Description",
 		"characteristics": "Characteristics",
-		"cta": "Get a similar item appraised",
-		"similarTitle": "You might also like"
+		"cta": "Get a similar item valued",
+		"similarTitle": "You may also be interested in"
 	},
 	"estimate": {
-		"surtitle": "Free & confidential service",
-		"title": "Get an object appraised",
-		"description": "Describe your object in a few clicks. {siteName} will get back to you with a free, confidential appraisal.",
+		"surtitle": "Free & no obligation",
+		"title": "Get an item valued",
+		"description": "Describe your item in a few clicks. {siteName} will get back to you with a free, no-obligation valuation.",
 		"stepper": {
-			"coords": "Contact details",
-			"object": "The object",
+			"coords": "Your details",
+			"object": "The item",
 			"consents": "Consents"
 		},
 		"coords": {
-			"title": "Your contact details",
+			"title": "Your details",
 			"civility": "Title",
-			"civilityMr": "Mr",
-			"civilityMrs": "Mrs",
+			"civilityMr": "Mr.",
+			"civilityMrs": "Mrs.",
 			"firstName": "First name",
 			"lastName": "Last name",
 			"email": "Email",
 			"phone": "Phone",
 			"address": "Address",
-			"postalCode": "Postal code",
+			"postalCode": "Postcode",
 			"city": "City",
 			"continue": "Continue"
 		},
 		"details": {
-			"title": "Describe your object",
+			"title": "Describe your item",
 			"photosLabel": "Photos (1 to 5 photos)",
 			"photosCount": "{current} / 5 — {count, plural, one {# photo selected} other {# photos selected}}",
 			"photosDrop": "Click or drag and drop your photos",
@@ -136,15 +136,15 @@
 			"dimensions": "Dimensions",
 			"dimensionsPlaceholder": "e.g. 45 × 30 × 20 cm",
 			"comment": "Comment",
-			"commentPlaceholder": "Describe the object…",
+			"commentPlaceholder": "Describe the item…",
 			"back": "Back",
 			"continue": "Continue"
 		},
 		"consents": {
 			"title": "Consents",
 			"cguLabel": "I accept the <terms>terms and conditions</terms> and the <privacy>privacy policy</privacy>.",
-			"photoReuseLabel": "I allow {siteName} to use the photos of my object for communication purposes (website, social media).",
-			"reminder": "This request is free and confidential. You will be contacted within the indicated time frame.",
+			"photoReuseLabel": "I authorise {siteName} to use photos of my item for communication purposes (website, social media).",
+			"reminder": "This request is free and carries no obligation. We will get back to you as soon as possible.",
 			"back": "Back",
 			"submit": "Send request",
 			"submitting": "Sending…"
@@ -155,13 +155,13 @@
 			"backHome": "Back to home"
 		},
 		"errors": {
-			"required": "Required field",
-			"invalidEmail": "Invalid email",
-			"minPhotos": "Add at least one photo.",
+			"required": "This field is required",
+			"invalidEmail": "Invalid email address",
+			"minPhotos": "Please add at least one photo.",
 			"maxPhotos": "Maximum 5 photos.",
-			"photoType": "Accepted types: JPG, PNG, WEBP.",
+			"photoType": "Accepted formats: JPG, PNG, WEBP.",
 			"cguRequired": "Please accept the terms and conditions.",
-			"uploadFailed": "Error uploading photos.",
+			"uploadFailed": "An error occurred while uploading the photos.",
 			"submitFailed": "An error occurred. Please try again."
 		}
 	}
