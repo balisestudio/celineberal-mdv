@@ -10,13 +10,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/i18n/navigation";
 import type {
-	EstimateStep0,
-	EstimateStep1,
+	EstimateCoords,
+	EstimateDetails,
 	PhotoRef,
 } from "@/lib/schemas/estimate";
 import {
-	estimateStep0Schema,
-	estimateStep2Schema,
+	estimateConsentsSchema,
+	estimateCoordsSchema,
 	MAX_PHOTOS,
 	MIN_PHOTOS,
 } from "@/lib/schemas/estimate";
@@ -35,7 +35,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 	const [globalError, setGlobalError] = useState<string | null>(null);
 	const [submitting, setSubmitting] = useState(false);
 
-	const [step0, setStep0] = useState<EstimateStep0>({
+	const [coords, setCoords] = useState<EstimateCoords>({
 		civility: "man",
 		firstName: "",
 		lastName: "",
@@ -45,40 +45,40 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 		postalCode: "",
 		city: "",
 	});
-	const [step0Errors, setStep0Errors] = useState<
-		Partial<Record<keyof EstimateStep0, string>>
+	const [coordsErrors, setCoordsErrors] = useState<
+		Partial<Record<keyof EstimateCoords, string>>
 	>({});
-	const [step1, setStep1] = useState<EstimateStep1>({
+	const [details, setDetails] = useState<EstimateDetails>({
 		dimensions: "",
 		descriptions: "",
 	});
 	const [photos, setPhotos] = useState<File[]>([]);
 	const [photoError, setPhotoError] = useState<string | null>(null);
-	const [step2Accepted, setStep2Accepted] = useState(false);
-	const [step2Reuse, setStep2Reuse] = useState(false);
-	const [step2Error, setStep2Error] = useState<string | null>(null);
+	const [consentsAccepted, setConsentsAccepted] = useState(false);
+	const [consentsReuse, setConsentsReuse] = useState(false);
+	const [consentsError, setConsentsError] = useState<string | null>(null);
 
 	const progressPercent = step === 0 ? 0 : step === 1 ? 50 : 100;
 
-	const handleStep0Continue = useCallback(() => {
-		const result = estimateStep0Schema.safeParse(step0);
+	const handleCoordsNext = useCallback(() => {
+		const result = estimateCoordsSchema.safeParse(coords);
 		if (!result.success) {
-			const fieldErrors: Partial<Record<keyof EstimateStep0, string>> = {};
+			const fieldErrors: Partial<Record<keyof EstimateCoords, string>> = {};
 			for (const issue of result.error.issues) {
-				const key = issue.path[0] as keyof EstimateStep0;
+				const key = issue.path[0] as keyof EstimateCoords;
 				fieldErrors[key] = tErrors(
 					issue.message as "required" | "invalidEmail",
 				);
 			}
-			setStep0Errors(fieldErrors);
+			setCoordsErrors(fieldErrors);
 			return;
 		}
-		setStep0Errors({});
+		setCoordsErrors({});
 		setStep(1);
-	}, [step0, tErrors]);
+	}, [coords, tErrors]);
 
-	const handleStep1Back = useCallback(() => setStep(0), []);
-	const handleStep1Continue = useCallback(() => {
+	const handleDetailsBack = useCallback(() => setStep(0), []);
+	const handleDetailsNext = useCallback(() => {
 		if (photos.length < MIN_PHOTOS) {
 			setPhotoError(tErrors("minPhotos"));
 			return;
@@ -87,17 +87,17 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 		setStep(2);
 	}, [photos.length, tErrors]);
 
-	const handleStep2Back = useCallback(() => setStep(1), []);
-	const handleStep2Submit = useCallback(async () => {
-		const result = estimateStep2Schema.safeParse({
-			acceptedTerms: step2Accepted,
-			allowsPhotoReuse: step2Reuse,
+	const handleConsentsBack = useCallback(() => setStep(1), []);
+	const handleConsentsSubmit = useCallback(async () => {
+		const result = estimateConsentsSchema.safeParse({
+			acceptedTerms: consentsAccepted,
+			allowsPhotoReuse: consentsReuse,
 		});
 		if (!result.success) {
-			setStep2Error(tErrors("cguRequired"));
+			setConsentsError(tErrors("cguRequired"));
 			return;
 		}
-		setStep2Error(null);
+		setConsentsError(null);
 		setGlobalError(null);
 		setSubmitting(true);
 
@@ -146,10 +146,10 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					...step0,
-					...step1,
+					...coords,
+					...details,
 					acceptedTerms: true,
-					allowsPhotoReuse: step2Reuse,
+					allowsPhotoReuse: consentsReuse,
 					photos: refs,
 				}),
 			});
@@ -164,7 +164,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 			setGlobalError(tErrors("submitFailed"));
 		}
 		setSubmitting(false);
-	}, [step2Accepted, step2Reuse, photos, step0, step1, tErrors]);
+	}, [consentsAccepted, consentsReuse, photos, coords, details, tErrors]);
 
 	const addPhotos = useCallback(
 		(files: FileList | null) => {
@@ -288,29 +288,29 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 				})}
 			</div>
 
-			{/* Step 0 */}
+			{/* Coords */}
 			{step === 0 && (
 				<div>
 					<h2 className="mb-6 font-serif text-2xl italic text-charcoal">
-						{t("step0.title")}
+						{t("coords.title")}
 					</h2>
 					<div className="space-y-4">
 						<div>
-							<Label className="mb-1">{t("step0.civility")} *</Label>
+							<Label className="mb-1">{t("coords.civility")} *</Label>
 							<div className="flex gap-4">
 								<label className="flex cursor-pointer items-center gap-2">
 									<input
 										type="radio"
 										name="civility"
 										value="man"
-										checked={step0.civility === "man"}
+										checked={coords.civility === "man"}
 										onChange={() =>
-											setStep0((p) => ({ ...p, civility: "man" }))
+											setCoords((p) => ({ ...p, civility: "man" }))
 										}
 										className="accent-bordeaux"
 									/>
 									<span className="text-base text-charcoal">
-										{t("step0.civilityMr")}
+										{t("coords.civilityMr")}
 									</span>
 								</label>
 								<label className="flex cursor-pointer items-center gap-2">
@@ -318,129 +318,129 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 										type="radio"
 										name="civility"
 										value="woman"
-										checked={step0.civility === "woman"}
+										checked={coords.civility === "woman"}
 										onChange={() =>
-											setStep0((p) => ({ ...p, civility: "woman" }))
+											setCoords((p) => ({ ...p, civility: "woman" }))
 										}
 										className="accent-bordeaux"
 									/>
 									<span className="text-base text-charcoal">
-										{t("step0.civilityMrs")}
+										{t("coords.civilityMrs")}
 									</span>
 								</label>
 							</div>
-							{step0Errors.civility && (
+							{coordsErrors.civility && (
 								<p className="mt-1 text-base text-red-600">
-									{step0Errors.civility}
+									{coordsErrors.civility}
 								</p>
 							)}
 						</div>
 						<div className="grid grid-cols-2 gap-4">
 							<div>
 								<Label htmlFor="firstName" className="mb-1">
-									{t("step0.firstName")} *
+									{t("coords.firstName")} *
 								</Label>
 								<Input
 									id="firstName"
-									value={step0.firstName}
+									value={coords.firstName}
 									onChange={(e) =>
-										setStep0((p) => ({ ...p, firstName: e.target.value }))
+										setCoords((p) => ({ ...p, firstName: e.target.value }))
 									}
 								/>
-								{step0Errors.firstName && (
+								{coordsErrors.firstName && (
 									<p className="mt-1 text-base text-red-600">
-										{step0Errors.firstName}
+										{coordsErrors.firstName}
 									</p>
 								)}
 							</div>
 							<div>
 								<Label htmlFor="lastName" className="mb-1">
-									{t("step0.lastName")} *
+									{t("coords.lastName")} *
 								</Label>
 								<Input
 									id="lastName"
-									value={step0.lastName}
+									value={coords.lastName}
 									onChange={(e) =>
-										setStep0((p) => ({ ...p, lastName: e.target.value }))
+										setCoords((p) => ({ ...p, lastName: e.target.value }))
 									}
 								/>
-								{step0Errors.lastName && (
+								{coordsErrors.lastName && (
 									<p className="mt-1 text-base text-red-600">
-										{step0Errors.lastName}
+										{coordsErrors.lastName}
 									</p>
 								)}
 							</div>
 						</div>
 						<div>
 							<Label htmlFor="email" className="mb-1">
-								{t("step0.email")} *
+								{t("coords.email")} *
 							</Label>
 							<Input
 								id="email"
 								type="email"
-								value={step0.email}
+								value={coords.email}
 								onChange={(e) =>
-									setStep0((p) => ({ ...p, email: e.target.value }))
+									setCoords((p) => ({ ...p, email: e.target.value }))
 								}
 							/>
-							{step0Errors.email && (
+							{coordsErrors.email && (
 								<p className="mt-1 text-base text-red-600">
-									{step0Errors.email}
+									{coordsErrors.email}
 								</p>
 							)}
 						</div>
 						<div>
 							<Label htmlFor="phone" className="mb-1">
-								{t("step0.phone")} *
+								{t("coords.phone")} *
 							</Label>
 							<Input
 								id="phone"
 								type="tel"
-								value={step0.phone}
+								value={coords.phone}
 								onChange={(e) =>
-									setStep0((p) => ({ ...p, phone: e.target.value }))
+									setCoords((p) => ({ ...p, phone: e.target.value }))
 								}
 							/>
-							{step0Errors.phone && (
+							{coordsErrors.phone && (
 								<p className="mt-1 text-base text-red-600">
-									{step0Errors.phone}
+									{coordsErrors.phone}
 								</p>
 							)}
 						</div>
 						<div>
 							<Label htmlFor="address" className="mb-1">
-								{t("step0.address")}
+								{t("coords.address")}
 							</Label>
 							<Input
 								id="address"
-								value={step0.address ?? ""}
+								value={coords.address ?? ""}
 								onChange={(e) =>
-									setStep0((p) => ({ ...p, address: e.target.value }))
+									setCoords((p) => ({ ...p, address: e.target.value }))
 								}
 							/>
 						</div>
 						<div className="grid grid-cols-2 gap-4">
 							<div>
 								<Label htmlFor="postalCode" className="mb-1">
-									{t("step0.postalCode")}
+									{t("coords.postalCode")}
 								</Label>
 								<Input
 									id="postalCode"
-									value={step0.postalCode ?? ""}
+									value={coords.postalCode ?? ""}
 									onChange={(e) =>
-										setStep0((p) => ({ ...p, postalCode: e.target.value }))
+										setCoords((p) => ({ ...p, postalCode: e.target.value }))
 									}
 								/>
 							</div>
 							<div>
 								<Label htmlFor="city" className="mb-1">
-									{t("step0.city")}
+									{t("coords.city")}
 								</Label>
 								<Input
 									id="city"
-									value={step0.city ?? ""}
+									value={coords.city ?? ""}
 									onChange={(e) =>
-										setStep0((p) => ({ ...p, city: e.target.value }))
+										setCoords((p) => ({ ...p, city: e.target.value }))
 									}
 								/>
 							</div>
@@ -451,22 +451,22 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 						variant="primary"
 						size="lg"
 						className="mt-8 w-full"
-						onClick={handleStep0Continue}
+						onClick={handleCoordsNext}
 					>
-						{t("step0.continue")}
+						{t("coords.continue")}
 					</Button>
 				</div>
 			)}
 
-			{/* Step 1 */}
+			{/* Details */}
 			{step === 1 && (
 				<div>
 					<h2 className="mb-6 font-serif text-2xl italic text-charcoal">
-						{t("step1.title")}
+						{t("details.title")}
 					</h2>
 					<div className="space-y-4">
 						<div>
-							<Label className="mb-2 block">{t("step1.photosLabel")} *</Label>
+							<Label className="mb-2 block">{t("details.photosLabel")} *</Label>
 							<input
 								type="file"
 								accept={ACCEPT}
@@ -488,14 +488,14 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 							>
 								<span className="text-center text-base text-muted">
 									{photos.length > 0
-										? t("step1.photosCount", {
+										? t("details.photosCount", {
 												current: photos.length,
 												count: photos.length,
 											})
-										: t("step1.photosDrop")}
+										: t("details.photosDrop")}
 								</span>
 								<span className="mt-1 text-sm text-muted">
-									{t("step1.photosHint")}
+									{t("details.photosHint")}
 								</span>
 							</label>
 							{photoError && (
@@ -519,7 +519,6 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 												type="button"
 												onClick={() => removePhoto(i)}
 												className="absolute right-0.5 top-0.5 flex h-5 w-5 items-center justify-center border border-bordeaux bg-bordeaux text-blanc-casse hover:bg-bordeaux/90"
-												aria-label={t("step1.removePhoto")}
 											>
 												×
 											</button>
@@ -530,63 +529,63 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 						</div>
 						<div>
 							<Label htmlFor="dimensions" className="mb-1">
-								{t("step1.dimensions")}
+								{t("details.dimensions")}
 							</Label>
 							<Input
 								id="dimensions"
-								placeholder={t("step1.dimensionsPlaceholder")}
-								value={step1.dimensions ?? ""}
+								placeholder={t("details.dimensionsPlaceholder")}
+								value={details.dimensions ?? ""}
 								onChange={(e) =>
-									setStep1((p) => ({ ...p, dimensions: e.target.value }))
+									setDetails((p) => ({ ...p, dimensions: e.target.value }))
 								}
 							/>
 						</div>
 						<div>
 							<Label htmlFor="descriptions" className="mb-1">
-								{t("step1.comment")}
+								{t("details.comment")}
 							</Label>
 							<Textarea
 								id="descriptions"
-								placeholder={t("step1.commentPlaceholder")}
+								placeholder={t("details.commentPlaceholder")}
 								rows={4}
-								value={step1.descriptions ?? ""}
+								value={details.descriptions ?? ""}
 								onChange={(e) =>
-									setStep1((p) => ({ ...p, descriptions: e.target.value }))
+									setDetails((p) => ({ ...p, descriptions: e.target.value }))
 								}
 							/>
 						</div>
 					</div>
 					<div className="mt-8 flex gap-4">
-						<Button type="button" variant="ghost" onClick={handleStep1Back}>
-							{t("step1.back")}
+						<Button type="button" variant="ghost" onClick={handleDetailsBack}>
+							{t("details.back")}
 						</Button>
 						<Button
 							type="button"
 							variant="primary"
 							size="lg"
 							className="flex-1"
-							onClick={handleStep1Continue}
+							onClick={handleDetailsNext}
 						>
-							{t("step1.continue")}
+							{t("details.continue")}
 						</Button>
 					</div>
 				</div>
 			)}
 
-			{/* Step 2 */}
+			{/* Consents */}
 			{step === 2 && (
 				<div>
 					<h2 className="mb-6 font-serif text-2xl italic text-charcoal">
-						{t("step2.title")}
+						{t("consents.title")}
 					</h2>
 					<div className="space-y-4">
 						<div>
 							<Checkbox
-								checked={step2Accepted}
-								onChange={(e) => setStep2Accepted(e.target.checked)}
+								checked={consentsAccepted}
+								onChange={(e) => setConsentsAccepted(e.target.checked)}
 							>
 								<span>
-									{t.rich("step2.cguLabel", {
+									{t.rich("consents.cguLabel", {
 										terms: (chunks) => (
 											<Link href="/about" className="text-bordeaux underline">
 												{chunks}
@@ -603,20 +602,20 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 									</span>
 								</span>
 							</Checkbox>
-							{step2Error && (
-								<p className="mt-1 text-base text-red-600">{step2Error}</p>
+							{consentsError && (
+								<p className="mt-1 text-base text-red-600">{consentsError}</p>
 							)}
 						</div>
 						<div>
 							<Checkbox
-								checked={step2Reuse}
-								onChange={(e) => setStep2Reuse(e.target.checked)}
+								checked={consentsReuse}
+								onChange={(e) => setConsentsReuse(e.target.checked)}
 							>
-								{t("step2.photoReuseLabel", { siteName })}
+								{t("consents.photoReuseLabel", { siteName })}
 							</Checkbox>
 						</div>
 						<div className="border border-sand bg-sand/10 px-4 py-3 text-base text-muted">
-							{t("step2.reminder")}
+							{t("consents.reminder")}
 						</div>
 						{globalError && (
 							<div className="border-2 border-bordeaux/30 bg-bordeaux/10 px-4 py-3 text-base text-bordeaux">
@@ -628,20 +627,20 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 						<Button
 							type="button"
 							variant="ghost"
-							onClick={handleStep2Back}
+							onClick={handleConsentsBack}
 							disabled={submitting}
 						>
-							{t("step2.back")}
+							{t("consents.back")}
 						</Button>
 						<Button
 							type="button"
 							variant="primary"
 							size="lg"
 							className="flex-1"
-							onClick={handleStep2Submit}
+							onClick={handleConsentsSubmit}
 							disabled={submitting}
 						>
-							{submitting ? t("step2.submitting") : t("step2.submit")}
+							{submitting ? t("consents.submitting") : t("consents.submit")}
 						</Button>
 					</div>
 				</div>

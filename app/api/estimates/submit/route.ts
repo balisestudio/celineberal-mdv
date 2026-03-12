@@ -27,8 +27,6 @@ export const POST = async (req: Request) => {
 		const mediaIds: number[] = [];
 		for (const photo of data.photos) {
 			const { prefix, filename } = keyToMediaParts(photo.key);
-			// Use payload.db.create() to bypass upload hooks — the file is
-			// already in S3, we only need to register the metadata in the DB.
 			const record = await payload.db.create({
 				collection: "media",
 				data: {

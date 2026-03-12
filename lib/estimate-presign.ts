@@ -7,7 +7,7 @@ import type { PresignBody } from "@/lib/schemas/estimate";
 
 const MEDIA_PREFIX = "media";
 const ESTIMATES_SUBPATH = "estimates";
-const PRESIGN_EXPIRES_IN = 60 * 15; // 15 minutes
+const PRESIGN_EXPIRES_IN = 60 * 15;
 
 const getS3Client = () =>
 	new S3Client({

@@ -392,7 +392,6 @@ export const importLotsTask = task({
 			userId: user.id,
 		});
 
-		// Phase 1: Delete existing lots (transaction)
 		const transactionID = await payload.db.beginTransaction();
 		if (!transactionID) {
 			throw new Error("Impossible de démarrer la transaction");
@@ -410,7 +409,6 @@ export const importLotsTask = task({
 			throw error;
 		}
 
-		// Phase 2: Prepare all lots in parallel (AI + images, no DB transaction)
 		const limit = pLimit(CONCURRENCY);
 		const prepareResults = await Promise.all(
 			xmlLots.map((xmlLot) =>
@@ -440,7 +438,6 @@ export const importLotsTask = task({
 
 		const newMediaIds = preparedLots.flatMap((p) => p.mediaIds);
 
-		// Phase 3: Save all lots sequentially inside a transaction
 		const saveTransactionID = await payload.db.beginTransaction();
 		if (!saveTransactionID) {
 			await cleanupOrphanMedia(newMediaIds);

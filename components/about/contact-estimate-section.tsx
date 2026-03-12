@@ -84,7 +84,6 @@ export const ContactEstimateSection = async ({
 										target="_blank"
 										rel="noopener noreferrer"
 										className="flex h-9 w-9 shrink-0 items-center justify-center border border-sand text-muted transition-colors hover:border-bordeaux hover:text-bordeaux"
-										aria-label={link.name}
 									>
 										<LinkSimpleIcon size={16} />
 									</a>

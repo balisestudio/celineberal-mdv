@@ -112,7 +112,7 @@
 			"object": "L'objet",
 			"consents": "Consentements"
 		},
-		"step0": {
+		"coords": {
 			"title": "Vos coordonnées",
 			"civility": "Civilité",
 			"civilityMr": "M.",
@@ -126,7 +126,7 @@
 			"city": "Ville",
 			"continue": "Continuer"
 		},
-		"step1": {
+		"details": {
 			"title": "Décrivez votre objet",
 			"photosLabel": "Photos (1 à 5 photos)",
 			"photosCount": "{current} / 5 — {count, plural, one {# photo sélectionnée} other {# photos sélectionnées}}",
@@ -140,7 +140,7 @@
 			"back": "Retour",
 			"continue": "Continuer"
 		},
-		"step2": {
+		"consents": {
 			"title": "Consentements",
 			"cguLabel": "J'accepte les <terms>conditions générales</terms> et la <privacy>politique de confidentialité</privacy>.",
 			"photoReuseLabel": "J'autorise {siteName} à utiliser les photos de mon objet à des fins de communication (site, réseaux sociaux).",

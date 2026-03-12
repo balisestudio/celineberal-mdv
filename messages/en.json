@@ -112,7 +112,7 @@
 			"object": "The object",
 			"consents": "Consents"
 		},
-		"step0": {
+		"coords": {
 			"title": "Your contact details",
 			"civility": "Title",
 			"civilityMr": "Mr",
@@ -126,7 +126,7 @@
 			"city": "City",
 			"continue": "Continue"
 		},
-		"step1": {
+		"details": {
 			"title": "Describe your object",
 			"photosLabel": "Photos (1 to 5 photos)",
 			"photosCount": "{current} / 5 — {count, plural, one {# photo selected} other {# photos selected}}",
@@ -140,7 +140,7 @@
 			"back": "Back",
 			"continue": "Continue"
 		},
-		"step2": {
+		"consents": {
 			"title": "Consents",
 			"cguLabel": "I accept the <terms>terms and conditions</terms> and the <privacy>privacy policy</privacy>.",
 			"photoReuseLabel": "I allow {siteName} to use the photos of my object for communication purposes (website, social media).",

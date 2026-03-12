@@ -20,7 +20,7 @@ import { importLots, isAllowedToImportLots } from "./action";
  * Constants
  */
 
-const MAX_FILE_SIZE_BYTES = 4 * 1024 * 1024; // 4 Mo
+const MAX_FILE_SIZE_BYTES = 4 * 1024 * 1024;
 
 const MESSAGES = {
 	FILE_TOO_LARGE: "Le fichier dépasse la taille maximale autorisée (4 Mo).",
