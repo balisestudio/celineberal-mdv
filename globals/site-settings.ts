@@ -74,5 +74,13 @@ export const SiteSettings: GlobalConfig = {
 				},
 			],
 		},
+		{
+			name: "exceptionLots",
+			label: "Lots d'exception",
+			type: "relationship",
+			relationTo: "lots",
+			hasMany: true,
+			maxRows: 20,
+		},
 	],
 };

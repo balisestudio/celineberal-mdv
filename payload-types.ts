@@ -684,6 +684,10 @@ export interface SiteSetting {
 			light: number | Media;
 		};
 	};
+	/**
+	 * Lots affichés dans la section « Résultats d'exception » sur la page d'accueil. L'ordre de la liste définit l'ordre d'affichage.
+	 */
+	exceptionLots?: (number | Lot)[] | null;
 	updatedAt?: string | null;
 	createdAt?: string | null;
 }
@@ -762,6 +766,7 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 							light?: T;
 					  };
 		  };
+	exceptionLots?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	globalType?: T;

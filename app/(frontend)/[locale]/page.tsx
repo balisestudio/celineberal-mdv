@@ -5,7 +5,7 @@ import { HeroSale } from "@/components/home/hero-sale";
 import { SalesSection } from "@/components/home/sales-section";
 import { TopLotsSection } from "@/components/home/top-lots-section";
 import { getAuctions, getPastAuctions } from "@/lib/data/auctions";
-import { getTopLots } from "@/lib/data/lots";
+import { getExceptionLots } from "@/lib/data/lots";
 import {
 	getGraphicsDark,
 	getGraphicsLight,
@@ -23,11 +23,11 @@ export const generateMetadata = async () => {
 };
 
 const HomePage = async () => {
-	const [upcomingResult, pastResult, topLotsResult, settings] =
+	const [upcomingResult, pastResult, exceptionLots, settings] =
 		await Promise.all([
 			getAuctions(),
 			getPastAuctions(),
-			getTopLots(10),
+			getExceptionLots(),
 			getSiteSettings(),
 		]);
 
@@ -36,7 +36,7 @@ const HomePage = async () => {
 	const heroAuction: Auction | null = upcoming[0] ?? past[0] ?? null;
 	const isUpcoming = Boolean(upcoming[0] && heroAuction?.id === upcoming[0].id);
 	const allAuctions = [...upcoming, ...past];
-	const topLots = topLotsResult.docs ?? [];
+	const topLots = exceptionLots;
 	const { icon: iconDark } = getGraphicsDark(settings);
 	const { icon: iconLight } = getGraphicsLight(settings);
 

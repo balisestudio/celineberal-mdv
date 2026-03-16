@@ -192,6 +192,30 @@ export const getSimilarLots = async (
 	return combined.slice(0, limit);
 };
 
+export const getExceptionLots = async (): Promise<Lot[]> => {
+	const settings = await payload.findGlobal({
+		slug: "site-settings",
+		depth: 2,
+		overrideAccess: true,
+	});
+	const raw = (settings as { exceptionLots?: unknown }).exceptionLots;
+	if (!Array.isArray(raw) || raw.length === 0) return [];
+	const lots = raw.filter(
+		(item): item is Lot =>
+			typeof item === "object" &&
+			item !== null &&
+			"id" in item &&
+			typeof (item as Lot).id === "number",
+	) as Lot[];
+	const published = lots.filter((lot) => {
+		const auction = lot.auction;
+		if (typeof auction !== "object" || !auction || !("_status" in auction))
+			return true;
+		return (auction as { _status?: string })._status === "published";
+	});
+	return published;
+};
+
 export const getTopLots = async (limit = 10) =>
 	payload.find({
 		collection: "lots",
