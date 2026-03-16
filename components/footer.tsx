@@ -87,6 +87,21 @@ export const Footer = ({
 								>
 									{contact.email}
 								</a>
+								{contact.socialLinks && contact.socialLinks.length > 0 && (
+									<div className="flex flex-wrap gap-3 pt-1">
+										{contact.socialLinks.map((link, i) => (
+											<a
+												key={link.id ?? i}
+												href={link.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="transition-colors hover:text-blanc-casse text-blanc-casse/80"
+											>
+												{link.name}
+											</a>
+										))}
+									</div>
+								)}
 							</div>
 						) : null}
 					</div>
