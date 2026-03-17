@@ -49,9 +49,19 @@
 		"links": {
 			"auctions": "Ventes",
 			"results": "Résultats",
+			"guides": "Guides",
 			"about": "À propos"
 		},
 		"estimate": "Estimation"
+	},
+	"guidesList": {
+		"pageTitle": "Guides",
+		"filterThematic": "Thématique",
+		"filterThematicAll": "Toutes les thématiques",
+		"sortLabel": "Trier par",
+		"sortDateAsc": "Date croissante",
+		"sortDateDesc": "Date décroissante",
+		"empty": "Aucun article ne correspond à vos critères."
 	},
 	"ventes": {
 		"pageTitle": "Calendrier des ventes",
