@@ -3,8 +3,7 @@
 	"errors": {
 		"notFoundTitle": "Page introuvable",
 		"notFoundDesc": "La page que vous recherchez n'existe pas ou a été déplacée.",
-		"backHome": "Retour à l'accueil",
-		"viewSales": "Voir les ventes"
+		"backHome": "Retour à l'accueil"
 	},
 	"about": {
 		"manifestoLabel": "Manifeste",

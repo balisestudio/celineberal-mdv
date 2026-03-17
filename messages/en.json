@@ -3,8 +3,7 @@
 	"errors": {
 		"notFoundTitle": "Page not found",
 		"notFoundDesc": "The page you are looking for does not exist or has been moved.",
-		"backHome": "Back to home",
-		"viewSales": "View auctions"
+		"backHome": "Back to home"
 	},
 	"about": {
 		"manifestoLabel": "Manifesto",
