@@ -50,6 +50,32 @@ h6 {
 	letter-spacing: var(--letter-spacing-serif);
 }
 
+.guide-content {
+	@apply text-black;
+}
+
+.guide-content blockquote {
+	@apply border-l-4 border-bordeaux pl-4 italic text-black my-6;
+}
+
+.guide-content h2,
+.guide-content h3,
+.guide-content h4 {
+	@apply font-serif font-light tracking-tight mt-8 mb-3 first:mt-0;
+}
+
+.guide-content h2 {
+	@apply text-3xl lg:text-4xl italic;
+}
+
+.guide-content h3 {
+	@apply text-2xl lg:text-3xl italic;
+}
+
+.guide-content h4 {
+	@apply text-xl lg:text-2xl italic;
+}
+
 .about-marquee {
 	animation: about-marquee 30s linear infinite;
 }
