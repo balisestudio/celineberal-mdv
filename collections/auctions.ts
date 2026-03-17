@@ -60,7 +60,7 @@ export const Auctions: CollectionConfig = {
 		beforeValidate: [
 			({ data }) => {
 				if (data?.title && !data?.slug) {
-					data.slug = `${slugify(data.title)}-${createId().slice(0, 8)}`;
+					data.slug = `${slugify(data.title)}-${createId().slice(0, 5)}`;
 				}
 				return data;
 			},
