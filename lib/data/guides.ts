@@ -1,6 +1,48 @@
 import { payload } from "@/lib/payload";
 import type { Guide } from "@/payload-types";
 
+export const getGuidesList = async (params: {
+	locale?: string;
+	thematiqueId?: number;
+	q?: string;
+	sort?: "date-asc" | "date-desc";
+	limit?: number;
+}): Promise<{ docs: Guide[]; totalDocs: number }> => {
+	const {
+		locale = "fr",
+		thematiqueId,
+		q,
+		sort = "date-desc",
+		limit = 100,
+	} = params;
+
+	const and: Array<
+		| { _status: { equals: string } }
+		| { thematique: { equals: number } }
+		| { title: { contains: string } }
+	> = [{ _status: { equals: "published" } }];
+
+	if (thematiqueId != null) {
+		and.push({ thematique: { equals: thematiqueId } });
+	}
+
+	const searchTrimmed = q?.trim();
+	if (searchTrimmed) {
+		and.push({ title: { contains: searchTrimmed } });
+	}
+
+	const result = await payload.find({
+		collection: "guides",
+		where: { and },
+		sort: sort === "date-asc" ? "updatedAt" : "-updatedAt",
+		limit,
+		depth: 1,
+		locale: (locale as "fr" | "en") ?? "fr",
+	});
+
+	return { docs: result.docs as Guide[], totalDocs: result.totalDocs };
+};
+
 export const getGuideBySlug = async (
 	slug: string,
 	locale?: string,
