@@ -53,7 +53,7 @@ export const AuctionHero = async ({
 
 				<div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
 					<div className="flex flex-col gap-4">
-						<span className="self-start text-sm uppercase tracking-widest text-white/70 bg-charcoal/60 border border-blanc-casse/20 px-3 py-1">
+						<span className="inline-flex self-start items-center justify-center text-sm uppercase tracking-widest text-white/70 bg-charcoal/60 border border-blanc-casse/20 px-3 py-1.5 leading-none min-h-[1.5rem]">
 							{isUpcoming ? t("upcoming") : t("past")}
 						</span>
 
