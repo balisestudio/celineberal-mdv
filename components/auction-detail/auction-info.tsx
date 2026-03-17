@@ -1,10 +1,8 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { CollaboratorCard } from "@/components/collaborator/collaborator-card";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { getCollaboratorInitials } from "@/lib/get-initials";
-import { getMediaSrc } from "@/lib/media-src";
-import type { Auction, Collaborator, Media } from "@/payload-types";
+import type { Auction, Collaborator } from "@/payload-types";
 
 export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 	const t = await getTranslations("auction");
@@ -31,66 +29,15 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 						<div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
 							{auction.collaborators.map((item) => {
 								const collaborator = item.collaborator;
-
 								if (!collaborator || typeof collaborator !== "object") {
 									return null;
 								}
-
-								const photo =
-									typeof collaborator.photo === "object" && collaborator.photo
-										? (collaborator.photo as Media)
-										: null;
-
 								return (
-									<div
-										key={item.id || collaborator.id}
-										className="flex flex-col items-center text-center gap-3"
-									>
-										<div className="relative w-32 h-32 rounded-full border border-sand overflow-hidden shrink-0">
-											{getMediaSrc(photo) ? (
-												<Image
-													src={getMediaSrc(photo, "thumbnail")}
-													alt={photo?.alt ?? collaborator.name}
-													fill
-													className="object-cover"
-												/>
-											) : (
-												<div className="w-full h-full bg-sand flex items-center justify-center">
-													<span className="font-serif italic text-2xl text-bordeaux/50">
-														{getCollaboratorInitials(collaborator.name)}
-													</span>
-												</div>
-											)}
-										</div>
-
-										<p className="text-sm uppercase tracking-[0.2em] text-bordeaux">
-											{collaborator.role}
-										</p>
-										<p className="font-serif italic text-2xl text-charcoal">
-											{collaborator.name}
-										</p>
-
-										{(collaborator.email || collaborator.phone) && (
-											<div className="border-t border-sand pt-3 mt-1 flex flex-col gap-1 w-full">
-												{collaborator.email && (
-													<a
-														href={`mailto:${collaborator.email}`}
-														className="text-sm text-muted hover:text-bordeaux transition-colors"
-													>
-														{collaborator.email}
-													</a>
-												)}
-												{collaborator.phone && (
-													<a
-														href={`tel:${collaborator.phone}`}
-														className="text-sm text-muted hover:text-bordeaux transition-colors"
-													>
-														{collaborator.phone}
-													</a>
-												)}
-											</div>
-										)}
-									</div>
+									<CollaboratorCard
+										key={item.id ?? collaborator.id}
+										collaborator={collaborator as Collaborator}
+										variant="compact"
+									/>
 								);
 							})}
 						</div>
