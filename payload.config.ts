@@ -2,6 +2,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { s3Storage } from "@payloadcms/storage-s3";
 import { fr } from "@payloadcms/translations/languages/fr";
 import { buildConfig } from "payload";
@@ -9,8 +10,10 @@ import sharp from "sharp";
 import { Auctions } from "@/collections/auctions";
 import { Collaborators } from "@/collections/collaborators";
 import { Estimates } from "@/collections/estimates";
+import { Guides } from "@/collections/guides";
 import { Lots } from "@/collections/lots";
 import { Media } from "@/collections/media";
+import { Thematics } from "@/collections/thematics";
 import { Users } from "@/collections/users";
 import { About } from "@/globals/about";
 import { Contact } from "@/globals/contact";
@@ -27,6 +30,8 @@ const collections = [
 	Lots,
 	Auctions,
 	Estimates,
+	Thematics,
+	Guides,
 ].map((collection) => {
 	return {
 		...collection,
@@ -60,6 +65,7 @@ export default buildConfig({
 		defaultLocale: "fr",
 		locales: ["fr", "en"],
 	},
+	editor: lexicalEditor(),
 	collections,
 	globals: [SiteSettings, Contact, About],
 	secret: env.PAYLOAD_SECRET,

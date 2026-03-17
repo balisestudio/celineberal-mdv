@@ -73,6 +73,8 @@ export interface Config {
 		lots: Lot;
 		auctions: Auction;
 		estimates: Estimate;
+		thematics: Thematic;
+		guides: Guide;
 		"payload-kv": PayloadKv;
 		"payload-locked-documents": PayloadLockedDocument;
 		"payload-preferences": PayloadPreference;
@@ -82,6 +84,9 @@ export interface Config {
 		auctions: {
 			lots: "lots";
 		};
+		thematics: {
+			linked: "guides";
+		};
 	};
 	collectionsSelect: {
 		users: UsersSelect<false> | UsersSelect<true>;
@@ -90,6 +95,8 @@ export interface Config {
 		lots: LotsSelect<false> | LotsSelect<true>;
 		auctions: AuctionsSelect<false> | AuctionsSelect<true>;
 		estimates: EstimatesSelect<false> | EstimatesSelect<true>;
+		thematics: ThematicsSelect<false> | ThematicsSelect<true>;
+		guides: GuidesSelect<false> | GuidesSelect<true>;
 		"payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
 		"payload-locked-documents":
 			| PayloadLockedDocumentsSelect<false>
@@ -182,7 +189,13 @@ export interface User {
 export interface Media {
 	id: number;
 	alt?: string | null;
-	usage: "lot" | "collaborator" | "auction" | "internal" | "estimates";
+	usage:
+		| "lot"
+		| "collaborator"
+		| "auction"
+		| "guide"
+		| "internal"
+		| "estimates";
 	dominantColor?: string | null;
 	prefix?: string | null;
 	updatedAt: string;
@@ -342,6 +355,55 @@ export interface Estimate {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "thematics".
+ */
+export interface Thematic {
+	id: number;
+	intitule: string;
+	linked?: {
+		docs?: (number | Guide)[];
+		hasNextPage?: boolean;
+		totalDocs?: number;
+	};
+	updatedAt: string;
+	createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "guides".
+ */
+export interface Guide {
+	id: number;
+	title: string;
+	slug: string;
+	poster: number | Media;
+	content: {
+		root: {
+			type: string;
+			children: {
+				type: any;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ("ltr" | "rtl") | null;
+			format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	};
+	thematique: number | Thematic;
+	relatedLots?: (number | Lot)[] | null;
+	/**
+	 * Auteur affiché (choix parmi les collaborateurs)
+	 */
+	author: number | Collaborator;
+	updatedAt: string;
+	createdAt: string;
+	_status?: ("draft" | "published") | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -387,6 +449,14 @@ export interface PayloadLockedDocument {
 		| ({
 				relationTo: "estimates";
 				value: number | Estimate;
+		  } | null)
+		| ({
+				relationTo: "thematics";
+				value: number | Thematic;
+		  } | null)
+		| ({
+				relationTo: "guides";
+				value: number | Guide;
 		  } | null);
 	globalSlug?: string | null;
 	user: {
@@ -625,6 +695,32 @@ export interface EstimatesSelect<T extends boolean = true> {
 	allowsPhotoReuse?: T;
 	updatedAt?: T;
 	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "thematics_select".
+ */
+export interface ThematicsSelect<T extends boolean = true> {
+	intitule?: T;
+	linked?: T;
+	updatedAt?: T;
+	createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "guides_select".
+ */
+export interface GuidesSelect<T extends boolean = true> {
+	title?: T;
+	slug?: T;
+	poster?: T;
+	content?: T;
+	thematique?: T;
+	relatedLots?: T;
+	author?: T;
+	updatedAt?: T;
+	createdAt?: T;
+	_status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
