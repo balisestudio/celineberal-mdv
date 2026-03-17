@@ -35,7 +35,7 @@ export const Footer = ({
 							href="/"
 							className="inline-block hover:opacity-75 transition-opacity"
 						>
-							<Mark variant="light" size={48} />
+							<Mark variant="light" size={36} />
 						</Link>
 						<p className="text-sm uppercase tracking-[0.18em] text-blanc-casse/60">
 							{tagline}
