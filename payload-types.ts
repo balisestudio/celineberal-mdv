@@ -394,6 +394,10 @@ export interface Guide {
 	};
 	thematique: number | Thematic;
 	author: number | Collaborator;
+	/**
+	 * Si activé, le guide n'apparaît pas sur la page /guides mais reste accessible via son URL directe.
+	 */
+	hideFromList?: boolean | null;
 	updatedAt: string;
 	createdAt: string;
 	_status?: ("draft" | "published") | null;
@@ -713,6 +717,7 @@ export interface GuidesSelect<T extends boolean = true> {
 	content?: T;
 	thematique?: T;
 	author?: T;
+	hideFromList?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	_status?: T;

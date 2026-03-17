@@ -105,6 +105,15 @@ export const Guides: CollectionConfig = {
 							relationTo: "collaborators",
 							required: true,
 						},
+						{
+							name: "hideFromList",
+							label: "Masquer de la liste des guides",
+							type: "checkbox",
+							defaultValue: false,
+							admin: {
+								position: "sidebar",
+							},
+						},
 					],
 				},
 			],

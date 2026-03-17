@@ -20,7 +20,11 @@ export const getGuidesList = async (params: {
 		| { _status: { equals: string } }
 		| { thematique: { equals: number } }
 		| { title: { contains: string } }
-	> = [{ _status: { equals: "published" } }];
+		| { hideFromList: { not_equals: true } }
+	> = [
+		{ _status: { equals: "published" } },
+		{ hideFromList: { not_equals: true } },
+	];
 
 	if (thematiqueId != null) {
 		and.push({ thematique: { equals: thematiqueId } });
