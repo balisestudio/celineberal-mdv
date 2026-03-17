@@ -18,7 +18,7 @@ export const GuideHero = async ({
 
 	return (
 		<>
-			<section className="bg-bordeaux pt-32 pb-[40vh] selection:bg-blanc-casse/35">
+			<section className="bg-bordeaux pt-[5vh] pb-[35vh] selection:bg-blanc-casse/35">
 				<Container className="relative">
 					<div className="flex items-center gap-1.5 text-sm uppercase tracking-widest text-blanc-casse/70 mb-8 min-w-0">
 						<Link
