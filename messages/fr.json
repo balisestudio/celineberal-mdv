@@ -40,6 +40,11 @@
 		"contactLabel": "Contact",
 		"legal": "SIRET {siret} - RCS {rcs} - Capital social {capitalSocial} - Agrément {agrement}"
 	},
+	"guide": {
+		"writtenBy": "Écrit par {author} le {date}",
+		"breadcrumbGuides": "Guides",
+		"sameCategory": "Ces articles pourront vous intéresser"
+	},
 	"navbar": {
 		"links": {
 			"auctions": "Ventes",

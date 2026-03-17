@@ -40,6 +40,11 @@
 		"contactLabel": "Contact",
 		"legal": "SIRET {siret} - RCS {rcs} - Share capital {capitalSocial} - Licence {agrement}"
 	},
+	"guide": {
+		"writtenBy": "Written by {author} on {date}",
+		"breadcrumbGuides": "Guides",
+		"sameCategory": "These articles may interest you"
+	},
 	"navbar": {
 		"links": {
 			"auctions": "Auctions",
