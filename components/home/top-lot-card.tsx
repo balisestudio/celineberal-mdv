@@ -7,17 +7,7 @@ import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
 import type { Auction, Lot, Media } from "@/payload-types";
 
-export const TopLotCard = ({
-	lot,
-	index,
-	iconSrc,
-	iconAlt,
-}: {
-	lot: Lot;
-	index: number;
-	iconSrc: string;
-	iconAlt: string;
-}) => {
+export const TopLotCard = ({ lot, index }: { lot: Lot; index: number }) => {
 	const t = useTranslations("auction");
 	const ref = useRef<HTMLDivElement>(null);
 	const inView = useInView(ref, { once: true, margin: "0px 0px -40px 0px" });
@@ -53,8 +43,6 @@ export const TopLotCard = ({
 			>
 				<MediaImage
 					media={image}
-					iconSrc={iconSrc}
-					iconAlt={iconAlt}
 					size="md"
 					className="aspect-square"
 					imageClassName="object-cover transition-transform duration-500 group-hover:scale-[1.04]"

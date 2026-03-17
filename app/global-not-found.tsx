@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Image from "next/image";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { Mark } from "@/components/logos";
+import { getSiteSettings } from "@/lib/data/site-settings";
 
 const COPY = {
 	fr: {
@@ -34,11 +34,10 @@ export const metadata: Metadata = {
 
 const GlobalNotFound = async () => {
 	const locale = await getLocaleFromHeaders();
-	const [copy, settings] = await Promise.all([
+	const [copy] = await Promise.all([
 		Promise.resolve(COPY[locale]),
 		getSiteSettings(locale),
 	]);
-	const { icon } = getGraphicsDark(settings);
 	const homeHref = locale === "en" ? "/en" : "/";
 	const salesHref = locale === "en" ? "/en/auctions" : "/auctions";
 
@@ -46,13 +45,7 @@ const GlobalNotFound = async () => {
 		<html lang={locale}>
 			<body className="min-h-screen bg-blanc-casse text-bordeaux font-sans antialiased flex flex-col items-center justify-center px-4">
 				<div className="flex flex-1 flex-col items-center justify-center text-center max-w-md">
-					<Image
-						src={icon.src}
-						alt={icon.alt}
-						width={64}
-						height={64}
-						className="mx-auto mb-6 opacity-20 object-contain"
-					/>
+					<Mark variant="dark" size={64} className="mx-auto mb-6 opacity-20" />
 					<div
 						className="font-serif italic text-bordeaux mb-6"
 						style={{ fontSize: "64px", lineHeight: 1 }}

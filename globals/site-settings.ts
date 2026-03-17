@@ -26,55 +26,6 @@ export const SiteSettings: GlobalConfig = {
 			localized: true,
 		},
 		{
-			name: "graphics",
-			label: "Graphiques",
-			type: "group",
-			fields: [
-				{
-					name: "logo",
-					label: "Logo",
-					type: "group",
-					fields: [
-						{
-							name: "dark",
-							label: "Logo — fond clair",
-							type: "upload",
-							relationTo: "media",
-							required: true,
-						},
-						{
-							name: "light",
-							label: "Logo — fond sombre",
-							type: "upload",
-							relationTo: "media",
-							required: true,
-						},
-					],
-				},
-				{
-					name: "icon",
-					label: "Icône",
-					type: "group",
-					fields: [
-						{
-							name: "dark",
-							label: "Icône — fond clair",
-							type: "upload",
-							relationTo: "media",
-							required: true,
-						},
-						{
-							name: "light",
-							label: "Icône — fond sombre",
-							type: "upload",
-							relationTo: "media",
-							required: true,
-						},
-					],
-				},
-			],
-		},
-		{
 			name: "exceptionLots",
 			label: "Lots d'exception",
 			type: "relationship",

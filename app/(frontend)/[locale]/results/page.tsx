@@ -4,7 +4,7 @@ import { AuctionsEmpty } from "@/components/auctions/auctions-empty";
 import { PageHeader } from "@/components/page-header";
 import { Container } from "@/components/ui/container";
 import { getPastAuctions } from "@/lib/data/auctions";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 
 export const generateMetadata = async () => {
 	const locale = await getLocale();
@@ -22,27 +22,15 @@ const ResultsPage = async () => {
 		getPastAuctions(),
 	]);
 
-	const { icon } = getGraphicsDark(settings);
-	const iconSrc = icon.src;
-	const iconAlt = icon.alt;
-
 	return (
 		<>
 			<PageHeader tagline={settings.tagline} title={t("pageTitle")} />
 			<section className="py-12">
 				<Container>
 					{auctions.length > 0 ? (
-						<AuctionList
-							auctions={auctions}
-							iconSrc={iconSrc}
-							iconAlt={iconAlt}
-						/>
+						<AuctionList auctions={auctions} />
 					) : (
-						<AuctionsEmpty
-							iconSrc={iconSrc}
-							iconAlt={iconAlt}
-							message={t("empty")}
-						/>
+						<AuctionsEmpty message={t("empty")} />
 					)}
 				</Container>
 			</section>

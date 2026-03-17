@@ -4,15 +4,7 @@ import { SectionHeader } from "@/components/home/section-header";
 import { Container } from "@/components/ui/container";
 import type { Auction } from "@/payload-types";
 
-export const SalesSection = async ({
-	auctions,
-	iconSrc,
-	iconAlt,
-}: {
-	auctions: Auction[];
-	iconSrc: string;
-	iconAlt: string;
-}) => {
+export const SalesSection = async ({ auctions }: { auctions: Auction[] }) => {
 	const t = await getTranslations("home");
 
 	return (
@@ -25,13 +17,7 @@ export const SalesSection = async ({
 				/>
 				<div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 					{auctions.map((auction, index) => (
-						<SaleCard
-							key={auction.id}
-							auction={auction}
-							index={index}
-							iconSrc={iconSrc}
-							iconAlt={iconAlt}
-						/>
+						<SaleCard key={auction.id} auction={auction} index={index} />
 					))}
 				</div>
 			</Container>

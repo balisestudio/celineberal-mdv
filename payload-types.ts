@@ -674,19 +674,6 @@ export interface SiteSetting {
 	id: number;
 	siteName: string;
 	tagline: string;
-	graphics: {
-		logo: {
-			dark: number | Media;
-			light: number | Media;
-		};
-		icon: {
-			dark: number | Media;
-			light: number | Media;
-		};
-	};
-	/**
-	 * Lots affichés dans la section « Résultats d'exception » sur la page d'accueil. L'ordre de la liste définit l'ordre d'affichage.
-	 */
 	exceptionLots?: (number | Lot)[] | null;
 	updatedAt?: string | null;
 	createdAt?: string | null;
@@ -750,22 +737,6 @@ export interface About {
 export interface SiteSettingsSelect<T extends boolean = true> {
 	siteName?: T;
 	tagline?: T;
-	graphics?:
-		| T
-		| {
-				logo?:
-					| T
-					| {
-							dark?: T;
-							light?: T;
-					  };
-				icon?:
-					| T
-					| {
-							dark?: T;
-							light?: T;
-					  };
-		  };
 	exceptionLots?: T;
 	updatedAt?: T;
 	createdAt?: T;

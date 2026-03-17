@@ -6,13 +6,9 @@ import type { Media } from "@/payload-types";
 
 const LotGallery = ({
 	images,
-	iconSrc,
-	iconAlt,
 	lotTitle,
 }: {
 	images: (number | Media)[] | null | undefined;
-	iconSrc: string;
-	iconAlt: string;
 	lotTitle: string;
 }) => {
 	const populatedImages = (images ?? []).filter(
@@ -63,8 +59,6 @@ const LotGallery = ({
 				>
 					<MediaImage
 						media={selectedImage}
-						iconSrc={iconSrc}
-						iconAlt={iconAlt}
 						size="lg"
 						className="h-full w-full"
 						imageClassName="object-contain p-6"
@@ -90,8 +84,6 @@ const LotGallery = ({
 						>
 							<MediaImage
 								media={img}
-								iconSrc={iconSrc}
-								iconAlt={iconAlt}
 								size="thumbnail"
 								className="w-full h-full"
 								imageClassName="object-contain p-1.5"

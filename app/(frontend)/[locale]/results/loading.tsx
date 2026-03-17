@@ -1,19 +1,9 @@
-import Image from "next/image";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { Mark } from "@/components/logos";
 
-const Loading = async () => {
-	const settings = await getSiteSettings();
-	const { icon } = getGraphicsDark(settings);
-
+const Loading = () => {
 	return (
 		<div className="min-h-[50vh] flex items-center justify-center">
-			<Image
-				src={icon.src}
-				alt={icon.alt}
-				width={48}
-				height={48}
-				className="animate-pulse"
-			/>
+			<Mark variant="dark" size={48} className="animate-pulse" />
 		</div>
 	);
 };

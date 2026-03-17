@@ -10,14 +10,10 @@ import type { Lot, Media } from "@/payload-types";
 export const LotCard = ({
 	lot,
 	index,
-	iconSrc,
-	iconAlt,
 	auctionSlug,
 }: {
 	lot: Lot;
 	index: number;
-	iconSrc: string;
-	iconAlt: string;
 	auctionSlug: string;
 }) => {
 	const t = useTranslations("auction");
@@ -56,8 +52,6 @@ export const LotCard = ({
 				<div className="relative h-64 shrink-0">
 					<MediaImage
 						media={image}
-						iconSrc={iconSrc}
-						iconAlt={iconAlt}
 						size="md"
 						className="h-full w-full"
 						imageClassName="object-contain p-4 group-hover:scale-[1.04] transition-transform duration-500"

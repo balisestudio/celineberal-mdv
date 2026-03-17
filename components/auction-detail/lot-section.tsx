@@ -53,8 +53,6 @@ export const LotSection = ({
 	initialTotalDocs,
 	initialTotalPages,
 	currentPage,
-	iconSrc,
-	iconAlt,
 }: {
 	slug: string;
 	auctionId: number;
@@ -62,8 +60,6 @@ export const LotSection = ({
 	initialTotalDocs: number;
 	initialTotalPages: number;
 	currentPage: number;
-	iconSrc: string;
-	iconAlt: string;
 }) => {
 	const t = useTranslations("auction");
 	const router = useRouter();
@@ -136,12 +132,7 @@ export const LotSection = ({
 				className={isPending ? "opacity-0 pointer-events-none" : "opacity-100"}
 				style={{ transition: "opacity 300ms 100ms" }}
 			>
-				<LotGrid
-					lots={lots}
-					iconSrc={iconSrc}
-					iconAlt={iconAlt}
-					auctionSlug={slug}
-				/>
+				<LotGrid lots={lots} auctionSlug={slug} />
 			</div>
 
 			{totalPages > 1 && (

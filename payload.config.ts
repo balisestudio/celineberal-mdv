@@ -46,12 +46,7 @@ export default buildConfig({
 		avatar: {
 			Component: "/components/payload/avatar#Avatar",
 		},
-		components: {
-			graphics: {
-				Icon: "/components/payload/graphics#Icon",
-				Logo: "/components/payload/graphics#Logo",
-			},
-		},
+		components: {},
 		meta: {
 			titleSuffix: `– ${env.SITE_NAME}`,
 			icons: {

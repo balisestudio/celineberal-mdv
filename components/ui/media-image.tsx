@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Mark } from "@/components/logos";
 import { getMediaSrc } from "@/lib/media-src";
 import type { Media } from "@/payload-types";
 
@@ -9,13 +10,11 @@ type MediaSizeKey = keyof NonNullable<Media["sizes"]>;
 
 interface MediaImageProps {
 	media: Media | null | undefined;
-	iconSrc?: string;
-	iconAlt?: string;
 	size?: MediaSizeKey;
 	className?: string;
 	imageClassName?: string;
 	iconSize?: number;
-	iconClassName?: string;
+	iconVariant?: "dark" | "light";
 	fallbackClassName?: string;
 	sizes?: string;
 	priority?: boolean;
@@ -24,13 +23,11 @@ interface MediaImageProps {
 
 export const MediaImage = ({
 	media,
-	iconSrc,
-	iconAlt = "",
 	size,
 	className = "",
 	imageClassName = "",
 	iconSize = 48,
-	iconClassName = "object-contain",
+	iconVariant = "dark",
 	fallbackClassName = "bg-sand/30",
 	sizes,
 	priority = false,
@@ -63,15 +60,7 @@ export const MediaImage = ({
 				<div
 					className={`absolute inset-0 flex items-center justify-center ${fallbackClassName}`}
 				>
-					{iconSrc && (
-						<Image
-							src={iconSrc}
-							alt={iconAlt}
-							width={iconSize}
-							height={iconSize}
-							className={iconClassName}
-						/>
-					)}
+					<Mark variant={iconVariant} size={iconSize} />
 				</div>
 			)}
 		</div>

@@ -12,7 +12,7 @@ import {
 	getPrevLot,
 	getSimilarLots,
 } from "@/lib/data/lots";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 import type { Auction, Lot, Media } from "@/payload-types";
 
 export const generateMetadata = async ({
@@ -38,7 +38,7 @@ const LotDetailPage = async ({
 
 	if (!id) notFound();
 
-	const [lot, settings] = await Promise.all([
+	const [lot, _settings] = await Promise.all([
 		getLotByAuctionSlugAndLotNumber(slug, id, locale),
 		getSiteSettings(),
 	]);
@@ -54,9 +54,6 @@ const LotDetailPage = async ({
 	]);
 
 	const t = await getTranslations("lotDetail");
-	const { icon } = getGraphicsDark(settings);
-	const iconSrc = icon.src;
-	const iconAlt = icon.alt;
 
 	return (
 		<>
@@ -66,8 +63,6 @@ const LotDetailPage = async ({
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 					<LotGallery
 						images={lot.images as (number | Media)[]}
-						iconSrc={iconSrc}
-						iconAlt={iconAlt}
 						lotTitle={lot.title}
 					/>
 					<LotInfo lot={lot} />
@@ -84,8 +79,6 @@ const LotDetailPage = async ({
 						</p>
 						<LotGrid
 							lots={similarLots as Lot[]}
-							iconSrc={iconSrc}
-							iconAlt={iconAlt}
 							auctionSlug={slug}
 							columns="wide"
 						/>

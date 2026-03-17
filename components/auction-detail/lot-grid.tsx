@@ -5,14 +5,10 @@ import { LotCard } from "./lot-card";
 
 export const LotGrid = ({
 	lots,
-	iconSrc,
-	iconAlt,
 	auctionSlug,
 	columns = "default",
 }: {
 	lots: Lot[];
-	iconSrc: string;
-	iconAlt: string;
 	auctionSlug: string;
 	columns?: "default" | "wide";
 }) => {
@@ -28,8 +24,6 @@ export const LotGrid = ({
 					key={lot.id}
 					lot={lot}
 					index={index}
-					iconSrc={iconSrc}
-					iconAlt={iconAlt}
 					auctionSlug={auctionSlug}
 				/>
 			))}

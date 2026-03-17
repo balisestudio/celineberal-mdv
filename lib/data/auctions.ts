@@ -1,4 +1,3 @@
-import config from "@payload-config";
 import { payload } from "@/lib/payload";
 
 export const getAuctions = async () => {

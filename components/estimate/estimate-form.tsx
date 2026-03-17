@@ -59,7 +59,7 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 	const [refusePhotoReuse, setRefusePhotoReuse] = useState(false);
 	const [consentsError, setConsentsError] = useState<string | null>(null);
 
-	const progressPercent = step === 0 ? 0 : step === 1 ? 50 : 100;
+	const _progressPercent = step === 0 ? 0 : step === 1 ? 50 : 100;
 
 	const handleCoordsNext = useCallback(() => {
 		const result = estimateCoordsSchema.safeParse(coords);

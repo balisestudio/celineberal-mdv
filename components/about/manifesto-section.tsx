@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Mark } from "@/components/logos";
 import { Container } from "@/components/ui/container";
 
 const paragraphs = (text: string) => text.trim().split(/\n\n+/).filter(Boolean);
@@ -8,16 +9,12 @@ export const ManifestoSection = ({
 	signature,
 	imageSrc,
 	imageAlt,
-	iconSrc,
-	iconAlt,
 	manifestoLabel,
 }: {
 	manifesto: string;
 	signature: string;
 	imageSrc: string | null;
 	imageAlt: string;
-	iconSrc: string;
-	iconAlt: string;
 	manifestoLabel: string;
 }) => {
 	const blocks = paragraphs(manifesto);
@@ -59,14 +56,7 @@ export const ManifestoSection = ({
 							/>
 						) : (
 							<div className="flex min-h-[400px] w-full items-center justify-center bg-sand/30">
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={96}
-									height={96}
-									className="object-contain text-bordeaux"
-									unoptimized={iconSrc.startsWith("http")}
-								/>
+								<Mark variant="dark" size={96} />
 							</div>
 						)}
 					</div>

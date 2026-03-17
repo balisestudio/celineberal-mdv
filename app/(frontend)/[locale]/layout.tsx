@@ -6,11 +6,7 @@ import { NavBar } from "@/components/navbar";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { routing } from "@/i18n/routing";
 import { getContact } from "@/lib/data/contact";
-import {
-	getGraphicsDark,
-	getGraphicsLight,
-	getSiteSettings,
-} from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 
 const LocaleLayout = async ({
 	children,
@@ -30,26 +26,17 @@ const LocaleLayout = async ({
 		getSiteSettings(locale),
 		getContact(),
 	]);
-	const { logo } = getGraphicsDark(settings);
-	const { icon: iconLight } = getGraphicsLight(settings);
 
 	return (
 		<html lang={locale}>
 			<body>
 				<NextIntlClientProvider messages={messages}>
 					<ScrollToTop />
-					<NavBar
-						siteName={settings.siteName}
-						siteTagline={settings.tagline}
-						logoSrc={logo.src}
-						logoAlt={logo.alt}
-					/>
+					<NavBar siteName={settings.siteName} siteTagline={settings.tagline} />
 					<main className="min-h-screen">{children}</main>
 					<Footer
 						siteName={settings.siteName}
 						tagline={settings.tagline}
-						iconLightSrc={iconLight.src}
-						iconLightAlt={iconLight.alt}
 						contact={contact}
 					/>
 				</NextIntlClientProvider>

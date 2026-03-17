@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Mark } from "@/components/logos";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
 import type { Contact as ContactType } from "@/payload-types";
@@ -16,14 +16,10 @@ const FOOTER_NAV = [
 export const Footer = ({
 	siteName,
 	tagline,
-	iconLightSrc,
-	iconLightAlt,
 	contact,
 }: {
 	siteName: string;
 	tagline: string;
-	iconLightSrc: string;
-	iconLightAlt: string;
 	contact: ContactType | null;
 }) => {
 	const tFooter = useTranslations("footer");
@@ -39,13 +35,7 @@ export const Footer = ({
 							href="/"
 							className="inline-block hover:opacity-75 transition-opacity"
 						>
-							<Image
-								src={iconLightSrc}
-								alt={iconLightAlt}
-								width={48}
-								height={48}
-								unoptimized={iconLightSrc.startsWith("http")}
-							/>
+							<Mark variant="light" size={48} />
 						</Link>
 						<p className="text-sm uppercase tracking-[0.18em] text-blanc-casse/60">
 							{tagline}

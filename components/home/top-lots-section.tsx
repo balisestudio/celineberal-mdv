@@ -4,15 +4,7 @@ import { TopLotCard } from "@/components/home/top-lot-card";
 import { Container } from "@/components/ui/container";
 import type { Lot } from "@/payload-types";
 
-export const TopLotsSection = async ({
-	lots,
-	iconSrc,
-	iconAlt,
-}: {
-	lots: Lot[];
-	iconSrc: string;
-	iconAlt: string;
-}) => {
+export const TopLotsSection = async ({ lots }: { lots: Lot[] }) => {
 	const t = await getTranslations("home");
 
 	return (
@@ -21,13 +13,7 @@ export const TopLotsSection = async ({
 				<SectionHeader title={t("topLotsTitle")} />
 				<div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
 					{lots.map((lot, index) => (
-						<TopLotCard
-							key={lot.id}
-							lot={lot}
-							index={index}
-							iconSrc={iconSrc}
-							iconAlt={iconAlt}
-						/>
+						<TopLotCard key={lot.id} lot={lot} index={index} />
 					))}
 				</div>
 			</Container>

@@ -487,11 +487,11 @@ export const importLotsTask = task({
 							characteristics: savedChars.map((item, i) => ({
 								id: item.id,
 								key:
-									prepared.en!.characteristics[i]?.key ??
+									prepared.en?.characteristics[i]?.key ??
 									prepared.fr.characteristics[i]?.key ??
 									"",
 								value:
-									prepared.en!.characteristics[i]?.value ??
+									prepared.en?.characteristics[i]?.value ??
 									prepared.fr.characteristics[i]?.value ??
 									"",
 							})),

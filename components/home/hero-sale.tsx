@@ -6,6 +6,7 @@ import { enUS, fr } from "date-fns/locale";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import { Mark } from "@/components/logos";
 import { Link } from "@/i18n/navigation";
 import { getMediaSrc } from "@/lib/media-src";
 import type { Auction, Media } from "@/payload-types";
@@ -13,13 +14,9 @@ import type { Auction, Media } from "@/payload-types";
 export const HeroSale = ({
 	auction,
 	isUpcoming,
-	iconSrc,
-	iconAlt,
 }: {
 	auction: Auction;
 	isUpcoming: boolean;
-	iconSrc: string;
-	iconAlt: string;
 }) => {
 	const t = useTranslations("home");
 	const locale = useLocale();
@@ -49,13 +46,7 @@ export const HeroSale = ({
 							/>
 						) : (
 							<div className="absolute inset-0 flex items-center justify-center bg-sand/30">
-								<Image
-									src={iconSrc}
-									alt={iconAlt}
-									width={120}
-									height={120}
-									className="opacity-60 object-contain"
-								/>
+								<Mark variant="dark" size={120} className="opacity-60" />
 							</div>
 						)}
 					</div>

@@ -1,27 +1,20 @@
-import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Mark } from "@/components/logos";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 
 const NotFound = async () => {
 	const [t, locale] = await Promise.all([
 		getTranslations("errors"),
 		getLocale(),
 	]);
-	const settings = await getSiteSettings(locale);
-	const { icon } = getGraphicsDark(settings);
+	await getSiteSettings(locale);
 
 	return (
 		<section className="flex flex-1 flex-col items-center justify-center py-24">
 			<Container className="text-center">
-				<Image
-					src={icon.src}
-					alt={icon.alt}
-					width={64}
-					height={64}
-					className="mx-auto mb-6 opacity-20 object-contain"
-				/>
+				<Mark variant="dark" size={64} className="mx-auto mb-6 opacity-20" />
 				<div
 					className="font-serif italic text-bordeaux mx-auto mb-6"
 					style={{ fontSize: "64px", lineHeight: 1 }}

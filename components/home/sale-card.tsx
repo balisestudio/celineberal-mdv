@@ -12,15 +12,11 @@ import type { Auction, Media } from "@/payload-types";
 export const SaleCard = ({
 	auction,
 	index,
-	iconSrc,
-	iconAlt,
 }: {
 	auction: Auction;
 	index: number;
-	iconSrc: string;
-	iconAlt: string;
 }) => {
-	const t = useTranslations("home");
+	const _t = useTranslations("home");
 	const tVentes = useTranslations("ventes");
 	const tAuction = useTranslations("auction");
 	const locale = useLocale();
@@ -53,13 +49,10 @@ export const SaleCard = ({
 			>
 				<MediaImage
 					media={poster}
-					iconSrc={iconSrc}
-					iconAlt={iconAlt}
 					size="md"
 					className="h-52 shrink-0"
 					imageClassName="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
 					iconSize={48}
-					iconClassName="object-contain"
 					alt={poster?.alt ?? auction.title}
 					sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
 				/>

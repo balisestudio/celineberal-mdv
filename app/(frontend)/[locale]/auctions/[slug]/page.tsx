@@ -3,7 +3,7 @@ import { LotSection } from "@/components/auction-detail/lot-section";
 import { Container } from "@/components/ui/container";
 import { getAuctionBySlug } from "@/lib/data/auctions";
 import { getLots } from "@/lib/data/lots";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 import type { Lot } from "@/payload-types";
 
 export const generateMetadata = async ({
@@ -30,7 +30,7 @@ const AuctionLotsPage = async ({
 	const { slug, locale } = await params;
 	const { page: pageParam } = await searchParams;
 
-	const [auction, settings] = await Promise.all([
+	const [auction, _settings] = await Promise.all([
 		getAuctionBySlug(slug, locale),
 		getSiteSettings(),
 	]);
@@ -57,8 +57,6 @@ const AuctionLotsPage = async ({
 		redirect(`/auctions/${slug}?page=${clampedPage}`);
 	}
 
-	const { icon } = getGraphicsDark(settings);
-
 	return (
 		<Container className="py-0">
 			<LotSection
@@ -68,8 +66,6 @@ const AuctionLotsPage = async ({
 				initialTotalDocs={lotsResult.totalDocs}
 				initialTotalPages={lotsResult.totalPages}
 				currentPage={clampedPage}
-				iconSrc={icon.src}
-				iconAlt={icon.alt}
 			/>
 		</Container>
 	);

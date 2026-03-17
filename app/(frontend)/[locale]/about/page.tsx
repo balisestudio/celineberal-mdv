@@ -8,7 +8,7 @@ import { PressMarquee } from "@/components/about/press-marquee";
 import { ValuesSection } from "@/components/about/values-section";
 import { getAbout } from "@/lib/data/about";
 import { getContact } from "@/lib/data/contact";
-import { getGraphicsDark, getSiteSettings } from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 import { getMediaSrc } from "@/lib/media-src";
 import type { About as AboutType, Media } from "@/payload-types";
 
@@ -39,7 +39,6 @@ const AboutPage = async () => {
 		getContact(),
 	]);
 
-	const { icon } = getGraphicsDark(settings);
 	const aboutImage = resolveAboutImage(about);
 	const values = about.values ?? [];
 	const press = (about.press ?? []).filter(
@@ -56,8 +55,6 @@ const AboutPage = async () => {
 				signature={about.signature}
 				imageSrc={aboutImage?.src ?? null}
 				imageAlt={aboutImage?.alt ?? ""}
-				iconSrc={icon.src}
-				iconAlt={icon.alt}
 				manifestoLabel={t("manifestoLabel")}
 			/>
 

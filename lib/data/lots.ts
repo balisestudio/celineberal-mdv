@@ -1,4 +1,3 @@
-import config from "@payload-config";
 import { payload } from "@/lib/payload";
 import type { Lot } from "@/payload-types";
 
@@ -39,7 +38,7 @@ export const getLots = async ({
 	});
 };
 
-const getLotByLotNumber = async (
+const _getLotByLotNumber = async (
 	auctionId: number,
 	lotNumber: string,
 	locale?: string,

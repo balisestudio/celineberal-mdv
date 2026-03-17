@@ -66,7 +66,7 @@ export const OPTIMIZE_SPECIFIC_INSTRUCTIONS = `
 - Rédige le titre et la description en français uniquement.
 - Ne produis aucune traduction. Laisse tous les champs "en" vides.`;
 
-const TRANSLATE_SPECIFIC_INSTRUCTIONS = `
+const _TRANSLATE_SPECIFIC_INSTRUCTIONS = `
 ## Consignes spécifiques
 
 - Génère un titre factuel en français, puis traduis-le en anglais en respectant les règles de traduction du titre (noms propres et titres d'oeuvres inchangés, partie descriptive traduite).

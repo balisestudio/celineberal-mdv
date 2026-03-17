@@ -6,11 +6,7 @@ import { SalesSection } from "@/components/home/sales-section";
 import { TopLotsSection } from "@/components/home/top-lots-section";
 import { getAuctions, getPastAuctions } from "@/lib/data/auctions";
 import { getExceptionLots } from "@/lib/data/lots";
-import {
-	getGraphicsDark,
-	getGraphicsLight,
-	getSiteSettings,
-} from "@/lib/data/site-settings";
+import { getSiteSettings } from "@/lib/data/site-settings";
 import type { Auction } from "@/payload-types";
 
 export const generateMetadata = async () => {
@@ -37,42 +33,18 @@ const HomePage = async () => {
 	const isUpcoming = Boolean(upcoming[0] && heroAuction?.id === upcoming[0].id);
 	const allAuctions = [...upcoming, ...past];
 	const topLots = exceptionLots;
-	const { icon: iconDark } = getGraphicsDark(settings);
-	const { icon: iconLight } = getGraphicsLight(settings);
 
 	return (
 		<>
 			{heroAuction ? (
-				<HeroSale
-					auction={heroAuction}
-					isUpcoming={isUpcoming}
-					iconSrc={iconDark.src}
-					iconAlt={iconDark.alt}
-				/>
+				<HeroSale auction={heroAuction} isUpcoming={isUpcoming} />
 			) : (
-				<HeroBrand
-					siteName={settings.siteName}
-					tagline={settings.tagline}
-					iconSrc={iconDark.src}
-					iconAlt={iconDark.alt}
-				/>
+				<HeroBrand siteName={settings.siteName} tagline={settings.tagline} />
 			)}
 
-			{allAuctions.length > 0 && (
-				<SalesSection
-					auctions={allAuctions}
-					iconSrc={iconLight.src}
-					iconAlt={iconLight.alt}
-				/>
-			)}
+			{allAuctions.length > 0 && <SalesSection auctions={allAuctions} />}
 
-			{topLots.length > 0 && (
-				<TopLotsSection
-					lots={topLots}
-					iconSrc={iconDark.src}
-					iconAlt={iconDark.alt}
-				/>
-			)}
+			{topLots.length > 0 && <TopLotsSection lots={topLots} />}
 
 			<EstimateBlock />
 		</>

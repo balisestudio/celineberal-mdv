@@ -13,13 +13,9 @@ import type { Auction, Media } from "@/payload-types";
 export const AuctionItem = ({
 	auction,
 	index,
-	iconSrc,
-	iconAlt,
 }: {
 	auction: Auction;
 	index: number;
-	iconSrc: string;
-	iconAlt: string;
 }) => {
 	const t = useTranslations("ventes");
 	const locale = useLocale();
@@ -51,13 +47,10 @@ export const AuctionItem = ({
 			>
 				<MediaImage
 					media={poster}
-					iconSrc={iconSrc}
-					iconAlt={iconAlt}
 					size="thumbnail"
 					className="w-20 h-24 lg:w-24 lg:h-28 shrink-0"
 					imageClassName="object-cover group-hover:scale-105 transition-transform duration-500"
 					iconSize={40}
-					iconClassName="object-contain"
 					alt={poster.alt ?? auction.title}
 					sizes="(min-width: 1024px) 96px, 80px"
 				/>
