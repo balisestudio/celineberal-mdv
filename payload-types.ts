@@ -267,6 +267,7 @@ export interface Media {
 export interface Collaborator {
 	id: number;
 	name: string;
+	role: string;
 	email?: string | null;
 	phone?: string | null;
 	photo?: (number | null) | Media;
@@ -319,7 +320,6 @@ export interface Auction {
 	collaborators?:
 		| {
 				collaborator: number | Collaborator;
-				role: string;
 				id?: string | null;
 		  }[]
 		| null;
@@ -611,6 +611,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CollaboratorsSelect<T extends boolean = true> {
 	name?: T;
+	role?: T;
 	email?: T;
 	phone?: T;
 	photo?: T;
@@ -658,7 +659,6 @@ export interface AuctionsSelect<T extends boolean = true> {
 		| T
 		| {
 				collaborator?: T;
-				role?: T;
 				id?: T;
 		  };
 	triggerId?: T;

@@ -57,6 +57,9 @@ export const CollaboratorsSection = ({
 								<p className="mt-4 font-serif text-xl italic text-charcoal">
 									{collab.name}
 								</p>
+								<p className="mt-1 text-sm uppercase tracking-widest text-muted">
+									{collab.role}
+								</p>
 								{(collab.email ?? collab.phone) && (
 									<div className="mt-2 space-y-1 text-sm text-muted">
 										{collab.email && (

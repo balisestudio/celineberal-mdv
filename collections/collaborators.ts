@@ -10,7 +10,7 @@ export const Collaborators: CollectionConfig = {
 	admin: {
 		group: "Administration",
 		useAsTitle: "name",
-		defaultColumns: ["name", "email", "updatedAt"],
+		defaultColumns: ["name", "role", "email", "updatedAt"],
 	},
 	access: {
 		create: ({ req: { user } }) => can(user, "editor"),
@@ -23,6 +23,13 @@ export const Collaborators: CollectionConfig = {
 			name: "name",
 			label: "Prénom & Nom",
 			type: "text",
+			required: true,
+		},
+		{
+			name: "role",
+			label: "Rôle",
+			type: "text",
+			localized: true,
 			required: true,
 		},
 		{

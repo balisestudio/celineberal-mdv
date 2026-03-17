@@ -171,13 +171,6 @@ export const Auctions: CollectionConfig = {
 									relationTo: "collaborators",
 									required: true,
 								},
-								{
-									name: "role",
-									label: "Rôle",
-									type: "text",
-									required: true,
-									localized: true,
-								},
 							],
 						},
 					],

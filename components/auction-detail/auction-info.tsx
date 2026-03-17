@@ -9,11 +9,6 @@ import type { Auction, Collaborator, Media } from "@/payload-types";
 export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 	const t = await getTranslations("auction");
 
-	const collaborators = (auction.collaborators ?? []).map((item) => ({
-		collaborator: item.collaborator as Collaborator,
-		role: item.role,
-	}));
-
 	return (
 		<Container narrow className="py-12">
 			<div className="space-y-12">
@@ -28,22 +23,27 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 					</section>
 				)}
 
-				{collaborators.length > 0 && (
+				{auction.collaborators && auction.collaborators.length > 0 ? (
 					<section>
 						<p className="text-sm uppercase tracking-widest text-muted mb-10">
 							{t("info.experts")}
 						</p>
 						<div className="grid grid-cols-1 sm:grid-cols-2 gap-16">
-							{collaborators.map(({ collaborator, role }) => {
+							{auction.collaborators.map((item) => {
+								const collaborator = item.collaborator;
+
+								if (!collaborator || typeof collaborator !== "object") {
+									return null;
+								}
+
 								const photo =
-									typeof collaborator.photo === "object" &&
-									collaborator.photo !== null
+									typeof collaborator.photo === "object" && collaborator.photo
 										? (collaborator.photo as Media)
 										: null;
 
 								return (
 									<div
-										key={collaborator.id}
+										key={item.id || collaborator.id}
 										className="flex flex-col items-center text-center gap-3"
 									>
 										<div className="relative w-32 h-32 rounded-full border border-sand overflow-hidden shrink-0">
@@ -63,11 +63,9 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 											)}
 										</div>
 
-										{role && (
-											<p className="text-sm uppercase tracking-[0.2em] text-bordeaux">
-												{role}
-											</p>
-										)}
+										<p className="text-sm uppercase tracking-[0.2em] text-bordeaux">
+											{collaborator.role}
+										</p>
 										<p className="font-serif italic text-2xl text-charcoal">
 											{collaborator.name}
 										</p>
@@ -97,7 +95,7 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 							})}
 						</div>
 					</section>
-				)}
+				) : null}
 
 				<section>
 					<div className="border border-sand bg-sand/20 p-6 text-center flex flex-col items-center gap-4">
