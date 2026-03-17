@@ -393,10 +393,6 @@ export interface Guide {
 		[k: string]: unknown;
 	};
 	thematique: number | Thematic;
-	relatedLots?: (number | Lot)[] | null;
-	/**
-	 * Auteur affiché (choix parmi les collaborateurs)
-	 */
 	author: number | Collaborator;
 	updatedAt: string;
 	createdAt: string;
@@ -716,7 +712,6 @@ export interface GuidesSelect<T extends boolean = true> {
 	poster?: T;
 	content?: T;
 	thematique?: T;
-	relatedLots?: T;
 	author?: T;
 	updatedAt?: T;
 	createdAt?: T;

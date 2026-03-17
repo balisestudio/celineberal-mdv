@@ -99,13 +99,6 @@ export const Guides: CollectionConfig = {
 							required: true,
 						},
 						{
-							name: "relatedLots",
-							label: "Lots liés",
-							type: "relationship",
-							relationTo: "lots",
-							hasMany: true,
-						},
-						{
 							name: "author",
 							label: "Auteur",
 							type: "relationship",
