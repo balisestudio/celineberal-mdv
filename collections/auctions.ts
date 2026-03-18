@@ -1,7 +1,7 @@
 import { createId } from "@paralleldrive/cuid2";
-import { runs } from "@trigger.dev/sdk/v3";
 import type { CollectionConfig } from "payload";
 import { slugify } from "payload/shared";
+import { getRunStatus } from "@/inngest/client";
 import { can } from "@/lib/permissions";
 
 export const Auctions: CollectionConfig = {
@@ -32,8 +32,8 @@ export const Auctions: CollectionConfig = {
 			if (!user || !can(user, "editor")) return false;
 
 			if (data?.triggerId) {
-				const trigger = await runs.retrieve(data.triggerId);
-				if (trigger.isExecuting) return false;
+				const { isRunning } = await getRunStatus(data.triggerId);
+				if (isRunning) return false;
 				await payload.update({
 					collection: "auctions",
 					id: data.id,
@@ -46,8 +46,8 @@ export const Auctions: CollectionConfig = {
 		delete: async ({ req: { user, payload, data } }) => {
 			if (!user || !can(user, "editor")) return false;
 			if (data?.triggerId) {
-				const trigger = await runs.retrieve(data.triggerId);
-				if (trigger.isExecuting) return false;
+				const { isRunning } = await getRunStatus(data.triggerId);
+				if (isRunning) return false;
 			}
 			return true;
 		},
