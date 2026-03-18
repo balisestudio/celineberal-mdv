@@ -4,7 +4,10 @@ import { useTranslations } from "next-intl";
 import { Mark } from "@/components/logos";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
-import type { Contact as ContactType } from "@/payload-types";
+import type {
+	Contact as ContactType,
+	Legal as LegalType,
+} from "@/payload-types";
 
 const FOOTER_NAV = [
 	{ href: "/auctions", navKey: "links.auctions" as const },
@@ -18,10 +21,12 @@ export const Footer = ({
 	siteName,
 	tagline,
 	contact,
+	legal,
 }: {
 	siteName: string;
 	tagline: string;
 	contact: ContactType | null;
+	legal: LegalType | null;
 }) => {
 	const tFooter = useTranslations("footer");
 	const tNav = useTranslations("navbar");
@@ -93,6 +98,20 @@ export const Footer = ({
 										))}
 									</div>
 								)}
+								<div className="pt-2">
+									<Link
+										href="/terms/legal"
+										className="block transition-colors hover:text-blanc-casse"
+									>
+										{tNav("links.legal")}
+									</Link>
+									<Link
+										href="/terms/privacy"
+										className="block transition-colors hover:text-blanc-casse"
+									>
+										{tNav("links.privacy")}
+									</Link>
+								</div>
 							</div>
 						) : null}
 					</div>
@@ -100,13 +119,13 @@ export const Footer = ({
 
 				<div className="border-t border-white/20 py-6">
 					<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-						{contact ? (
+						{legal ? (
 							<p className="text-sm text-blanc-casse/40">
 								{tFooter("legal", {
-									siret: contact.siret,
-									rcs: contact.rcs,
-									capitalSocial: contact.capitalSocial,
-									agrement: contact.agrement,
+									siret: legal.siret,
+									rcs: legal.rcs,
+									capitalSocial: legal.capitalSocial,
+									agrement: legal.agrement,
 								})}
 							</p>
 						) : (

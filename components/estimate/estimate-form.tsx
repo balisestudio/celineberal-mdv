@@ -574,12 +574,18 @@ export const EstimateForm = ({ siteName }: { siteName: string }) => {
 								<span>
 									{t.rich("consents.cguLabel", {
 										terms: (chunks) => (
-											<Link href="/about" className="text-bordeaux underline">
+											<Link
+												href="/terms/legal"
+												className="text-bordeaux underline"
+											>
 												{chunks}
 											</Link>
 										),
 										privacy: (chunks) => (
-											<Link href="/about" className="text-bordeaux underline">
+											<Link
+												href="/terms/privacy"
+												className="text-bordeaux underline"
+											>
 												{chunks}
 											</Link>
 										),

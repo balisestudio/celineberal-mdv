@@ -6,6 +6,7 @@ import { NavBar } from "@/components/navbar";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { routing } from "@/i18n/routing";
 import { getContact } from "@/lib/data/contact";
+import { getLegal } from "@/lib/data/legal";
 import { getSiteSettings } from "@/lib/data/site-settings";
 
 const LocaleLayout = async ({
@@ -21,10 +22,11 @@ const LocaleLayout = async ({
 	}
 	setRequestLocale(locale);
 
-	const [messages, settings, contact] = await Promise.all([
+	const [messages, settings, contact, legal] = await Promise.all([
 		getMessages(),
 		getSiteSettings(locale),
 		getContact(),
+		getLegal(locale),
 	]);
 
 	return (
@@ -38,6 +40,7 @@ const LocaleLayout = async ({
 						siteName={settings.siteName}
 						tagline={settings.tagline}
 						contact={contact}
+						legal={legal}
 					/>
 				</NextIntlClientProvider>
 			</body>

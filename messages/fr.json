@@ -49,9 +49,15 @@
 			"auctions": "Ventes",
 			"results": "Résultats",
 			"guides": "Guides",
-			"about": "À propos"
+			"about": "À propos",
+			"legal": "Mentions légales",
+			"privacy": "Politique de confidentialité"
 		},
 		"estimate": "Estimation"
+	},
+	"terms": {
+		"legalTitle": "Mentions légales",
+		"privacyTitle": "Politique de confidentialité"
 	},
 	"guidesList": {
 		"pageTitle": "Guides",
