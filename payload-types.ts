@@ -394,9 +394,6 @@ export interface Guide {
 	};
 	thematique: number | Thematic;
 	author: number | Collaborator;
-	/**
-	 * Si activé, le guide n'apparaît pas sur la page /guides mais reste accessible via son URL directe.
-	 */
 	hideFromList?: boolean | null;
 	updatedAt: string;
 	createdAt: string;

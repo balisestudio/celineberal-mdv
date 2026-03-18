@@ -86,27 +86,37 @@ export const getGuidesByThematique = async (
 	return result.docs as Guide[];
 };
 
-export function getAuctionIdsFromGuideContent(
+export const getAuctionIdsFromGuideContent = (
 	content: Guide["content"],
-): number[] {
+): number[] => {
 	const ids: number[] = [];
 	const root = content?.root;
 	if (!root || !Array.isArray(root.children)) return ids;
 
+	const extractId = (val: unknown): number | null => {
+		if (typeof val === "number") return val;
+		if (typeof val === "object" && val !== null && "id" in val)
+			return (val as { id: number }).id;
+		return null;
+	};
+
 	for (const child of root.children) {
 		const node = child as {
 			type?: string;
-			fields?: { auction?: number | { id?: number } };
+			fields?: {
+				auction?: number | { id?: number };
+				auctions?: (number | { id?: number })[];
+			};
 		};
-		if (node.type !== "block" || !node.fields?.auction) continue;
-		const auction = node.fields.auction;
-		const id =
-			typeof auction === "object" && auction !== null && "id" in auction
-				? auction.id
-				: typeof auction === "number"
-					? auction
-					: null;
-		if (id != null && !ids.includes(id)) ids.push(id);
+		if (node.type !== "block" || !node.fields) continue;
+
+		const auctions =
+			node.fields.auctions ??
+			(node.fields.auction ? [node.fields.auction] : []);
+		for (const a of Array.isArray(auctions) ? auctions : []) {
+			const id = extractId(a);
+			if (id != null && !ids.includes(id)) ids.push(id);
+		}
 	}
 	return ids;
-}
+};

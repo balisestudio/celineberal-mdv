@@ -37,32 +37,36 @@ export const guideEditor = lexicalEditor({
 				{
 					slug: "auction",
 					labels: {
-						singular: "Vente",
+						singular: "Ventes",
 						plural: "Ventes",
 					},
 					fields: [
 						{
-							name: "auction",
+							name: "auctions",
 							type: "relationship",
 							relationTo: "auctions",
+							hasMany: true,
 							required: true,
-							label: "Vente",
+							minRows: 1,
+							label: "Ventes",
 						},
 					],
 				},
 				{
 					slug: "lot",
 					labels: {
-						singular: "Lot",
+						singular: "Lots",
 						plural: "Lots",
 					},
 					fields: [
 						{
-							name: "lot",
+							name: "lots",
 							type: "relationship",
 							relationTo: "lots",
+							hasMany: true,
 							required: true,
-							label: "Lot",
+							minRows: 1,
+							label: "Lots",
 						},
 					],
 				},

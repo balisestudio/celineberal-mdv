@@ -3,16 +3,24 @@ import {
 	RichText,
 } from "@payloadcms/richtext-lexical/react";
 import { createElement } from "react";
-import { GuideAuctionBlock } from "@/components/guide/guide-auction-block";
-import { GuideLotBlock } from "@/components/guide/guide-lot-block";
+import { GuideAuctionsBlock } from "@/components/guide/guide-auctions-block";
+import { GuideLotsBlock } from "@/components/guide/guide-lots-block";
 import type { Auction, Guide, Lot } from "@/payload-types";
 
 type BlockNode = {
 	type: string;
 	fields?: {
 		lot?: number | Lot;
+		lots?: (number | Lot)[];
 		auction?: number | Auction;
+		auctions?: (number | Auction)[];
 	};
+};
+
+const getGridClass = (count: number): string => {
+	const base = "my-12 gap-4";
+	if (count <= 1) return "";
+	return `grid grid-cols-1 sm:grid-cols-2 ${base}`;
 };
 
 export const GuideRichText = ({
@@ -56,15 +64,43 @@ export const GuideRichText = ({
 		blocks: {
 			...defaultConverters.blocks,
 			lot: ({ node }: { node: BlockNode }) => {
-				const lot = node.fields?.lot;
-				if (!lot || typeof lot !== "object") return null;
-				return <GuideLotBlock lot={lot} />;
+				const raw =
+					node.fields?.lots ?? (node.fields?.lot ? [node.fields.lot] : []);
+				const lots = (Array.isArray(raw) ? raw : []).filter(
+					(l): l is Lot => l != null && typeof l === "object" && "id" in l,
+				);
+				if (lots.length === 0) return null;
+				const gridClass = getGridClass(lots.length);
+				const content = lots.map((lot) => (
+					<GuideLotsBlock key={lot.id} lot={lot} compact={lots.length > 1} />
+				));
+				return gridClass ? (
+					<div className={gridClass}>{content}</div>
+				) : (
+					content[0]
+				);
 			},
 			auction: ({ node }: { node: BlockNode }) => {
-				const auction = node.fields?.auction;
-				if (!auction || typeof auction !== "object") return null;
-				const firstLots = firstLotsByAuctionId[auction.id] ?? [];
-				return <GuideAuctionBlock auction={auction} />;
+				const raw =
+					node.fields?.auctions ??
+					(node.fields?.auction ? [node.fields.auction] : []);
+				const auctions = (Array.isArray(raw) ? raw : []).filter(
+					(a): a is Auction => a != null && typeof a === "object" && "id" in a,
+				);
+				if (auctions.length === 0) return null;
+				const gridClass = getGridClass(auctions.length);
+				const content = auctions.map((auction) => (
+					<GuideAuctionsBlock
+						key={auction.id}
+						auction={auction}
+						compact={auctions.length > 1}
+					/>
+				));
+				return gridClass ? (
+					<div className={gridClass}>{content}</div>
+				) : (
+					content[0]
+				);
 			},
 		},
 	});
