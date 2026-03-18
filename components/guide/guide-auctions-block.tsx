@@ -8,9 +8,11 @@ import type { Auction, Media } from "@/payload-types";
 export const GuideAuctionsBlock = ({
 	auction,
 	compact = false,
+	fillImage = false,
 }: {
 	auction: Auction;
 	compact?: boolean;
+	fillImage?: boolean;
 }) => {
 	const locale = useLocale();
 	const poster = auction.poster as Media;
@@ -44,7 +46,9 @@ export const GuideAuctionsBlock = ({
 						media={poster}
 						size="md"
 						className="h-full w-full"
-						imageClassName="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+						imageClassName={`transition-transform duration-500 group-hover:scale-[1.04] ${
+							fillImage ? "object-cover" : "object-cover"
+						}`}
 						alt={poster?.alt ?? auction.title}
 						sizes={
 							compact

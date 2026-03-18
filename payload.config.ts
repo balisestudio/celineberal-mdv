@@ -17,6 +17,7 @@ import { Thematics } from "@/collections/thematics";
 import { Users } from "@/collections/users";
 import { About } from "@/globals/about";
 import { Contact } from "@/globals/contact";
+import { Legal } from "@/globals/legal";
 import { SiteSettings } from "@/globals/site-settings";
 import { env } from "@/lib/env";
 
@@ -67,7 +68,7 @@ export default buildConfig({
 	},
 	editor: lexicalEditor(),
 	collections,
-	globals: [SiteSettings, Contact, About],
+	globals: [SiteSettings, Contact, Legal, About],
 	secret: env.PAYLOAD_SECRET,
 	typescript: {
 		outputFile: path.resolve(dirname, "payload-types.ts"),

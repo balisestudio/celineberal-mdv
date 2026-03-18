@@ -6,9 +6,11 @@ import type { Auction, Lot, Media } from "@/payload-types";
 export const GuideLotsBlock = ({
 	lot,
 	compact = false,
+	fillImage = false,
 }: {
 	lot: Lot;
 	compact?: boolean;
+	fillImage?: boolean;
 }) => {
 	const t = useTranslations("auction");
 	const firstImage = lot.images?.[0];
@@ -47,7 +49,9 @@ export const GuideLotsBlock = ({
 						media={image}
 						size="md"
 						className="h-full w-full"
-						imageClassName="object-contain transition-transform duration-500 group-hover:scale-[1.08]"
+						imageClassName={`transition-transform duration-500 group-hover:scale-[1.07] ${
+							fillImage ? "object-cover" : "object-contain"
+						}`}
 						alt={image?.alt ?? lot.title}
 						sizes={
 							compact

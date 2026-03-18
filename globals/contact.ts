@@ -69,35 +69,6 @@ export const Contact: GlobalConfig = {
 						},
 					],
 				},
-				{
-					label: "Légal",
-					fields: [
-						{
-							name: "siret",
-							label: "SIRET",
-							type: "text",
-							required: true,
-						},
-						{
-							name: "rcs",
-							label: "RCS",
-							type: "text",
-							required: true,
-						},
-						{
-							name: "capitalSocial",
-							label: "Capital social",
-							type: "text",
-							required: true,
-						},
-						{
-							name: "agrement",
-							label: "Agrément",
-							type: "text",
-							required: true,
-						},
-					],
-				},
 			],
 		},
 	],

@@ -120,11 +120,13 @@ export interface Config {
 	globals: {
 		"site-settings": SiteSetting;
 		contact: Contact;
+		legal: Legal;
 		about: About;
 	};
 	globalsSelect: {
 		"site-settings": SiteSettingsSelect<false> | SiteSettingsSelect<true>;
 		contact: ContactSelect<false> | ContactSelect<true>;
+		legal: LegalSelect<false> | LegalSelect<true>;
 		about: AboutSelect<false> | AboutSelect<true>;
 	};
 	locale: "fr" | "en";
@@ -788,10 +790,49 @@ export interface Contact {
 				id?: string | null;
 		  }[]
 		| null;
+	updatedAt?: string | null;
+	createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal".
+ */
+export interface Legal {
+	id: number;
 	siret: string;
 	rcs: string;
 	capitalSocial: string;
 	agrement: string;
+	legalNotice: {
+		root: {
+			type: string;
+			children: {
+				type: any;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ("ltr" | "rtl") | null;
+			format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	};
+	privacyPolicy: {
+		root: {
+			type: string;
+			children: {
+				type: any;
+				version: number;
+				[k: string]: unknown;
+			}[];
+			direction: ("ltr" | "rtl") | null;
+			format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+			indent: number;
+			version: number;
+		};
+		[k: string]: unknown;
+	};
 	updatedAt?: string | null;
 	createdAt?: string | null;
 }
@@ -851,10 +892,21 @@ export interface ContactSelect<T extends boolean = true> {
 				url?: T;
 				id?: T;
 		  };
+	updatedAt?: T;
+	createdAt?: T;
+	globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "legal_select".
+ */
+export interface LegalSelect<T extends boolean = true> {
 	siret?: T;
 	rcs?: T;
 	capitalSocial?: T;
 	agrement?: T;
+	legalNotice?: T;
+	privacyPolicy?: T;
 	updatedAt?: T;
 	createdAt?: T;
 	globalType?: T;

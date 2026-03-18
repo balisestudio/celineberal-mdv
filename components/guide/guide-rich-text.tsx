@@ -72,7 +72,12 @@ export const GuideRichText = ({
 				if (lots.length === 0) return null;
 				const gridClass = getGridClass(lots.length);
 				const content = lots.map((lot) => (
-					<GuideLotsBlock key={lot.id} lot={lot} compact={lots.length > 1} />
+					<GuideLotsBlock
+						key={lot.id}
+						lot={lot}
+						compact={lots.length > 1}
+						fillImage={lots.length === 1}
+					/>
 				));
 				return gridClass ? (
 					<div className={gridClass}>{content}</div>
@@ -94,6 +99,7 @@ export const GuideRichText = ({
 						key={auction.id}
 						auction={auction}
 						compact={auctions.length > 1}
+						fillImage={auctions.length === 1}
 					/>
 				));
 				return gridClass ? (
