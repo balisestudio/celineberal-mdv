@@ -35,17 +35,19 @@ export const GuideRichText = ({
 		heading: (args) => {
 			const { node, nodesToJSX } = args;
 			const tag = node.tag as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-			const nextTag =
-				tag === "h1" ? "h2" : tag === "h2" ? "h3" : tag === "h3" ? "h4" : "h4";
+			const renderedTag =
+				tag === "h1" ? "h1" : tag === "h2" ? "h2" : tag === "h3" ? "h3" : "h4";
 			const sizeClass =
-				nextTag === "h2"
+				renderedTag === "h1"
 					? "text-3xl lg:text-4xl"
-					: nextTag === "h3"
+					: renderedTag === "h2"
 						? "text-2xl lg:text-3xl"
-						: "text-xl lg:text-2xl";
+						: renderedTag === "h3"
+							? "text-xl lg:text-2xl"
+							: "text-lg lg:text-xl";
 			const children = nodesToJSX({ nodes: node.children });
 			return createElement(
-				nextTag,
+				renderedTag,
 				{
 					className: `font-serif font-light italic tracking-tight mt-8 mb-3 first:mt-0 text-black leading-tight ${sizeClass}`,
 				},
@@ -112,7 +114,7 @@ export const GuideRichText = ({
 	});
 
 	return (
-		<div className="guide-content [&_.lexical-block]:my-6">
+		<div className="guide-content [&_.lexical-block]:my-6 text-justify">
 			<RichText data={data} converters={converters} />
 		</div>
 	);
