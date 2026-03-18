@@ -64,6 +64,26 @@ export const POST = async (req: Request) => {
 			overrideAccess: true,
 		});
 
+		await payload.sendEmail({
+			to: "contact@celineberal-mdv.com",
+			from: `${env.DEFAULT_FROM_NAME} <${env.DEFAULT_FROM_ADDRESS}>`,
+			subject: "Nouvelle demande d’estimation",
+			text: [
+				"Une nouvelle demande d’estimation a été envoyée.",
+				`Nom: ${data.firstName} ${data.lastName}`,
+				`Email: ${data.email}`,
+				`Téléphone: ${data.phone}`,
+				data.address ? `Adresse: ${data.address}` : null,
+				data.postalCode ? `Code postal: ${data.postalCode}` : null,
+				data.city ? `Ville: ${data.city}` : null,
+				data.dimensions ? `Dimensions: ${data.dimensions}` : null,
+				data.descriptions ? `Description: ${data.descriptions}` : null,
+				`Autorise la réutilisation des photos: ${data.allowsPhotoReuse ? "oui" : "non"}`,
+			]
+				.filter((line): line is string => line !== null)
+				.join("\n"),
+		});
+
 		return NextResponse.json({ success: true });
 	} catch (e) {
 		console.error("Estimate submit error:", e);

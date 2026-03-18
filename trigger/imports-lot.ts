@@ -4,6 +4,7 @@ import pLimit from "p-limit";
 import type { ImportLotsOptions } from "@/components/payload/imports-lots/action";
 import { optimizeLot } from "@/lib/ai/optimize-lot";
 import { translateLot } from "@/lib/ai/translate-lot";
+import { env } from "@/lib/env";
 import { payload } from "@/lib/payload";
 import type {
 	InterenchersLot,
@@ -363,9 +364,21 @@ export const importLotsTask = task({
 
 	onFailure: async ({ payload: data, error }) => {
 		const { auction } = data as ImportLotsPayload;
+		const errorMessage = error instanceof Error ? error.message : String(error);
 		logger.error("Hook onFailure - nettoyage triggerId après échec", {
 			auctionId: auction.id,
-			error: error instanceof Error ? error.message : String(error),
+			error: errorMessage,
+		});
+		await payload.sendEmail({
+			to: "contact@celineberal-mdv.com",
+			from: `${env.DEFAULT_FROM_NAME} <${env.DEFAULT_FROM_ADDRESS}>`,
+			subject: `Erreur pendant le traitement de la vente #${auction.id}`,
+			text: [
+				"Une erreur est survenue pendant le traitement d'une vente.",
+				`Vente: ${auction.title ?? "sans titre"}`,
+				`ID: ${auction.id}`,
+				`Erreur: ${errorMessage}`,
+			].join("\n"),
 		});
 		try {
 			await clearTriggerId(auction.id);
@@ -510,6 +523,20 @@ export const importLotsTask = task({
 				lotsCreated,
 				lotsFailed: preparedFailed,
 				totalLots: xmlLots.length,
+			});
+
+			await payload.sendEmail({
+				to: "contact@celineberal-mdv.com",
+				from: `${env.DEFAULT_FROM_NAME} <${env.DEFAULT_FROM_ADDRESS}>`,
+				subject: `Traitement terminé pour la vente #${auction.id}`,
+				text: [
+					"Le traitement d'une vente vient de se terminer.",
+					`Vente: ${auction.title ?? "sans titre"}`,
+					`ID: ${auction.id}`,
+					`Lots créés: ${lotsCreated}`,
+					`Lots ignorés: ${preparedFailed}`,
+					`Total des lots importés: ${xmlLots.length}`,
+				].join("\n"),
 			});
 
 			if (preparedFailed > 0) {
