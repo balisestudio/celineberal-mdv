@@ -32,7 +32,8 @@
 		"@payloadcms/ui": "3.78.0",
 		"@phosphor-icons/react": "^2.1.10",
 		"@tailwindcss/postcss": "^4.1.18",
-		"@trigger.dev/sdk": "4.4.1",
+		"@trigger.dev/build": "^4.4.3",
+		"@trigger.dev/sdk": "4.4.3",
 		"ai": "^6.0.108",
 		"cross-env": "^7.0.3",
 		"date-fns": "^4.1.0",
@@ -52,6 +53,7 @@
 		"sharp": "0.34.2",
 		"tailwind-merge": "^3.5.0",
 		"tailwindcss": "^4.1.18",
+		"trigger.dev": "^4.4.3",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
