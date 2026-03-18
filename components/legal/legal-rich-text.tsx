@@ -31,7 +31,7 @@ export const LegalRichText = ({
 			return createElement(
 				renderedTag,
 				{
-					className: `font-serif italic text-charcoal mt-8 mb-4 ${sizeClass}`,
+					className: `font-serif font-light italic tracking-tight text-bordeaux mt-8 mb-3 first:mt-0 leading-tight ${sizeClass}`,
 				},
 				...children,
 			);
@@ -39,7 +39,9 @@ export const LegalRichText = ({
 	});
 
 	return (
-		<div className={`text-justify ${className ?? ""}`.trim()}>
+		<div
+			className={`legal-content text-black text-justify [&_a]:text-black [&_a]:underline ${className ?? ""}`.trim()}
+		>
 			<RichText data={data} converters={converters} />
 		</div>
 	);

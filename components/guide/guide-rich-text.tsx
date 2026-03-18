@@ -49,7 +49,7 @@ export const GuideRichText = ({
 			return createElement(
 				renderedTag,
 				{
-					className: `font-serif font-light italic tracking-tight mt-8 mb-3 first:mt-0 text-black leading-tight ${sizeClass}`,
+					className: `font-serif font-light italic tracking-tight mt-8 mb-3 first:mt-0 text-bordeaux leading-tight ${sizeClass}`,
 				},
 				...children,
 			);
@@ -114,7 +114,7 @@ export const GuideRichText = ({
 	});
 
 	return (
-		<div className="guide-content [&_.lexical-block]:my-6 text-justify">
+		<div className="guide-content [&_.lexical-block]:my-6 text-justify [&_a]:text-black [&_a]:underline">
 			<RichText data={data} converters={converters} />
 		</div>
 	);

@@ -61,7 +61,7 @@ h6 {
 .guide-content h2,
 .guide-content h3,
 .guide-content h4 {
-	@apply font-serif font-light tracking-tight mt-8 mb-3 first:mt-0;
+	@apply font-serif font-light tracking-tight text-bordeaux mt-8 mb-3 first:mt-0;
 }
 
 .guide-content h2 {
@@ -74,6 +74,16 @@ h6 {
 
 .guide-content h4 {
 	@apply text-xl lg:text-2xl italic;
+}
+
+.legal-content {
+	@apply text-black;
+}
+
+.legal-content h2,
+.legal-content h3,
+.legal-content h4 {
+	@apply text-bordeaux;
 }
 
 .about-marquee {
