@@ -1,14 +1,13 @@
 "use server";
 
-import { runs } from "@trigger.dev/sdk/v3";
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 import { headers } from "next/headers";
+import { getRunStatus, inngest } from "@/inngest/client";
 import { payload } from "@/lib/payload";
 import { can } from "@/lib/permissions";
 import type { InterenchersLots } from "@/lib/schemas/interenchers";
 import { interenchersSchema } from "@/lib/schemas/interenchers";
 import type { Auction, User } from "@/payload-types";
-import { importLotsTask } from "@/trigger/imports-lot";
 
 /**
  * Constants
@@ -80,8 +79,8 @@ export const isAllowedToImportLots = async (
 	if (auction._isLocked) return false;
 
 	if (auction.triggerId) {
-		const trigger = await runs.retrieve(auction.triggerId);
-		if (trigger.isExecuting) return false;
+		const { isRunning } = await getRunStatus(auction.triggerId);
+		if (isRunning) return false;
 		await payload.update({
 			collection: "auctions",
 			id: auctionId,
@@ -129,17 +128,23 @@ export const importLots = async (
 	if (!user) return { success: false, error: ERRORS.UNAUTHORIZED };
 
 	try {
-		const trigger = await importLotsTask.trigger({
-			lots,
-			auction,
-			options,
-			user: user as User,
+		const { ids } = await inngest.send({
+			name: "auction/lots.import.requested",
+			data: {
+				lots,
+				auction,
+				options,
+				user: user as User,
+			},
 		});
+
+		const eventId = ids?.[0];
+		if (!eventId) throw new Error("No event ID returned");
 
 		await payload.update({
 			collection: "auctions",
 			id: auctionId,
-			data: { triggerId: trigger.id },
+			data: { triggerId: eventId },
 		});
 		return { success: true };
 	} catch (error) {
