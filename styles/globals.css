@@ -2,6 +2,9 @@
 @import "./fonts.css";
 
 :root {
+	/* Hauteur du header sticky ; écrasée par la navbar (ResizeObserver) */
+	--nav-height: 7rem;
+
 	--font-aktiv:
 		"Aktiv Grotesk", "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
 	--font-freight:

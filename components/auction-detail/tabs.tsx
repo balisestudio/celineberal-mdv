@@ -27,7 +27,10 @@ export const AuctionTabs = ({
 	const inactiveTab = "border-transparent text-muted hover:text-charcoal";
 
 	return (
-		<div className="sticky top-16 z-20 bg-blanc-casse/95 backdrop-blur-sm border-b border-sand">
+		<div
+			className="sticky z-20 bg-blanc-casse/95 backdrop-blur-sm border-b border-sand"
+			style={{ top: "var(--nav-height, 7rem)" }}
+		>
 			<Container className="py-0">
 				<div className="flex">
 					{totalLots > 0 ? (

@@ -3,7 +3,7 @@
 import { ListIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Wordmark } from "@/components/logos";
 import { MobileNav } from "@/components/mobile-nav";
@@ -31,6 +31,28 @@ export const NavBar = ({
 	const [scrolled, setScrolled] = useState(false);
 	const [logoCompact, setLogoCompact] = useState(false);
 	const lastScrollY = useRef(0);
+	const headerRef = useRef<HTMLElement | null>(null);
+
+	useLayoutEffect(() => {
+		const el = headerRef.current;
+		if (!el) return;
+
+		const syncNavHeight = () => {
+			const h = el.getBoundingClientRect().height;
+			document.documentElement.style.setProperty(
+				"--nav-height",
+				`${Math.round(h)}px`,
+			);
+		};
+
+		syncNavHeight();
+		const ro = new ResizeObserver(syncNavHeight);
+		ro.observe(el);
+		return () => {
+			ro.disconnect();
+			document.documentElement.style.removeProperty("--nav-height");
+		};
+	}, []);
 
 	useEffect(() => {
 		lastScrollY.current = window.scrollY;
@@ -59,6 +81,7 @@ export const NavBar = ({
 	return (
 		<>
 			<motion.header
+				ref={headerRef}
 				animate={
 					scrolled
 						? { boxShadow: "0 1px 3px 0 rgb(0 0 0 / 0.08)" }
