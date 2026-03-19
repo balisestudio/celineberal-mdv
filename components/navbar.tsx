@@ -3,7 +3,7 @@
 import { ListIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Wordmark } from "@/components/logos";
 import { MobileNav } from "@/components/mobile-nav";
@@ -29,9 +29,24 @@ export const NavBar = ({
 	const pathname = usePathname();
 	const [menuOpen, setMenuOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const [logoCompact, setLogoCompact] = useState(false);
+	const lastScrollY = useRef(0);
 
 	useEffect(() => {
-		const onScroll = () => setScrolled(window.scrollY > 12);
+		lastScrollY.current = window.scrollY;
+		const onScroll = () => {
+			const y = window.scrollY;
+			setScrolled(y > 12);
+
+			if (y < 24) {
+				setLogoCompact(false);
+			} else if (y > lastScrollY.current + 6) {
+				setLogoCompact(true);
+			} else if (y < lastScrollY.current - 6) {
+				setLogoCompact(false);
+			}
+			lastScrollY.current = y;
+		};
 		window.addEventListener("scroll", onScroll, { passive: true });
 		return () => window.removeEventListener("scroll", onScroll);
 	}, []);
@@ -55,9 +70,25 @@ export const NavBar = ({
 				}`}
 			>
 				<Container>
-					<div className="flex h-24 items-center justify-between">
-						<Link href="/" className="hover:opacity-75 transition-opacity">
-							<Wordmark variant="dark" className="h-10 w-auto" />
+					<div
+						className={`flex items-center justify-between transition-[min-height] duration-200 ease-out ${
+							logoCompact ? "min-h-16 py-2" : "min-h-28 py-3"
+						}`}
+					>
+						<Link
+							href="/"
+							className="flex items-center hover:opacity-75 transition-opacity"
+						>
+							<motion.span
+								className="inline-block origin-left"
+								initial={false}
+								animate={{
+									scale: logoCompact ? 1 : 2,
+								}}
+								transition={{ type: "tween", duration: 0.22, ease: "easeOut" }}
+							>
+								<Wordmark variant="dark" size={72} className="block" />
+							</motion.span>
 						</Link>
 
 						<nav className="hidden lg:flex items-center gap-8">
