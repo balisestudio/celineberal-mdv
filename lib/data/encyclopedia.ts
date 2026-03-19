@@ -1,15 +1,15 @@
 import { unstable_cache } from "next/cache";
 import { payload } from "@/lib/payload";
-import type { Guide } from "@/payload-types";
+import type { Encyclopedia } from "@/payload-types";
 
-export const getGuidesList = unstable_cache(
+export const getEncyclopediaList = unstable_cache(
 	async (params: {
 		locale?: string;
 		thematiqueId?: number;
 		q?: string;
 		sort?: "date-asc" | "date-desc";
 		limit?: number;
-	}): Promise<{ docs: Guide[]; totalDocs: number }> => {
+	}): Promise<{ docs: Encyclopedia[]; totalDocs: number }> => {
 		const {
 			locale = "fr",
 			thematiqueId,
@@ -38,7 +38,7 @@ export const getGuidesList = unstable_cache(
 		}
 
 		const result = await payload.find({
-			collection: "guides",
+			collection: "encyclopedia",
 			where: { and },
 			sort: sort === "date-asc" ? "updatedAt" : "-updatedAt",
 			limit,
@@ -46,16 +46,19 @@ export const getGuidesList = unstable_cache(
 			locale: (locale as "fr" | "en") ?? "fr",
 		});
 
-		return { docs: result.docs as Guide[], totalDocs: result.totalDocs };
+		return {
+			docs: result.docs as Encyclopedia[],
+			totalDocs: result.totalDocs,
+		};
 	},
-	["data/guides/getGuidesList"],
-	{ tags: ["guides"] },
+	["data/encyclopedia/getEncyclopediaList"],
+	{ tags: ["encyclopedia"] },
 );
 
-export const getGuideBySlug = unstable_cache(
-	async (slug: string, locale?: string): Promise<Guide | null> => {
+export const getEncyclopediaBySlug = unstable_cache(
+	async (slug: string, locale?: string): Promise<Encyclopedia | null> => {
 		const result = await payload.find({
-			collection: "guides",
+			collection: "encyclopedia",
 			where: {
 				and: [{ slug: { equals: slug } }, { _status: { equals: "published" } }],
 			},
@@ -63,26 +66,26 @@ export const getGuideBySlug = unstable_cache(
 			limit: 1,
 			locale: (locale as "fr" | "en") ?? "fr",
 		});
-		return (result.docs[0] as Guide) ?? null;
+		return (result.docs[0] as Encyclopedia) ?? null;
 	},
-	["data/guides/getGuideBySlug"],
-	{ tags: ["guides"] },
+	["data/encyclopedia/getEncyclopediaBySlug"],
+	{ tags: ["encyclopedia"] },
 );
 
-export const getGuidesByThematique = unstable_cache(
+export const getEncyclopediaByThematique = unstable_cache(
 	async (
 		thematiqueId: number,
-		excludeGuideId: number,
+		excludeArticleId: number,
 		locale?: string,
 		limit = 6,
 	) => {
 		const result = await payload.find({
-			collection: "guides",
+			collection: "encyclopedia",
 			where: {
 				and: [
 					{ thematique: { equals: thematiqueId } },
 					{ _status: { equals: "published" } },
-					{ id: { not_equals: excludeGuideId } },
+					{ id: { not_equals: excludeArticleId } },
 				],
 			},
 			sort: "-updatedAt",
@@ -90,14 +93,14 @@ export const getGuidesByThematique = unstable_cache(
 			depth: 1,
 			locale: (locale as "fr" | "en") ?? "fr",
 		});
-		return result.docs as Guide[];
+		return result.docs as Encyclopedia[];
 	},
-	["data/guides/getGuidesByThematique"],
-	{ tags: ["guides"] },
+	["data/encyclopedia/getEncyclopediaByThematique"],
+	{ tags: ["encyclopedia"] },
 );
 
-export const getAuctionIdsFromGuideContent = (
-	content: Guide["content"],
+export const getAuctionIdsFromEncyclopediaContent = (
+	content: Encyclopedia["content"],
 ): number[] => {
 	const ids: number[] = [];
 	const root = content?.root;

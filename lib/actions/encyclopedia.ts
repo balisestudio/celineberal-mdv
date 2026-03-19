@@ -1,10 +1,10 @@
 "use server";
 
 import { getLocale } from "next-intl/server";
-import { getGuidesList } from "@/lib/data/guides";
-import type { Guide } from "@/payload-types";
+import { getEncyclopediaList } from "@/lib/data/encyclopedia";
+import type { Encyclopedia } from "@/payload-types";
 
-export const fetchGuidesListAction = async ({
+export const fetchEncyclopediaListAction = async ({
 	thematiqueId,
 	q,
 	sort,
@@ -12,9 +12,9 @@ export const fetchGuidesListAction = async ({
 	thematiqueId?: number;
 	q?: string;
 	sort?: "date-asc" | "date-desc";
-}): Promise<{ docs: Guide[]; totalDocs: number }> => {
+}): Promise<{ docs: Encyclopedia[]; totalDocs: number }> => {
 	const locale = await getLocale();
-	return getGuidesList({
+	return getEncyclopediaList({
 		locale: locale as "fr" | "en",
 		thematiqueId,
 		q: q?.trim() || undefined,
