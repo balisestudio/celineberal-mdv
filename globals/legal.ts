@@ -1,4 +1,5 @@
 import type { GlobalConfig } from "payload";
+import { revalidateGlobalAfterChange } from "@/hooks/revalidate-tag";
 import { guideEditor } from "@/lib/lexical-editor";
 import { can } from "@/lib/permissions";
 
@@ -11,6 +12,9 @@ export const Legal: GlobalConfig = {
 	access: {
 		read: () => true,
 		update: ({ req: { user } }) => can(user, "editor"),
+	},
+	hooks: {
+		afterChange: [revalidateGlobalAfterChange("legal")],
 	},
 	fields: [
 		{

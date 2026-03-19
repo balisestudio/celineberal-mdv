@@ -1,4 +1,8 @@
 import type { CollectionConfig } from "payload";
+import {
+	revalidateAfterChange,
+	revalidateAfterDelete,
+} from "@/hooks/revalidate-tag";
 import { can } from "@/lib/permissions";
 
 export const Collaborators: CollectionConfig = {
@@ -17,6 +21,10 @@ export const Collaborators: CollectionConfig = {
 		read: ({ req: { user } }) => can(user, "viewer"),
 		update: ({ req: { user } }) => can(user, "editor"),
 		delete: ({ req: { user } }) => can(user, "editor"),
+	},
+	hooks: {
+		afterChange: [revalidateAfterChange("auctions", "about")],
+		afterDelete: [revalidateAfterDelete("auctions", "about")],
 	},
 	fields: [
 		{

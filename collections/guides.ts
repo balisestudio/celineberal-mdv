@@ -1,6 +1,10 @@
 import { createId } from "@paralleldrive/cuid2";
 import type { CollectionConfig } from "payload";
 import { slugify } from "payload/shared";
+import {
+	revalidateAfterChange,
+	revalidateAfterDelete,
+} from "@/hooks/revalidate-tag";
 import { guideEditor } from "@/lib/lexical-editor";
 import { can } from "@/lib/permissions";
 
@@ -37,6 +41,8 @@ export const Guides: CollectionConfig = {
 				return data;
 			},
 		],
+		afterChange: [revalidateAfterChange("guides")],
+		afterDelete: [revalidateAfterDelete("guides")],
 	},
 	fields: [
 		{

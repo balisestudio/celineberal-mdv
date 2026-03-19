@@ -1,6 +1,10 @@
 import { createId } from "@paralleldrive/cuid2";
 import type { CollectionConfig } from "payload";
 import { slugify } from "payload/shared";
+import {
+	revalidateAfterChange,
+	revalidateAfterDelete,
+} from "@/hooks/revalidate-tag";
 import { getRunStatus } from "@/inngest/client";
 import { can } from "@/lib/permissions";
 
@@ -43,7 +47,7 @@ export const Auctions: CollectionConfig = {
 
 			return true;
 		},
-		delete: async ({ req: { user, payload, data } }) => {
+		delete: async ({ req: { user, data } }) => {
 			if (!user || !can(user, "editor")) return false;
 			if (data?.triggerId) {
 				const { isRunning } = await getRunStatus(data.triggerId);
@@ -73,6 +77,8 @@ export const Auctions: CollectionConfig = {
 				});
 			},
 		],
+		afterChange: [revalidateAfterChange("auctions")],
+		afterDelete: [revalidateAfterDelete("auctions")],
 	},
 	fields: [
 		{

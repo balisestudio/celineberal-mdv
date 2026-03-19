@@ -1,4 +1,8 @@
 import type { CollectionConfig } from "payload";
+import {
+	revalidateAfterChange,
+	revalidateAfterDelete,
+} from "@/hooks/revalidate-tag";
 import { deleteOrphanLotImages, extractMediaIds } from "@/lib/media-usage";
 import { can } from "@/lib/permissions";
 
@@ -53,7 +57,9 @@ export const Lots: CollectionConfig = {
 					await deleteOrphanLotImages(req.payload, removedIds, doc.id, req);
 				}
 			},
+			revalidateAfterChange("lots"),
 		],
+		afterDelete: [revalidateAfterDelete("lots")],
 	},
 	fields: [
 		{

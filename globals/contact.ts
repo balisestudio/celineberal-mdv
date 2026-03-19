@@ -1,4 +1,5 @@
 import type { GlobalConfig } from "payload";
+import { revalidateGlobalAfterChange } from "@/hooks/revalidate-tag";
 import { can } from "@/lib/permissions";
 
 export const Contact: GlobalConfig = {
@@ -10,6 +11,9 @@ export const Contact: GlobalConfig = {
 	access: {
 		read: () => true,
 		update: ({ req: { user } }) => can(user, "editor"),
+	},
+	hooks: {
+		afterChange: [revalidateGlobalAfterChange("contact")],
 	},
 	fields: [
 		{
