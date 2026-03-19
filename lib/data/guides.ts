@@ -1,90 +1,100 @@
+import { unstable_cache } from "next/cache";
 import { payload } from "@/lib/payload";
 import type { Guide } from "@/payload-types";
 
-export const getGuidesList = async (params: {
-	locale?: string;
-	thematiqueId?: number;
-	q?: string;
-	sort?: "date-asc" | "date-desc";
-	limit?: number;
-}): Promise<{ docs: Guide[]; totalDocs: number }> => {
-	const {
-		locale = "fr",
-		thematiqueId,
-		q,
-		sort = "date-desc",
-		limit = 100,
-	} = params;
+export const getGuidesList = unstable_cache(
+	async (params: {
+		locale?: string;
+		thematiqueId?: number;
+		q?: string;
+		sort?: "date-asc" | "date-desc";
+		limit?: number;
+	}): Promise<{ docs: Guide[]; totalDocs: number }> => {
+		const {
+			locale = "fr",
+			thematiqueId,
+			q,
+			sort = "date-desc",
+			limit = 100,
+		} = params;
 
-	const and: Array<
-		| { _status: { equals: string } }
-		| { thematique: { equals: number } }
-		| { title: { contains: string } }
-		| { hideFromList: { not_equals: true } }
-	> = [
-		{ _status: { equals: "published" } },
-		{ hideFromList: { not_equals: true } },
-	];
+		const and: Array<
+			| { _status: { equals: string } }
+			| { thematique: { equals: number } }
+			| { title: { contains: string } }
+			| { hideFromList: { not_equals: true } }
+		> = [
+			{ _status: { equals: "published" } },
+			{ hideFromList: { not_equals: true } },
+		];
 
-	if (thematiqueId != null) {
-		and.push({ thematique: { equals: thematiqueId } });
-	}
+		if (thematiqueId != null) {
+			and.push({ thematique: { equals: thematiqueId } });
+		}
 
-	const searchTrimmed = q?.trim();
-	if (searchTrimmed) {
-		and.push({ title: { contains: searchTrimmed } });
-	}
+		const searchTrimmed = q?.trim();
+		if (searchTrimmed) {
+			and.push({ title: { contains: searchTrimmed } });
+		}
 
-	const result = await payload.find({
-		collection: "guides",
-		where: { and },
-		sort: sort === "date-asc" ? "updatedAt" : "-updatedAt",
-		limit,
-		depth: 1,
-		locale: (locale as "fr" | "en") ?? "fr",
-	});
+		const result = await payload.find({
+			collection: "guides",
+			where: { and },
+			sort: sort === "date-asc" ? "updatedAt" : "-updatedAt",
+			limit,
+			depth: 1,
+			locale: (locale as "fr" | "en") ?? "fr",
+		});
 
-	return { docs: result.docs as Guide[], totalDocs: result.totalDocs };
-};
+		return { docs: result.docs as Guide[], totalDocs: result.totalDocs };
+	},
+	["data/guides/getGuidesList"],
+	{ tags: ["guides"] },
+);
 
-export const getGuideBySlug = async (
-	slug: string,
-	locale?: string,
-): Promise<Guide | null> => {
-	const result = await payload.find({
-		collection: "guides",
-		where: {
-			and: [{ slug: { equals: slug } }, { _status: { equals: "published" } }],
-		},
-		depth: 2,
-		limit: 1,
-		locale: (locale as "fr" | "en") ?? "fr",
-	});
-	return (result.docs[0] as Guide) ?? null;
-};
+export const getGuideBySlug = unstable_cache(
+	async (slug: string, locale?: string): Promise<Guide | null> => {
+		const result = await payload.find({
+			collection: "guides",
+			where: {
+				and: [{ slug: { equals: slug } }, { _status: { equals: "published" } }],
+			},
+			depth: 2,
+			limit: 1,
+			locale: (locale as "fr" | "en") ?? "fr",
+		});
+		return (result.docs[0] as Guide) ?? null;
+	},
+	["data/guides/getGuideBySlug"],
+	{ tags: ["guides"] },
+);
 
-export const getGuidesByThematique = async (
-	thematiqueId: number,
-	excludeGuideId: number,
-	locale?: string,
-	limit = 6,
-) => {
-	const result = await payload.find({
-		collection: "guides",
-		where: {
-			and: [
-				{ thematique: { equals: thematiqueId } },
-				{ _status: { equals: "published" } },
-				{ id: { not_equals: excludeGuideId } },
-			],
-		},
-		sort: "-updatedAt",
-		limit,
-		depth: 1,
-		locale: (locale as "fr" | "en") ?? "fr",
-	});
-	return result.docs as Guide[];
-};
+export const getGuidesByThematique = unstable_cache(
+	async (
+		thematiqueId: number,
+		excludeGuideId: number,
+		locale?: string,
+		limit = 6,
+	) => {
+		const result = await payload.find({
+			collection: "guides",
+			where: {
+				and: [
+					{ thematique: { equals: thematiqueId } },
+					{ _status: { equals: "published" } },
+					{ id: { not_equals: excludeGuideId } },
+				],
+			},
+			sort: "-updatedAt",
+			limit,
+			depth: 1,
+			locale: (locale as "fr" | "en") ?? "fr",
+		});
+		return result.docs as Guide[];
+	},
+	["data/guides/getGuidesByThematique"],
+	{ tags: ["guides"] },
+);
 
 export const getAuctionIdsFromGuideContent = (
 	content: Guide["content"],
