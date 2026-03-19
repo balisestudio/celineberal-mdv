@@ -39,16 +39,16 @@
 		"contactLabel": "Contact",
 		"legal": "SIRET {siret} - RCS {rcs} - Capital social {capitalSocial} - Agrément {agrement}"
 	},
-	"guide": {
+	"encyclopedia": {
 		"writtenBy": "Écrit par {author} le {date}",
-		"breadcrumbGuides": "Guides",
+		"breadcrumbList": "Encyclopédie",
 		"sameCategory": "Ces articles pourront vous intéresser"
 	},
 	"navbar": {
 		"links": {
 			"auctions": "Ventes",
 			"results": "Résultats",
-			"guides": "Guides",
+			"encyclopedia": "Encyclopédie",
 			"about": "À propos",
 			"legal": "Mentions légales",
 			"privacy": "Politique de confidentialité"
@@ -59,8 +59,8 @@
 		"legalTitle": "Mentions légales",
 		"privacyTitle": "Politique de confidentialité"
 	},
-	"guidesList": {
-		"pageTitle": "Guides",
+	"encyclopediaList": {
+		"pageTitle": "Encyclopédie",
 		"filterThematic": "Thématique",
 		"filterThematicAll": "Toutes les thématiques",
 		"sortLabel": "Trier par",
