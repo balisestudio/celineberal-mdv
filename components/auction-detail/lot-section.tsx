@@ -105,12 +105,12 @@ export const LotSection = ({
 	return (
 		<div className="py-8">
 			{totalDocs > 0 && (
-				<div className="flex items-center justify-between pb-4 mb-6 border-b border-sand">
-					<p className="text-sm text-muted">{totalDocs} lots</p>
+				<div className="flex flex-col gap-3 pb-4 mb-6 border-b border-sand sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+					<p className="shrink-0 text-sm text-muted">{totalDocs} lots</p>
 					<div
-						className={`flex items-center gap-2 transition-opacity ${isPending ? "opacity-50" : ""}`}
+						className={`flex min-w-0 flex-wrap items-center gap-2 sm:justify-end ${isPending ? "opacity-50" : ""} transition-opacity`}
 					>
-						<span className="hidden sm:inline text-sm uppercase tracking-widest text-muted">
+						<span className="hidden text-sm uppercase tracking-widest text-muted sm:inline">
 							{t("sort.label")}
 						</span>
 						{SORT_OPTIONS.map((opt) => (
@@ -119,7 +119,7 @@ export const LotSection = ({
 								type="button"
 								onClick={() => handleSort(opt)}
 								disabled={isPending}
-								className={`${sortBtnBase} ${sort === opt ? sortBtnActive : sortBtnInactive}`}
+								className={`${sortBtnBase} shrink-0 ${sort === opt ? sortBtnActive : sortBtnInactive}`}
 							>
 								{t(`sort.${opt}`)}
 							</button>
