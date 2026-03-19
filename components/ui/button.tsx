@@ -17,7 +17,7 @@ const sizeClasses = {
 } as const;
 
 const baseClasses =
-	"inline-flex items-center justify-center leading-none font-sans uppercase cursor-pointer select-none";
+	"inline-flex items-center font-sans uppercase cursor-pointer select-none";
 
 export const Button = ({
 	children,
@@ -42,10 +42,8 @@ export const Button = ({
 
 	if (href) {
 		return (
-			<Link href={href}>
-				<button type="button" className={classes} {...props}>
-					{children}
-				</button>
+			<Link href={href} className={classes}>
+				{children}
 			</Link>
 		);
 	}
