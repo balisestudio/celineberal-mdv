@@ -41,6 +41,12 @@ export const Collaborators: CollectionConfig = {
 			required: true,
 		},
 		{
+			name: "bio",
+			label: "Biographie",
+			type: "textarea",
+			localized: true,
+		},
+		{
 			type: "row",
 			fields: [
 				{

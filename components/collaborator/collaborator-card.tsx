@@ -72,8 +72,8 @@ export const CollaboratorCard = ({
 
 	if (variant === "compact") {
 		return (
-			<div className="flex flex-col items-center text-center gap-3">
-				<div className="relative w-32 h-32 rounded-full border border-sand overflow-hidden shrink-0">
+			<div className="flex h-full w-full flex-col items-center text-center gap-3">
+				<div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border border-sand">
 					{src ? (
 						<Image
 							src={src}
@@ -82,25 +82,32 @@ export const CollaboratorCard = ({
 							className="object-cover"
 						/>
 					) : (
-						<div className="w-full h-full bg-sand flex items-center justify-center">
-							<span className="font-serif italic text-2xl text-bordeaux/50">
+						<div className="flex h-full w-full items-center justify-center bg-sand">
+							<span className="font-serif text-2xl italic text-bordeaux/50">
 								{getCollaboratorInitials(collaborator.name)}
 							</span>
 						</div>
 					)}
 				</div>
-				<p className="text-sm uppercase tracking-[0.2em] text-bordeaux">
-					{collaborator.role}
-				</p>
-				<p className="font-serif italic text-2xl text-charcoal">
-					{collaborator.name}
-				</p>
-				{showContact && hasContact && (
-					<div className="border-t border-sand pt-3 mt-1 flex flex-col gap-1 w-full">
+				<div className="flex min-h-0 w-full flex-1 flex-col items-center gap-3">
+					<p className="text-sm uppercase tracking-[0.2em] text-bordeaux">
+						{collaborator.role}
+					</p>
+					<p className="font-serif text-2xl italic text-charcoal">
+						{collaborator.name}
+					</p>
+					{collaborator.bio ? (
+						<p className="max-w-prose text-sm leading-relaxed text-muted whitespace-pre-line">
+							{collaborator.bio}
+						</p>
+					) : null}
+				</div>
+				{showContact && hasContact ? (
+					<div className="mt-auto flex w-full flex-col gap-1 border-t border-sand pt-3">
 						{collaborator.email && (
 							<a
 								href={`mailto:${collaborator.email}`}
-								className="text-sm text-muted hover:text-bordeaux transition-colors"
+								className="text-sm text-muted transition-colors hover:text-bordeaux"
 							>
 								{collaborator.email}
 							</a>
@@ -108,22 +115,22 @@ export const CollaboratorCard = ({
 						{collaborator.phone && (
 							<a
 								href={`tel:${collaborator.phone.replace(/\s/g, "")}`}
-								className="text-sm text-muted hover:text-bordeaux transition-colors"
+								className="text-sm text-muted transition-colors hover:text-bordeaux"
 							>
 								{collaborator.phone}
 							</a>
 						)}
 					</div>
-				)}
+				) : null}
 			</div>
 		);
 	}
 
 	// card (default) – about page style
 	return (
-		<li className="flex flex-col items-center text-center">
+		<li className="flex h-full flex-col items-center text-center">
 			{src ? (
-				<div className="relative aspect-square w-40 overflow-hidden border border-sand bg-sand/20">
+				<div className="relative aspect-square w-40 shrink-0 overflow-hidden border border-sand bg-sand/20">
 					<Image
 						src={src}
 						alt={collaborator.name}
@@ -133,24 +140,31 @@ export const CollaboratorCard = ({
 					/>
 				</div>
 			) : (
-				<div className="flex aspect-square w-40 items-center justify-center border border-sand bg-sand/20 text-muted">
-					<span className="text-4xl font-serif italic">
+				<div className="flex aspect-square w-40 shrink-0 items-center justify-center border border-sand bg-sand/20 text-muted">
+					<span className="font-serif text-4xl italic">
 						{getCollaboratorInitials(collaborator.name)}
 					</span>
 				</div>
 			)}
-			<p className="mt-4 font-serif text-xl italic text-charcoal">
-				{collaborator.name}
-			</p>
-			<p className="mt-1 text-sm uppercase tracking-widest text-muted">
-				{collaborator.role}
-			</p>
-			{showContact && hasContact && (
-				<div className="mt-2 space-y-1 text-sm text-muted">
+			<div className="mt-4 flex min-h-0 w-full flex-1 flex-col items-center gap-1">
+				<p className="font-serif text-xl italic text-charcoal">
+					{collaborator.name}
+				</p>
+				<p className="text-sm uppercase tracking-widest text-muted">
+					{collaborator.role}
+				</p>
+				{collaborator.bio ? (
+					<p className="mt-2 max-w-prose text-sm leading-relaxed text-muted whitespace-pre-line">
+						{collaborator.bio}
+					</p>
+				) : null}
+			</div>
+			{showContact && hasContact ? (
+				<div className="mt-auto w-full space-y-1 border-t border-sand pt-3 text-sm text-muted">
 					{collaborator.email && (
 						<a
 							href={`mailto:${collaborator.email}`}
-							className="block hover:text-bordeaux transition-colors"
+							className="block transition-colors hover:text-bordeaux"
 						>
 							{collaborator.email}
 						</a>
@@ -158,13 +172,13 @@ export const CollaboratorCard = ({
 					{collaborator.phone && (
 						<a
 							href={`tel:${collaborator.phone.replace(/\s/g, "")}`}
-							className="block hover:text-bordeaux transition-colors"
+							className="block transition-colors hover:text-bordeaux"
 						>
 							{collaborator.phone}
 						</a>
 					)}
 				</div>
-			)}
+			) : null}
 		</li>
 	);
 };

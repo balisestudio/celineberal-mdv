@@ -270,6 +270,7 @@ export interface Collaborator {
 	id: number;
 	name: string;
 	role: string;
+	bio?: string | null;
 	email?: string | null;
 	phone?: string | null;
 	photo?: (number | null) | Media;
@@ -615,6 +616,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface CollaboratorsSelect<T extends boolean = true> {
 	name?: T;
 	role?: T;
+	bio?: T;
 	email?: T;
 	phone?: T;
 	photo?: T;
