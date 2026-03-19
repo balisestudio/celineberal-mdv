@@ -3,29 +3,29 @@ import { format } from "date-fns";
 import { enUS, fr } from "date-fns/locale";
 import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
-import type { Guide, Media } from "@/payload-types";
+import type { Encyclopedia, Media } from "@/payload-types";
 
 const EXCERPT_LENGTH = 180;
 
-export const GuideRelatedArticleCard = ({
-	guide,
+export const EncyclopediaArticleCard = ({
+	article,
 	locale,
 }: {
-	guide: Guide;
+	article: Encyclopedia;
 	locale: string;
 }) => {
 	const dateLocale = locale === "fr" ? fr : enUS;
 	const formattedDate = format(
-		new Date(guide.updatedAt ?? guide.createdAt),
+		new Date(article.updatedAt ?? article.createdAt),
 		"PPP",
 		{
 			locale: dateLocale,
 		},
 	);
 
-	const poster = guide.poster as Media | null;
+	const poster = article.poster as Media | null;
 
-	const plaintext = convertLexicalToPlaintext({ data: guide.content }) ?? "";
+	const plaintext = convertLexicalToPlaintext({ data: article.content }) ?? "";
 	const excerpt = (() => {
 		const cleaned = plaintext.replace(/\s+/g, " ").trim();
 		if (!cleaned) return "";
@@ -35,7 +35,7 @@ export const GuideRelatedArticleCard = ({
 
 	return (
 		<Link
-			href={`/guides/${guide.slug}`}
+			href={`/encyclopedia/${article.slug}`}
 			className="group flex h-full flex-col border border-sand bg-white transition-colors hover:border-bordeaux/30"
 		>
 			<MediaImage
@@ -43,7 +43,7 @@ export const GuideRelatedArticleCard = ({
 				size="md"
 				className="h-52"
 				imageClassName="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-				alt={poster?.alt ?? guide.title}
+				alt={poster?.alt ?? article.title}
 				sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, 100vw"
 			/>
 
@@ -53,7 +53,7 @@ export const GuideRelatedArticleCard = ({
 				</p>
 
 				<p className="font-serif italic text-lg text-charcoal line-clamp-2 group-hover:text-bordeaux transition-colors">
-					{guide.title}
+					{article.title}
 				</p>
 
 				<p className="mt-3 text-base text-muted leading-relaxed line-clamp-3">

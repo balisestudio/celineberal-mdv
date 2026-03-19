@@ -3,9 +3,9 @@ import {
 	RichText,
 } from "@payloadcms/richtext-lexical/react";
 import { createElement } from "react";
-import { GuideAuctionsBlock } from "@/components/guide/guide-auctions-block";
-import { GuideLotsBlock } from "@/components/guide/guide-lots-block";
-import type { Auction, Guide, Lot } from "@/payload-types";
+import { EncyclopediaAuctionsBlock } from "@/components/encyclopedia/encyclopedia-auctions-block";
+import { EncyclopediaLotsBlock } from "@/components/encyclopedia/encyclopedia-lots-block";
+import type { Auction, Encyclopedia, Lot } from "@/payload-types";
 
 type BlockNode = {
 	type: string;
@@ -23,11 +23,11 @@ const getGridClass = (count: number): string => {
 	return `grid grid-cols-1 sm:grid-cols-2 ${base}`;
 };
 
-export const GuideRichText = ({
+export const EncyclopediaRichText = ({
 	data,
 	firstLotsByAuctionId = {},
 }: {
-	data: Guide["content"];
+	data: Encyclopedia["content"];
 	firstLotsByAuctionId?: Record<number, Lot[]>;
 }) => {
 	const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
@@ -74,7 +74,7 @@ export const GuideRichText = ({
 				if (lots.length === 0) return null;
 				const gridClass = getGridClass(lots.length);
 				const content = lots.map((lot) => (
-					<GuideLotsBlock
+					<EncyclopediaLotsBlock
 						key={lot.id}
 						lot={lot}
 						compact={lots.length > 1}
@@ -97,7 +97,7 @@ export const GuideRichText = ({
 				if (auctions.length === 0) return null;
 				const gridClass = getGridClass(auctions.length);
 				const content = auctions.map((auction) => (
-					<GuideAuctionsBlock
+					<EncyclopediaAuctionsBlock
 						key={auction.id}
 						auction={auction}
 						compact={auctions.length > 1}
@@ -114,7 +114,7 @@ export const GuideRichText = ({
 	});
 
 	return (
-		<div className="guide-content [&_.lexical-block]:my-6 text-justify [&_a]:text-black [&_a]:underline">
+		<div className="encyclopedia-content [&_.lexical-block]:my-6 text-justify [&_a]:text-black [&_a]:underline">
 			<RichText data={data} converters={converters} />
 		</div>
 	);

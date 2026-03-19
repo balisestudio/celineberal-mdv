@@ -3,7 +3,7 @@ import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
 import type { Auction, Lot, Media } from "@/payload-types";
 
-export const GuideLotsBlock = ({
+export const EncyclopediaLotsBlock = ({
 	lot,
 	compact = false,
 	fillImage = false,

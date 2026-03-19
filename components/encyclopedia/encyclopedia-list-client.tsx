@@ -3,15 +3,15 @@
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
-import { GuideRelatedArticleCard } from "@/components/guide/guide-related-article-card";
+import { EncyclopediaArticleCard } from "@/components/encyclopedia/encyclopedia-article-card";
 import { Mark } from "@/components/logos";
 import { PageHeader } from "@/components/page-header";
 import { Container } from "@/components/ui/container";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { fetchGuidesListAction } from "@/lib/actions/guides";
-import type { Guide, Thematic } from "@/payload-types";
+import { fetchEncyclopediaListAction } from "@/lib/actions/encyclopedia";
+import type { Encyclopedia, Thematic } from "@/payload-types";
 
-export function GuidesListClient({
+export const EncyclopediaListClient = ({
 	locale,
 	tagline,
 	pageTitle,
@@ -21,8 +21,8 @@ export function GuidesListClient({
 	tagline: string;
 	pageTitle: string;
 	thematics: Thematic[];
-}) {
-	const t = useTranslations("guidesList");
+}) => {
+	const t = useTranslations("encyclopediaList");
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
 	const router = useRouter();
@@ -34,7 +34,7 @@ export function GuidesListClient({
 			? sortParam
 			: "date-desc";
 
-	const [guides, setGuides] = useState<Guide[]>([]);
+	const [articles, setArticles] = useState<Encyclopedia[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
@@ -47,13 +47,13 @@ export function GuidesListClient({
 		let cancelled = false;
 		setLoading(true);
 		setError(null);
-		fetchGuidesListAction({
+		fetchEncyclopediaListAction({
 			thematiqueId,
 			sort,
 		})
 			.then(({ docs }) => {
 				if (!cancelled) {
-					setGuides(docs);
+					setArticles(docs);
 				}
 			})
 			.catch(() => {
@@ -94,13 +94,13 @@ export function GuidesListClient({
 					<div className="flex flex-wrap items-end gap-4 border-b border-sand pb-8 mb-10">
 						<div className="flex flex-col gap-1.5">
 							<label
-								htmlFor="guides-thematique"
+								htmlFor="encyclopedia-thematique"
 								className="text-sm uppercase tracking-widest text-muted"
 							>
 								{t("filterThematic")}
 							</label>
 							<select
-								id="guides-thematique"
+								id="encyclopedia-thematique"
 								value={thematiqueParam}
 								onChange={(e) => updateUrl({ thematique: e.target.value })}
 								className="min-w-[200px] border border-sand bg-white px-3 py-2 font-sans text-sm text-charcoal focus:border-bordeaux focus:outline-none focus:ring-1 focus:ring-bordeaux"
@@ -116,13 +116,13 @@ export function GuidesListClient({
 
 						<div className="flex flex-col gap-1.5">
 							<label
-								htmlFor="guides-sort"
+								htmlFor="encyclopedia-sort"
 								className="text-sm uppercase tracking-widest text-muted"
 							>
 								{t("sortLabel")}
 							</label>
 							<select
-								id="guides-sort"
+								id="encyclopedia-sort"
 								value={sort}
 								onChange={(e) =>
 									updateUrl({
@@ -143,11 +143,11 @@ export function GuidesListClient({
 						</div>
 					) : error ? (
 						<p className="font-sans text-muted py-12">{error}</p>
-					) : guides.length > 0 ? (
+					) : articles.length > 0 ? (
 						<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
-							{guides.map((guide) => (
-								<li key={guide.id}>
-									<GuideRelatedArticleCard guide={guide} locale={locale} />
+							{articles.map((article) => (
+								<li key={article.id}>
+									<EncyclopediaArticleCard article={article} locale={locale} />
 								</li>
 							))}
 						</ul>
@@ -158,4 +158,4 @@ export function GuidesListClient({
 			</section>
 		</>
 	);
-}
+};

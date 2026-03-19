@@ -3,17 +3,17 @@ import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/container";
 import { Link } from "@/i18n/navigation";
 import { getMediaSrc } from "@/lib/media-src";
-import type { Guide, Media } from "@/payload-types";
+import type { Encyclopedia, Media } from "@/payload-types";
 
-export const GuideHero = async ({
-	guide,
+export const EncyclopediaHero = async ({
+	article,
 	thematiqueLabel,
 }: {
-	guide: Guide;
+	article: Encyclopedia;
 	thematiqueLabel?: string | null;
 }) => {
-	const t = await getTranslations("guide");
-	const poster = guide.poster as Media;
+	const t = await getTranslations("encyclopedia");
+	const poster = article.poster as Media;
 	const src = poster ? getMediaSrc(poster, "xl") : null;
 
 	return (
@@ -22,13 +22,13 @@ export const GuideHero = async ({
 				<Container className="relative">
 					<div className="flex items-center gap-1.5 text-sm uppercase tracking-widest text-blanc-casse/70 mb-8 min-w-0">
 						<Link
-							href="/guides"
+							href="/encyclopedia"
 							className="hover:text-blanc-casse transition-colors shrink-0"
 						>
-							{t("breadcrumbGuides")}
+							{t("breadcrumbList")}
 						</Link>
 						<span className="shrink-0">›</span>
-						<span className="text-blanc-casse truncate">{guide.title}</span>
+						<span className="text-blanc-casse truncate">{article.title}</span>
 					</div>
 					<div className="max-w-3xl">
 						{thematiqueLabel && (
@@ -37,7 +37,7 @@ export const GuideHero = async ({
 							</p>
 						)}
 						<h1 className="font-serif italic text-4xl sm:text-5xl lg:text-6xl text-blanc-casse leading-tight">
-							{guide.title}
+							{article.title}
 						</h1>
 					</div>
 				</Container>
@@ -48,7 +48,7 @@ export const GuideHero = async ({
 						<div className="relative w-full aspect-16/10 overflow-hidden bg-sand/20">
 							<Image
 								src={src}
-								alt={poster?.alt ?? guide.title}
+								alt={poster?.alt ?? article.title}
 								fill
 								className="object-cover"
 								priority

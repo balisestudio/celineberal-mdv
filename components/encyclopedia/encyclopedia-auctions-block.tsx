@@ -5,7 +5,7 @@ import { MediaImage } from "@/components/ui/media-image";
 import { Link } from "@/i18n/navigation";
 import type { Auction, Media } from "@/payload-types";
 
-export const GuideAuctionsBlock = ({
+export const EncyclopediaAuctionsBlock = ({
 	auction,
 	compact = false,
 	fillImage = false,
