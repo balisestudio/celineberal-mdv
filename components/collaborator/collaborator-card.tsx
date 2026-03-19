@@ -72,7 +72,7 @@ export const CollaboratorCard = ({
 
 	if (variant === "compact") {
 		return (
-			<div className="flex h-full w-full flex-col items-center text-center gap-3">
+			<div className="flex h-full w-full flex-col items-center text-center gap-6">
 				<div className="relative h-32 w-32 shrink-0 overflow-hidden rounded-full border border-sand">
 					{src ? (
 						<Image
@@ -103,7 +103,7 @@ export const CollaboratorCard = ({
 					) : null}
 				</div>
 				{showContact && hasContact ? (
-					<div className="mt-auto flex w-full flex-col gap-1 border-t border-sand pt-3">
+					<div className="mt-auto flex w-full flex-col gap-1 border-t border-sand pt-4">
 						{collaborator.email && (
 							<a
 								href={`mailto:${collaborator.email}`}
@@ -128,7 +128,7 @@ export const CollaboratorCard = ({
 
 	// card (default) – about page style
 	return (
-		<li className="flex h-full flex-col items-center text-center">
+		<li className="flex h-full flex-col items-center text-center gap-y-6">
 			{src ? (
 				<div className="relative aspect-square w-40 shrink-0 overflow-hidden border border-sand bg-sand/20">
 					<Image
@@ -146,7 +146,7 @@ export const CollaboratorCard = ({
 					</span>
 				</div>
 			)}
-			<div className="mt-4 flex min-h-0 w-full flex-1 flex-col items-center gap-1">
+			<div className="flex min-h-0 w-full flex-1 flex-col items-center gap-1">
 				<p className="font-serif text-xl italic text-charcoal">
 					{collaborator.name}
 				</p>
@@ -160,7 +160,7 @@ export const CollaboratorCard = ({
 				) : null}
 			</div>
 			{showContact && hasContact ? (
-				<div className="mt-auto w-full space-y-1 border-t border-sand pt-3 text-sm text-muted">
+				<div className="mt-auto w-full space-y-1 border-t border-sand pt-4 text-sm text-muted">
 					{collaborator.email && (
 						<a
 							href={`mailto:${collaborator.email}`}
