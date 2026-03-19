@@ -4,6 +4,9 @@
 	font-weight: 100;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -12,6 +15,9 @@
 	font-weight: 100;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -19,6 +25,9 @@
 	font-weight: 200;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -27,6 +36,9 @@
 	font-weight: 200;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -34,6 +46,9 @@
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -42,6 +57,9 @@
 	font-weight: 300;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -49,6 +67,9 @@
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -56,6 +77,9 @@
 	font-weight: 400;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -63,6 +87,9 @@
 	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -71,6 +98,9 @@
 	font-weight: 500;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -78,6 +108,9 @@
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -86,6 +119,9 @@
 	font-weight: 700;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -93,6 +129,9 @@
 	font-weight: 800;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -101,6 +140,9 @@
 	font-weight: 800;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -108,6 +150,9 @@
 	font-weight: 900;
 	font-style: normal;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 @font-face {
 	font-family: "Aktiv Grotesk";
@@ -116,6 +161,9 @@
 	font-weight: 900;
 	font-style: italic;
 	font-display: swap;
+	ascent-override: 86%;
+	descent-override: 14%;
+	line-gap-override: 0%;
 }
 
 @font-face {
