@@ -771,6 +771,7 @@ export interface SiteSetting {
 	id: number;
 	siteName: string;
 	tagline: string;
+	encyclopediaStickyEstimateText: string;
 	exceptionLots?: (number | Lot)[] | null;
 	updatedAt?: string | null;
 	createdAt?: string | null;
@@ -873,6 +874,7 @@ export interface About {
 export interface SiteSettingsSelect<T extends boolean = true> {
 	siteName?: T;
 	tagline?: T;
+	encyclopediaStickyEstimateText?: T;
 	exceptionLots?: T;
 	updatedAt?: T;
 	createdAt?: T;

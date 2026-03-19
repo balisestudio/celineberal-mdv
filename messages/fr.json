@@ -42,7 +42,8 @@
 	"encyclopedia": {
 		"writtenBy": "Écrit par {author} le {date}",
 		"breadcrumbList": "Encyclopédie",
-		"sameCategory": "Ces articles pourront vous intéresser"
+		"sameCategory": "Ces articles pourront vous intéresser",
+		"stickyEstimateCta": "Demander une estimation"
 	},
 	"navbar": {
 		"links": {

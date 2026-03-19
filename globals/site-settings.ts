@@ -30,6 +30,19 @@ export const SiteSettings: GlobalConfig = {
 			localized: true,
 		},
 		{
+			type: "group",
+			label: "Encyclopédie",
+			fields: [
+				{
+					name: "encyclopediaStickyEstimateText",
+					label: "Encart estimation",
+					type: "textarea",
+					required: true,
+					localized: true,
+				},
+			],
+		},
+		{
 			name: "exceptionLots",
 			label: "Lots d'exception",
 			type: "relationship",

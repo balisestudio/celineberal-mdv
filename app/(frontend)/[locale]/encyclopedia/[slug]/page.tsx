@@ -6,6 +6,7 @@ import { CollaboratorCard } from "@/components/collaborator/collaborator-card";
 import { EncyclopediaArticleCard } from "@/components/encyclopedia/encyclopedia-article-card";
 import { EncyclopediaHero } from "@/components/encyclopedia/encyclopedia-hero";
 import { EncyclopediaRichText } from "@/components/encyclopedia/encyclopedia-rich-text";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import {
 	getAuctionIdsFromEncyclopediaContent,
@@ -37,7 +38,10 @@ const EncyclopediaArticlePage = async ({
 }) => {
 	const { slug, locale } = await params;
 
-	const article = await getEncyclopediaBySlug(slug, locale);
+	const [article, siteSettings] = await Promise.all([
+		getEncyclopediaBySlug(slug, locale),
+		getSiteSettings(locale),
+	]);
 	if (!article) notFound();
 
 	const auctionIds = getAuctionIdsFromEncyclopediaContent(article.content);
@@ -86,12 +90,17 @@ const EncyclopediaArticlePage = async ({
 		{ locale: dateLocale },
 	);
 
+	const stickyEstimateText =
+		siteSettings.encyclopediaStickyEstimateText?.trim() ?? "";
+
 	return (
 		<>
 			<EncyclopediaHero article={article} thematiqueLabel={thematiqueLabel} />
 
 			<Container className="py-12">
-				<div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 lg:gap-24">
+				<div
+					className={`grid grid-cols-1 gap-12 lg:gap-24 ${authorPopulated || stickyEstimateText ? "lg:grid-cols-[1fr_320px]" : ""}`}
+				>
 					<div className="min-w-0">
 						<div className="max-w-4xl">
 							{authorPopulated && (
@@ -108,12 +117,24 @@ const EncyclopediaArticlePage = async ({
 							/>
 						</div>
 					</div>
-					{authorPopulated && (
-						<aside className="lg:sticky lg:top-32 self-start pt-8 lg:pt-0">
-							<CollaboratorCard
-								collaborator={authorPopulated}
-								variant="compact"
-							/>
+					{(authorPopulated || stickyEstimateText) && (
+						<aside className="lg:sticky lg:top-32 self-start pt-8 lg:pt-0 flex flex-col gap-8 items-center lg:items-stretch">
+							{authorPopulated ? (
+								<CollaboratorCard
+									collaborator={authorPopulated}
+									variant="compact"
+								/>
+							) : null}
+							{stickyEstimateText ? (
+								<div className="w-full flex flex-col items-center gap-4">
+									<p className="text-sm text-muted leading-relaxed whitespace-pre-line text-justify w-full">
+										{stickyEstimateText}
+									</p>
+									<Button href="/estimate" variant="outline" size="sm">
+										{t("stickyEstimateCta")}
+									</Button>
+								</div>
+							) : null}
 						</aside>
 					)}
 				</div>
