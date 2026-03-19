@@ -20,10 +20,14 @@ import { importLots, isAllowedToImportLots } from "./action";
  * Constants
  */
 
-const MAX_FILE_SIZE_BYTES = 4 * 1024 * 1024;
+const MAX_XML_FILE_SIZE_BYTES = 4 * 1024 * 1024;
+const MAX_CSV_FILE_SIZE_BYTES = 16 * 1024 * 1024;
 
 const MESSAGES = {
-	FILE_TOO_LARGE: "Le fichier dépasse la taille maximale autorisée (4 Mo).",
+	XML_FILE_TOO_LARGE:
+		"Le fichier XML dépasse la taille maximale autorisée (4 Mo).",
+	CSV_FILE_TOO_LARGE:
+		"Le fichier CSV dépasse la taille maximale autorisée (16 Mo).",
 	IMPORT_SUCCESS:
 		"Fichier analysé avec succès. La génération des lots a démarré en arrière-plan et l'édition de la vente est temporairement verrouillée.",
 	IMPORT_ERROR:
@@ -37,8 +41,10 @@ const MESSAGES = {
 export const ImportsLots = () => {
 	const router = useRouter();
 	const { openModal, closeModal } = useModal();
-	const fileInputRef = useRef<HTMLInputElement>(null);
-	const [file, setFile] = useState<File | null>(null);
+	const xmlInputRef = useRef<HTMLInputElement>(null);
+	const csvInputRef = useRef<HTMLInputElement>(null);
+	const [xmlFile, setXmlFile] = useState<File | null>(null);
+	const [csvFile, setCsvFile] = useState<File | null>(null);
 	const [isAllowed, setIsAllowed] = useState(false);
 	const [options, setOptions] = useState<ImportLotsOptions>({
 		translateContent: false,
@@ -46,25 +52,38 @@ export const ImportsLots = () => {
 	});
 	const auctionId = useDocumentInfo().id as Auction["id"];
 
-	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleXmlFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectedFile = event.target.files?.[0];
 		if (!selectedFile) return;
 
-		if (selectedFile.size > MAX_FILE_SIZE_BYTES) {
-			toast.error(MESSAGES.FILE_TOO_LARGE);
+		if (selectedFile.size > MAX_XML_FILE_SIZE_BYTES) {
+			toast.error(MESSAGES.XML_FILE_TOO_LARGE);
 			event.target.value = "";
 			return;
 		}
 
-		setFile(selectedFile);
+		setXmlFile(selectedFile);
+	};
+
+	const handleCsvFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const selectedFile = event.target.files?.[0];
+		if (!selectedFile) return;
+
+		if (selectedFile.size > MAX_CSV_FILE_SIZE_BYTES) {
+			toast.error(MESSAGES.CSV_FILE_TOO_LARGE);
+			event.target.value = "";
+			return;
+		}
+
+		setCsvFile(selectedFile);
 	};
 
 	const handleImport = async () => {
-		if (!file || !auctionId) return;
+		if (!xmlFile || !csvFile || !auctionId) return;
 
-		const xml = await file.text();
+		const [xml, csv] = await Promise.all([xmlFile.text(), csvFile.text()]);
 		try {
-			const result = await importLots(xml, auctionId, options);
+			const result = await importLots(xml, csv, auctionId, options);
 			if (result.success) {
 				toast.success(MESSAGES.IMPORT_SUCCESS);
 				setIsAllowed(false);
@@ -80,9 +99,14 @@ export const ImportsLots = () => {
 		}
 	};
 
-	const handleRemoveFile = () => {
-		setFile(null);
-		if (fileInputRef.current) fileInputRef.current.value = "";
+	const handleRemoveXmlFile = () => {
+		setXmlFile(null);
+		if (xmlInputRef.current) xmlInputRef.current.value = "";
+	};
+
+	const handleRemoveCsvFile = () => {
+		setCsvFile(null);
+		if (csvInputRef.current) csvInputRef.current.value = "";
 	};
 
 	useEffect(() => {
@@ -102,44 +126,72 @@ export const ImportsLots = () => {
 			</Button>
 			<Drawer
 				slug="imports-lots"
-				title="Importation d'un fichier Interencheres"
+				title="Importation Interencheres et export des ventes"
 			>
 				<div className="flex justify-between items-center flex-wrap border-b border-(--theme-elevation-100)">
 					<p className="w-3/5">
-						Téléversez un fichier d'export Interencheres pour procéder à
-						l'intégration automatique des lots liés à cette vente. Les lots
-						existants seront écrasés. Une fois le fichier validé, le traitement
-						s'exécutera en arrière-plan. L'édition de la vente sera
+						Téléversez le fichier XML Interencheres et l&apos;export CSV des
+						ventes (colonnes « N° du lot » et « Adjudication »). Les prix de
+						vente affichés proviennent du CSV. Les lots existants seront
+						écrasés. Une fois les fichiers validés, le traitement
+						s&apos;exécutera en arrière-plan. L&apos;édition de la vente sera
 						temporairement indisponible durant cette opération.
 					</p>
-					<Button disabled={!file} onClick={handleImport}>
-						Valider le fichier et lancer le traitement
+					<Button disabled={!xmlFile || !csvFile} onClick={handleImport}>
+						Valider les fichiers et lancer le traitement
 					</Button>
 				</div>
-				<div className="flex flex-wrap items-center mt-4">
-					<Button
-						className="mr-2"
-						onClick={() => fileInputRef.current?.click()}
-					>
-						Sélectionner un fichier Interencheres
-					</Button>
-					{file && (
-						<Pill
-							icon={<XIcon />}
-							className="cursor-pointer hover:bg-red-100 hover:text-red-800"
-							onClick={handleRemoveFile}
+				<div className="flex flex-col gap-4 mt-4">
+					<div className="flex flex-wrap items-center">
+						<Button
+							className="mr-2"
+							onClick={() => xmlInputRef.current?.click()}
 						>
-							{file.name} ({(file.size / 1024).toFixed(1)} ko)
-						</Pill>
-					)}
-					<input
-						type="file"
-						className="hidden"
-						ref={fileInputRef}
-						multiple={false}
-						onChange={handleFileChange}
-						accept=".xml"
-					/>
+							Sélectionner le fichier XML Interencheres
+						</Button>
+						{xmlFile && (
+							<Pill
+								icon={<XIcon />}
+								className="cursor-pointer hover:bg-red-100 hover:text-red-800"
+								onClick={handleRemoveXmlFile}
+							>
+								{xmlFile.name} ({(xmlFile.size / 1024).toFixed(1)} ko)
+							</Pill>
+						)}
+						<input
+							type="file"
+							className="hidden"
+							ref={xmlInputRef}
+							multiple={false}
+							onChange={handleXmlFileChange}
+							accept=".xml"
+						/>
+					</div>
+					<div className="flex flex-wrap items-center">
+						<Button
+							className="mr-2"
+							onClick={() => csvInputRef.current?.click()}
+						>
+							Sélectionner l&apos;export CSV des ventes
+						</Button>
+						{csvFile && (
+							<Pill
+								icon={<XIcon />}
+								className="cursor-pointer hover:bg-red-100 hover:text-red-800"
+								onClick={handleRemoveCsvFile}
+							>
+								{csvFile.name} ({(csvFile.size / 1024).toFixed(1)} ko)
+							</Pill>
+						)}
+						<input
+							type="file"
+							className="hidden"
+							ref={csvInputRef}
+							multiple={false}
+							onChange={handleCsvFileChange}
+							accept=".csv"
+						/>
+					</div>
 				</div>
 				<div className="flex flex-col gap-4">
 					<h3>Options d'intelligence artificielle générative</h3>

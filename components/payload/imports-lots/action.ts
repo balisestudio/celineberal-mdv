@@ -7,6 +7,10 @@ import { payload } from "@/lib/payload";
 import { can } from "@/lib/permissions";
 import type { InterenchersLots } from "@/lib/schemas/interenchers";
 import { interenchersSchema } from "@/lib/schemas/interenchers";
+import {
+	parseSaleExportCsv,
+	salePricesMapToRecord,
+} from "@/lib/schemas/sale-export";
 import type { Auction, User } from "@/payload-types";
 
 /**
@@ -20,6 +24,8 @@ const ERRORS = {
 		"Le fichier téléversé n'est pas un document XML valide. Veuillez vérifier votre fichier Interencheres.",
 	INVALID_STRUCTURE:
 		"La structure du document est incorrecte. Veuillez vous assurer qu'il s'agit d'un export Interencheres conforme.",
+	INVALID_CSV:
+		"Le fichier CSV d'export des ventes est invalide ou ne correspond pas au format attendu.",
 	TASK_FAILED:
 		"Impossible de lancer la tâche d'importation. Veuillez réessayer.",
 } as const;
@@ -100,6 +106,7 @@ type ImportLotsResult = { success: true } | { success: false; error: string };
 
 export const importLots = async (
 	xml: string,
+	csv: string,
 	auctionId: number,
 	options: ImportLotsOptions,
 ): Promise<ImportLotsResult> => {
@@ -113,6 +120,17 @@ export const importLots = async (
 		return {
 			success: false,
 			error: error instanceof Error ? error.message : ERRORS.INVALID_STRUCTURE,
+		};
+	}
+
+	let salePrices: Record<string, number | null>;
+	try {
+		const saleMap = parseSaleExportCsv(csv);
+		salePrices = salePricesMapToRecord(saleMap);
+	} catch (error) {
+		return {
+			success: false,
+			error: error instanceof Error ? error.message : ERRORS.INVALID_CSV,
 		};
 	}
 
@@ -132,6 +150,7 @@ export const importLots = async (
 			name: "auction/lots.import.requested",
 			data: {
 				lots,
+				salePrices,
 				auction,
 				options,
 				user: user as User,

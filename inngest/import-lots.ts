@@ -356,6 +356,7 @@ const cleanupOrphanMedia = async (mediaIds: number[]) => {
 
 export type ImportLotsPayload = {
 	lots: InterenchersLots;
+	salePrices: Record<string, number | null>;
 	auction: Auction;
 	options: ImportLotsOptions;
 	user: User;
@@ -403,7 +404,7 @@ export const importLotsFunction = inngest.createFunction(
 		},
 	},
 	async ({ event, step }) => {
-		const { lots, auction, options, user } = event.data;
+		const { lots, salePrices = {}, auction, options, user } = event.data;
 		const xmlLots = lots.lot as InterenchersLot[];
 
 		log("info", "Début import lots", {
@@ -469,7 +470,7 @@ export const importLotsFunction = inngest.createFunction(
 		try {
 			let lotsCreated = 0;
 			for (const prepared of preparedLots) {
-				const adjudicationPrice = prepared.xmlLot["prix-reserve"];
+				const adjudicationPrice = salePrices[prepared.lotNumber] ?? null;
 				const isSold = adjudicationPrice != null && adjudicationPrice > 0;
 
 				const frData = {
