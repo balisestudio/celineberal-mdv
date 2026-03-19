@@ -76,6 +76,11 @@ h6 {
 	@apply text-xl lg:text-2xl italic;
 }
 
+.encyclopedia-content hr,
+.legal-content hr {
+	@apply my-10 h-px border-0 bg-sand opacity-80;
+}
+
 .legal-content {
 	@apply text-black;
 }
