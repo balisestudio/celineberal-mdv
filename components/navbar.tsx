@@ -54,8 +54,14 @@ export const NavBar = ({
 		};
 	}, []);
 
+	useLayoutEffect(() => {
+		const y = window.scrollY;
+		lastScrollY.current = y;
+		setScrolled(y > 12);
+		setLogoCompact(y >= 24);
+	}, []);
+
 	useEffect(() => {
-		lastScrollY.current = window.scrollY;
 		const onScroll = () => {
 			const y = window.scrollY;
 			setScrolled(y > 12);
