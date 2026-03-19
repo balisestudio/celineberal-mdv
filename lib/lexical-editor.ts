@@ -14,6 +14,7 @@ import {
 	SubscriptFeature,
 	SuperscriptFeature,
 	UnderlineFeature,
+	UnorderedListFeature,
 	UploadFeature,
 } from "@payloadcms/richtext-lexical";
 
@@ -32,6 +33,7 @@ export const encyclopediaEditor = lexicalEditor({
 			},
 		}),
 		HorizontalRuleFeature(),
+		UnorderedListFeature(),
 		BlocksFeature({
 			blocks: [
 				{

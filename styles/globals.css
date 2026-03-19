@@ -84,6 +84,25 @@ h6 {
 	@apply my-10 h-px border-0 bg-sand opacity-80;
 }
 
+/* Lexical UnorderedList — rendu avec un grand tiret */
+.encyclopedia-content ul,
+.legal-content ul {
+	@apply my-6 space-y-2;
+	list-style: none;
+	padding-left: 0;
+}
+
+.encyclopedia-content ul li,
+.legal-content ul li {
+	@apply pl-6 relative;
+}
+
+.encyclopedia-content ul li::before,
+.legal-content ul li::before {
+	content: "—";
+	@apply absolute left-0 text-black select-none;
+}
+
 .legal-content {
 	@apply text-black;
 }
