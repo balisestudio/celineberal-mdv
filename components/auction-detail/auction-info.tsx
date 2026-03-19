@@ -49,7 +49,7 @@ export const AuctionInfo = async ({ auction }: { auction: Auction }) => {
 						<p className="font-serif italic text-lg text-charcoal">
 							{t("info.contact")}
 						</p>
-						<Button href="/contact" variant="outline" size="sm">
+						<Button href="/about" variant="outline" size="sm">
 							{t("info.contactBtn")}
 						</Button>
 					</div>
