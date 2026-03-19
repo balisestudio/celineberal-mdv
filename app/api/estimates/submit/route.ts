@@ -65,7 +65,7 @@ export const POST = async (req: Request) => {
 		});
 
 		await payload.sendEmail({
-			to: "contact@celineberal-mdv.com",
+			to: "cb@celineberal-mdv.com",
 			from: `${env.DEFAULT_FROM_NAME} <${env.DEFAULT_FROM_ADDRESS}>`,
 			subject: "Nouvelle demande d’estimation",
 			text: [

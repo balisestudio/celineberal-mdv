@@ -379,7 +379,7 @@ export const importLotsFunction = inngest.createFunction(
 				error: errorMessage,
 			});
 			await payload.sendEmail({
-				to: "contact@celineberal-mdv.com",
+				to: "cb@celineberal-mdv.com",
 				from: `${env.DEFAULT_FROM_NAME} <${env.DEFAULT_FROM_ADDRESS}>`,
 				subject: `Erreur pendant le traitement de la vente #${auction.id}`,
 				text: [
@@ -535,7 +535,7 @@ export const importLotsFunction = inngest.createFunction(
 			});
 
 			await payload.sendEmail({
-				to: "contact@celineberal-mdv.com",
+				to: "cb@celineberal-mdv.com",
 				from: `${env.DEFAULT_FROM_NAME} <${env.DEFAULT_FROM_ADDRESS}>`,
 				subject: `Traitement terminé pour la vente #${auction.id}`,
 				text: [
