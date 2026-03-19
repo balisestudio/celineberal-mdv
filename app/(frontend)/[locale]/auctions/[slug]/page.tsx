@@ -6,6 +6,20 @@ import { getLots } from "@/lib/data/lots";
 import { getSiteSettings } from "@/lib/data/site-settings";
 import type { Lot } from "@/payload-types";
 
+const VALID_SORTS = [
+	"lotNumber",
+	"alpha",
+	"estimateAsc",
+	"estimateDesc",
+] as const;
+type SortOption = (typeof VALID_SORTS)[number];
+
+const parseSortParam = (raw: string | undefined): SortOption => {
+	return VALID_SORTS.includes(raw as SortOption)
+		? (raw as SortOption)
+		: "lotNumber";
+};
+
 export const generateMetadata = async ({
 	params,
 }: {
@@ -25,10 +39,10 @@ const AuctionLotsPage = async ({
 	searchParams,
 }: {
 	params: Promise<{ slug: string; locale: string }>;
-	searchParams: Promise<{ page?: string }>;
+	searchParams: Promise<{ page?: string; sort?: string }>;
 }) => {
 	const { slug, locale } = await params;
-	const { page: pageParam } = await searchParams;
+	const { page: pageParam, sort: sortParam } = await searchParams;
 
 	const [auction, _settings] = await Promise.all([
 		getAuctionBySlug(slug, locale),
@@ -41,9 +55,12 @@ const AuctionLotsPage = async ({
 	const safePage =
 		Number.isFinite(rawPage) && rawPage >= 1 ? Math.floor(rawPage) : 1;
 
+	const sort = parseSortParam(sortParam);
+
 	const lotsResult = await getLots({
 		auctionId: auction.id,
 		page: safePage,
+		sort,
 		locale,
 	});
 
@@ -54,18 +71,19 @@ const AuctionLotsPage = async ({
 	const clampedPage =
 		safePage > lotsResult.totalPages ? lotsResult.totalPages : safePage;
 	if (clampedPage !== safePage) {
-		redirect(`/auctions/${slug}?page=${clampedPage}`);
+		redirect(`/auctions/${slug}?page=${clampedPage}&sort=${sort}`);
 	}
 
 	return (
 		<Container className="py-0">
 			<LotSection
+				key={`${clampedPage}-${sort}`}
 				slug={slug}
-				auctionId={auction.id}
-				initialLots={lotsResult.docs as Lot[]}
-				initialTotalDocs={lotsResult.totalDocs}
-				initialTotalPages={lotsResult.totalPages}
+				lots={lotsResult.docs as Lot[]}
+				totalDocs={lotsResult.totalDocs}
+				totalPages={lotsResult.totalPages}
 				currentPage={clampedPage}
+				currentSort={sort}
 			/>
 		</Container>
 	);

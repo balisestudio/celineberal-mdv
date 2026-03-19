@@ -2,9 +2,8 @@
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
-import { Link, useRouter } from "@/i18n/navigation";
-import { fetchLotsAction } from "@/lib/actions/lots";
+import { useTransition } from "react";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import type { Lot } from "@/payload-types";
 import { LotGrid } from "./lot-grid";
 
@@ -14,6 +13,8 @@ const SORT_OPTIONS = [
 	"estimateAsc",
 	"estimateDesc",
 ] as const;
+
+type SortOption = (typeof SORT_OPTIONS)[number];
 
 type PageItem =
 	| { type: "page"; value: number }
@@ -46,46 +47,45 @@ const buildPaginationPages = (current: number, total: number): PageItem[] => {
 	return items;
 };
 
+const buildHref = (
+	basePath: string,
+	page: number,
+	sort: SortOption,
+): string => {
+	const params = new URLSearchParams();
+	if (page !== 1) params.set("page", String(page));
+	if (sort !== "lotNumber") params.set("sort", sort);
+	const qs = params.toString();
+	return qs ? `${basePath}?${qs}` : basePath;
+};
+
 export const LotSection = ({
 	slug,
-	auctionId,
-	initialLots,
-	initialTotalDocs,
-	initialTotalPages,
+	lots,
+	totalDocs,
+	totalPages,
 	currentPage,
+	currentSort,
 }: {
 	slug: string;
-	auctionId: number;
-	initialLots: Lot[];
-	initialTotalDocs: number;
-	initialTotalPages: number;
+	lots: Lot[];
+	totalDocs: number;
+	totalPages: number;
 	currentPage: number;
+	currentSort: SortOption;
 }) => {
 	const t = useTranslations("auction");
 	const router = useRouter();
+	const pathname = usePathname();
 	const [isPending, startTransition] = useTransition();
-
-	const [lots, setLots] = useState<Lot[]>(initialLots);
-	const [totalPages, setTotalPages] = useState(initialTotalPages);
-	const [totalDocs] = useState(initialTotalDocs);
-	const [sort, setSort] = useState("lotNumber");
 
 	const basePath = `/auctions/${slug}`;
 
-	const handleSort = (newSort: string) => {
-		if (newSort === sort) return;
-		setSort(newSort);
-		startTransition(async () => {
-			const result = await fetchLotsAction({
-				auctionId,
-				page: 1,
-				sort: newSort,
-			});
-			setLots(result.docs as Lot[]);
-			setTotalPages(result.totalPages);
-			if (currentPage !== 1) {
-				router.replace(`${basePath}?page=1`);
-			}
+	const handleSort = (newSort: SortOption) => {
+		if (newSort === currentSort) return;
+		const href = buildHref(basePath, 1, newSort);
+		startTransition(() => {
+			router.push(href);
 		});
 	};
 
@@ -119,7 +119,7 @@ export const LotSection = ({
 								type="button"
 								onClick={() => handleSort(opt)}
 								disabled={isPending}
-								className={`${sortBtnBase} shrink-0 ${sort === opt ? sortBtnActive : sortBtnInactive}`}
+								className={`${sortBtnBase} shrink-0 ${currentSort === opt ? sortBtnActive : sortBtnInactive}`}
 							>
 								{t(`sort.${opt}`)}
 							</button>
@@ -149,7 +149,7 @@ export const LotSection = ({
 							</span>
 						) : (
 							<Link
-								href={`${basePath}?page=${currentPage - 1}`}
+								href={buildHref(basePath, currentPage - 1, currentSort)}
 								className={`${navLinkBase} text-muted hover:text-bordeaux`}
 							>
 								<ArrowLeftIcon size={12} />
@@ -175,7 +175,7 @@ export const LotSection = ({
 							) : (
 								<Link
 									key={item.value}
-									href={`${basePath}?page=${item.value}`}
+									href={buildHref(basePath, item.value, currentSort)}
 									className="w-9 h-9 flex items-center justify-center text-sm border border-sand text-muted hover:text-bordeaux hover:border-bordeaux transition-colors cursor-pointer"
 								>
 									{item.value}
@@ -190,7 +190,7 @@ export const LotSection = ({
 							</span>
 						) : (
 							<Link
-								href={`${basePath}?page=${currentPage + 1}`}
+								href={buildHref(basePath, currentPage + 1, currentSort)}
 								className={`${navLinkBase} text-muted hover:text-bordeaux`}
 							>
 								<span className="hidden sm:inline">{t("pagination.next")}</span>
