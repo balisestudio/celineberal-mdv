@@ -60,7 +60,7 @@ export const Media: CollectionConfig = {
 				{ label: "Lot", value: "lot" },
 				{ label: "Collaborateur", value: "collaborator" },
 				{ label: "Vente", value: "auction" },
-				{ label: "Guide", value: "guide" },
+				{ label: "Encyclopédie", value: "encyclopedia" },
 				{ label: "Interne", value: "internal" },
 				{ label: "Estimations", value: "estimates" },
 			],

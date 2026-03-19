@@ -74,7 +74,7 @@ export interface Config {
 		auctions: Auction;
 		estimates: Estimate;
 		thematics: Thematic;
-		guides: Guide;
+		encyclopedia: Encyclopedia;
 		"payload-kv": PayloadKv;
 		"payload-locked-documents": PayloadLockedDocument;
 		"payload-preferences": PayloadPreference;
@@ -85,7 +85,7 @@ export interface Config {
 			lots: "lots";
 		};
 		thematics: {
-			linked: "guides";
+			linked: "encyclopedia";
 		};
 	};
 	collectionsSelect: {
@@ -96,7 +96,7 @@ export interface Config {
 		auctions: AuctionsSelect<false> | AuctionsSelect<true>;
 		estimates: EstimatesSelect<false> | EstimatesSelect<true>;
 		thematics: ThematicsSelect<false> | ThematicsSelect<true>;
-		guides: GuidesSelect<false> | GuidesSelect<true>;
+		encyclopedia: EncyclopediaSelect<false> | EncyclopediaSelect<true>;
 		"payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
 		"payload-locked-documents":
 			| PayloadLockedDocumentsSelect<false>
@@ -195,7 +195,7 @@ export interface Media {
 		| "lot"
 		| "collaborator"
 		| "auction"
-		| "guide"
+		| "encyclopedia"
 		| "internal"
 		| "estimates";
 	dominantColor?: string | null;
@@ -364,7 +364,7 @@ export interface Thematic {
 	id: number;
 	intitule: string;
 	linked?: {
-		docs?: (number | Guide)[];
+		docs?: (number | Encyclopedia)[];
 		hasNextPage?: boolean;
 		totalDocs?: number;
 	};
@@ -373,9 +373,9 @@ export interface Thematic {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "guides".
+ * via the `definition` "encyclopedia".
  */
-export interface Guide {
+export interface Encyclopedia {
 	id: number;
 	title: string;
 	slug: string;
@@ -455,8 +455,8 @@ export interface PayloadLockedDocument {
 				value: number | Thematic;
 		  } | null)
 		| ({
-				relationTo: "guides";
-				value: number | Guide;
+				relationTo: "encyclopedia";
+				value: number | Encyclopedia;
 		  } | null);
 	globalSlug?: string | null;
 	user: {
@@ -709,9 +709,9 @@ export interface ThematicsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "guides_select".
+ * via the `definition` "encyclopedia_select".
  */
-export interface GuidesSelect<T extends boolean = true> {
+export interface EncyclopediaSelect<T extends boolean = true> {
 	title?: T;
 	slug?: T;
 	poster?: T;

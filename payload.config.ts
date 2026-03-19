@@ -9,8 +9,8 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { Auctions } from "@/collections/auctions";
 import { Collaborators } from "@/collections/collaborators";
+import { Encyclopedias } from "@/collections/encyclopedia";
 import { Estimates } from "@/collections/estimates";
-import { Guides } from "@/collections/guides";
 import { Lots } from "@/collections/lots";
 import { Media } from "@/collections/media";
 import { Thematics } from "@/collections/thematics";
@@ -32,7 +32,7 @@ const collections = [
 	Auctions,
 	Estimates,
 	Thematics,
-	Guides,
+	Encyclopedias,
 ].map((collection) => {
 	return {
 		...collection,

@@ -23,8 +23,8 @@ export const Thematics: CollectionConfig = {
 		delete: ({ req: { user } }) => can(user, "editor"),
 	},
 	hooks: {
-		afterChange: [revalidateAfterChange("thematics", "guides")],
-		afterDelete: [revalidateAfterDelete("thematics", "guides")],
+		afterChange: [revalidateAfterChange("thematics", "encyclopedia")],
+		afterDelete: [revalidateAfterDelete("thematics", "encyclopedia")],
 	},
 	fields: [
 		{
@@ -38,7 +38,7 @@ export const Thematics: CollectionConfig = {
 			name: "linked",
 			label: "Articles liés",
 			type: "join",
-			collection: "guides",
+			collection: "encyclopedia",
 			on: "thematique",
 		},
 	],

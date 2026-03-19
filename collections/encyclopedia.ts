@@ -5,14 +5,14 @@ import {
 	revalidateAfterChange,
 	revalidateAfterDelete,
 } from "@/hooks/revalidate-tag";
-import { guideEditor } from "@/lib/lexical-editor";
+import { encyclopediaEditor } from "@/lib/lexical-editor";
 import { can } from "@/lib/permissions";
 
-export const Guides: CollectionConfig = {
-	slug: "guides",
+export const Encyclopedias: CollectionConfig = {
+	slug: "encyclopedia",
 	labels: {
-		singular: "Guide",
-		plural: "Guides",
+		singular: "Encyclopédie",
+		plural: "Encyclopédies",
 	},
 	admin: {
 		group: "Contenu",
@@ -41,8 +41,8 @@ export const Guides: CollectionConfig = {
 				return data;
 			},
 		],
-		afterChange: [revalidateAfterChange("guides")],
-		afterDelete: [revalidateAfterDelete("guides")],
+		afterChange: [revalidateAfterChange("encyclopedia")],
+		afterDelete: [revalidateAfterDelete("encyclopedia")],
 	},
 	fields: [
 		{
@@ -76,7 +76,7 @@ export const Guides: CollectionConfig = {
 							relationTo: "media",
 							required: true,
 							filterOptions: {
-								usage: { equals: "guide" },
+								usage: { equals: "encyclopedia" },
 							},
 						},
 					],
@@ -90,7 +90,7 @@ export const Guides: CollectionConfig = {
 							type: "richText",
 							required: true,
 							localized: true,
-							editor: guideEditor,
+							editor: encyclopediaEditor,
 						},
 					],
 				},
@@ -113,7 +113,7 @@ export const Guides: CollectionConfig = {
 						},
 						{
 							name: "hideFromList",
-							label: "Masquer de la liste des guides",
+							label: "Masquer de la liste des encyclopédies",
 							type: "checkbox",
 							defaultValue: false,
 							admin: {

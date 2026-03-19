@@ -1,6 +1,6 @@
 import type { GlobalConfig } from "payload";
 import { revalidateGlobalAfterChange } from "@/hooks/revalidate-tag";
-import { guideEditor } from "@/lib/lexical-editor";
+import { encyclopediaEditor } from "@/lib/lexical-editor";
 import { can } from "@/lib/permissions";
 
 export const Legal: GlobalConfig = {
@@ -58,7 +58,7 @@ export const Legal: GlobalConfig = {
 							type: "richText",
 							required: true,
 							localized: true,
-							editor: guideEditor,
+							editor: encyclopediaEditor,
 						},
 						{
 							name: "privacyPolicy",
@@ -66,7 +66,7 @@ export const Legal: GlobalConfig = {
 							type: "richText",
 							required: true,
 							localized: true,
-							editor: guideEditor,
+							editor: encyclopediaEditor,
 						},
 					],
 				},

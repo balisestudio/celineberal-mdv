@@ -17,7 +17,7 @@ import {
 	UploadFeature,
 } from "@payloadcms/richtext-lexical";
 
-export const guideEditor = lexicalEditor({
+export const encyclopediaEditor = lexicalEditor({
 	features: () => [
 		ParagraphFeature(),
 		HeadingFeature({
