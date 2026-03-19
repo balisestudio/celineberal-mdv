@@ -1,6 +1,7 @@
 import {
 	type JSXConvertersFunction,
 	RichText,
+	TableJSXConverter,
 } from "@payloadcms/richtext-lexical/react";
 import { createElement } from "react";
 import { EncyclopediaAuctionsBlock } from "@/components/encyclopedia/encyclopedia-auctions-block";
@@ -25,31 +26,64 @@ const getGridClass = (count: number): string => {
 
 export const EncyclopediaRichText = ({
 	data,
-	firstLotsByAuctionId = {},
 }: {
 	data: Encyclopedia["content"];
-	firstLotsByAuctionId?: Record<number, Lot[]>;
 }) => {
 	const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
 		...defaultConverters,
+		...TableJSXConverter,
+		table: ({ node, nodesToJSX }) => {
+			const children = nodesToJSX({ nodes: node.children });
+			return createElement(
+				"div",
+				{ className: "encyclopedia-table-wrapper overflow-x-auto" },
+				createElement(
+					"table",
+					{ className: "encyclopedia-table w-full" },
+					children,
+				),
+			);
+		},
+		tablerow: ({ node, nodesToJSX }) => {
+			const children = nodesToJSX({ nodes: node.children });
+			return createElement(
+				"tr",
+				{ className: "encyclopedia-table-row" },
+				...children,
+			);
+		},
+		tablecell: ({ node, nodesToJSX }) => {
+			const children = nodesToJSX({ nodes: node.children });
+			const Tag: "th" | "td" = node.headerState > 0 ? "th" : "td";
+			const colSpan =
+				node.colSpan && node.colSpan > 1 ? node.colSpan : undefined;
+			const rowSpan =
+				node.rowSpan && node.rowSpan > 1 ? node.rowSpan : undefined;
+			return createElement(
+				Tag,
+				{ className: "encyclopedia-table-cell", colSpan, rowSpan },
+				...children,
+			);
+		},
 		heading: (args) => {
 			const { node, nodesToJSX } = args;
 			const tag = node.tag as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-			const renderedTag =
-				tag === "h1" ? "h1" : tag === "h2" ? "h2" : tag === "h3" ? "h3" : "h4";
+			// h1 → h2 for backward compat (old content used h1 before the rename)
+			const renderedTag: "h2" | "h3" | "h4" =
+				tag === "h1" || tag === "h2" ? "h2" : tag === "h3" ? "h3" : "h4";
 			const sizeClass =
-				renderedTag === "h1"
-					? "text-3xl lg:text-4xl"
-					: renderedTag === "h2"
-						? "text-2xl lg:text-3xl"
-						: renderedTag === "h3"
-							? "text-xl lg:text-2xl"
-							: "text-lg lg:text-xl";
+				renderedTag === "h2"
+					? "text-4xl lg:text-5xl italic"
+					: renderedTag === "h3"
+						? "text-xl lg:text-2xl italic"
+						: "text-base lg:text-lg not-italic font-medium";
+			const marginClass =
+				renderedTag === "h2" ? "mt-12" : renderedTag === "h3" ? "mt-8" : "mt-6";
 			const children = nodesToJSX({ nodes: node.children });
 			return createElement(
 				renderedTag,
 				{
-					className: `font-serif font-light italic tracking-tight mt-8 mb-3 first:mt-0 text-bordeaux leading-tight ${sizeClass}`,
+					className: `font-serif font-light tracking-tight ${marginClass} mb-4 first:mt-0 text-bordeaux leading-tight ${sizeClass}`,
 				},
 				...children,
 			);

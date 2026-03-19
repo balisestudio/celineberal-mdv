@@ -2,6 +2,7 @@ import {
 	BlockquoteFeature,
 	BlocksFeature,
 	BoldFeature,
+	EXPERIMENTAL_TableFeature,
 	HeadingFeature,
 	HorizontalRuleFeature,
 	InlineCodeFeature,
@@ -22,7 +23,7 @@ export const encyclopediaEditor = lexicalEditor({
 	features: () => [
 		ParagraphFeature(),
 		HeadingFeature({
-			enabledHeadingSizes: ["h1", "h2", "h3"],
+			enabledHeadingSizes: ["h2", "h3", "h4"],
 		}),
 		BlockquoteFeature(),
 		UploadFeature({
@@ -33,6 +34,7 @@ export const encyclopediaEditor = lexicalEditor({
 			},
 		}),
 		HorizontalRuleFeature(),
+		EXPERIMENTAL_TableFeature(),
 		UnorderedListFeature(),
 		BlocksFeature({
 			blocks: [

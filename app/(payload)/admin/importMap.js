@@ -13,6 +13,7 @@ import {
 	StrikethroughFeatureClient as StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	SubscriptFeatureClient as SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	SuperscriptFeatureClient as SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+	TableFeatureClient as TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	UnderlineFeatureClient as UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	UnorderedListFeatureClient as UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	UploadFeatureClient as UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
@@ -57,6 +58,8 @@ export const importMap = {
 		BlocksFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	"@payloadcms/richtext-lexical/client#UnorderedListFeatureClient":
 		UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+	"@payloadcms/richtext-lexical/client#TableFeatureClient":
+		TableFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	"@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient":
 		HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
 	"@payloadcms/richtext-lexical/client#UploadFeatureClient":

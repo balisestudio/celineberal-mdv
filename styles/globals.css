@@ -64,19 +64,55 @@ h6 {
 .encyclopedia-content h2,
 .encyclopedia-content h3,
 .encyclopedia-content h4 {
-	@apply font-serif font-light tracking-tight text-bordeaux mt-8 mb-3 first:mt-0;
+	@apply font-serif font-light tracking-tight text-bordeaux mb-4 first:mt-0 leading-tight;
 }
 
 .encyclopedia-content h2 {
-	@apply text-3xl lg:text-4xl italic;
+	@apply text-4xl lg:text-5xl italic mt-12;
 }
 
 .encyclopedia-content h3 {
-	@apply text-2xl lg:text-3xl italic;
+	@apply text-xl lg:text-2xl italic mt-8;
 }
 
 .encyclopedia-content h4 {
-	@apply text-xl lg:text-2xl italic;
+	@apply text-base lg:text-lg not-italic font-medium mt-6;
+}
+
+/* Encyclopedia table — inner borders only + striped rows */
+.encyclopedia-table {
+	border-collapse: collapse;
+	font-size: 0.9rem;
+}
+
+.encyclopedia-table th,
+.encyclopedia-table td {
+	@apply px-4 py-2.5 text-left align-top;
+	border-right: 1px solid var(--color-sand);
+	border-bottom: 1px solid var(--color-sand);
+}
+
+.encyclopedia-table th:last-child,
+.encyclopedia-table td:last-child {
+	border-right: none;
+}
+
+.encyclopedia-table tr:last-child td,
+.encyclopedia-table tr:last-child th {
+	border-bottom: none;
+}
+
+.encyclopedia-table th {
+	@apply font-medium text-bordeaux;
+	background-color: color-mix(
+		in srgb,
+		var(--color-rose-clair) 30%,
+		transparent
+	);
+}
+
+.encyclopedia-table tbody tr:nth-child(even) td {
+	background-color: color-mix(in srgb, var(--color-sand) 25%, transparent);
 }
 
 .encyclopedia-content hr,

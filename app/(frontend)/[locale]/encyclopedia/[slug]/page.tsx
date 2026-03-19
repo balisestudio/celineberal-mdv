@@ -9,13 +9,11 @@ import { EncyclopediaRichText } from "@/components/encyclopedia/encyclopedia-ric
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import {
-	getAuctionIdsFromEncyclopediaContent,
 	getEncyclopediaBySlug,
 	getEncyclopediaByThematique,
 } from "@/lib/data/encyclopedia";
-import { getLots } from "@/lib/data/lots";
 import { getSiteSettings } from "@/lib/data/site-settings";
-import type { Collaborator, Lot, Thematic } from "@/payload-types";
+import type { Collaborator, Thematic } from "@/payload-types";
 
 export const generateMetadata = async ({
 	params,
@@ -43,19 +41,6 @@ const EncyclopediaArticlePage = async ({
 		getSiteSettings(locale),
 	]);
 	if (!article) notFound();
-
-	const auctionIds = getAuctionIdsFromEncyclopediaContent(article.content);
-	const firstLotsByAuctionId: Record<number, Lot[]> = {};
-	if (auctionIds.length > 0) {
-		const results = await Promise.all(
-			auctionIds.map((id) =>
-				getLots({ auctionId: id, limit: 4, locale, page: 1 }),
-			),
-		);
-		auctionIds.forEach((id, i) => {
-			firstLotsByAuctionId[id] = (results[i].docs ?? []) as Lot[];
-		});
-	}
 
 	const thematique = article.thematique as Thematic | number | undefined;
 	const thematiqueLabel =
@@ -111,10 +96,7 @@ const EncyclopediaArticlePage = async ({
 									})}
 								</p>
 							)}
-							<EncyclopediaRichText
-								data={article.content}
-								firstLotsByAuctionId={firstLotsByAuctionId}
-							/>
+							<EncyclopediaRichText data={article.content} />
 						</div>
 					</div>
 					{(authorPopulated || stickyEstimateText) && (
